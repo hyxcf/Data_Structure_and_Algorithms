@@ -1,6 +1,4 @@
-package com.hyx.leetcode;
-
-import java.util.HexFormat;
+package com.hyx.leetcode.listnode;
 
 /**
  * hyx

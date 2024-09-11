@@ -1,4 +1,4 @@
-package com.hyx.leetcode;
+package com.hyx.leetcode.listnode;
 
 /**
  * hyx

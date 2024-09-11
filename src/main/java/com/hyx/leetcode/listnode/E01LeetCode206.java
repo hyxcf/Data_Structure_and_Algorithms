@@ -1,4 +1,4 @@
-package com.hyx.leetcode;
+package com.hyx.leetcode.listnode;
 
 /**
  * hyx
@@ -7,6 +7,12 @@ package com.hyx.leetcode;
  * @author 32596
  */
 public class E01LeetCode206 {
+
+
+    public static void main(String[] args) {
+        String str = "a";
+        System.out.println(str == "a");
+    }
 
     /**
      * 方法1：构造一个新链表，从旧链表依次拿到每个节点，创建新节点添加至新链表头部，完成后新链表即是倒序的
@@ -139,15 +145,15 @@ public class E01LeetCode206 {
     }
 
 
-    public static void main(String[] args) {
-        ListNode o5 = new ListNode(5, null);
-        ListNode o4 = new ListNode(4, o5);
-        ListNode o3 = new ListNode(3, o4);
-        ListNode o2 = new ListNode(2, o3);
-        ListNode o1 = new ListNode(1, o2);
-        System.out.println(o1);
-        ListNode n1 = new E01LeetCode206().reverseList5(o1);
-        System.out.println(n1);
-    }
+//    public static void main(String[] args) {
+//        ListNode o5 = new ListNode(5, null);
+//        ListNode o4 = new ListNode(4, o5);
+//        ListNode o3 = new ListNode(3, o4);
+//        ListNode o2 = new ListNode(2, o3);
+//        ListNode o1 = new ListNode(1, o2);
+//        System.out.println(o1);
+//        ListNode n1 = new E01LeetCode206().reverseList5(o1);
+//        System.out.println(n1);
+//    }
 
 }
