@@ -22,7 +22,7 @@ public class LinkedListQueue<E> implements Queue<E>, Iterable<E> {
     private Node<E> head = new Node<>(null, null);
     private Node<E> tail = head;
     private int size; // 节点数
-    private int capacity = Integer.MAX_VALUE; // 容量
+    private int capacity = 16; // 容量
 
     {
         tail.next = head;
