@@ -17,6 +17,7 @@ public class PriorityQueue3<E extends Priority> implements Queue<E> {
     }
 
     /*
+        上浮
         1. 入堆新元素，加入到数组末尾（索引位置 child）
         2. 不断比较新加元素与它父节点（parent）优先级
             - 如果父节点优先级低，则向下移动，并找到下一个parent
