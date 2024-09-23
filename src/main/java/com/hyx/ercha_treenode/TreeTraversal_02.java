@@ -64,7 +64,7 @@ public class TreeTraversal_02 {
                 // if (peek.right == null) { // 如果是这样写有一个问题，叶子节点是没有左右子树的，但是非叶子节点是可能有左右子树的，对于这种情况，这一个条件是不够的
                 // 可以使用一个变量，来保存最近一次弹栈的元素
                 if (peek.right == null || peek.right == pop) {
-                    // 没有右子树或没有遍历过右子树，进行弹栈
+                    // 没有右子树或遍历过右子树，进行弹栈
                     pop = stack.pop();
                     System.out.println("回：" + pop); // 6 3
                 } else {
