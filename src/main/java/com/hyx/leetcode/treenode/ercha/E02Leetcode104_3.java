@@ -1,6 +1,6 @@
 package com.hyx.leetcode.treenode.ercha;
 
-import com.hyx.ercha_treenode.TreeNode;
+import com.hyx.treenode.ercha_treenode.TreeNode;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
