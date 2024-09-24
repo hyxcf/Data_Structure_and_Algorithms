@@ -1,4 +1,4 @@
-package com.hyx.ercha_treenode;
+package com.hyx.treenode.ercha_treenode;
 
 /**
  * @Author：hyx
