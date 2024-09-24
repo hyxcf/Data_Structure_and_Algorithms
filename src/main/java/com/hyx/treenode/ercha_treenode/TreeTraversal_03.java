@@ -1,9 +1,5 @@
-package com.hyx.ercha_treenode;
+package com.hyx.treenode.ercha_treenode;
 
-import com.hyx.stack.ArrayStack;
-
-import javax.swing.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
