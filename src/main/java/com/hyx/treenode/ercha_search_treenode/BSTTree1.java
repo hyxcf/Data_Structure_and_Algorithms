@@ -1,5 +1,10 @@
 package com.hyx.treenode.ercha_search_treenode;
 
+import java.security.interfaces.RSAKey;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * @Author：hyx
  * @Date：2024/9/24 15:10
@@ -243,19 +248,30 @@ public class BSTTree1 {
             BSTNode s = p.right; // 找p的后继节点
             BSTNode sParent = p;// 后继父亲
             if (s.left != null) {
-                sParent = s;
+                sParent = s; // 这样就可以找到一个节点的父亲
                 s = s.left; // 后继节点为 s 后继节点的父亲为 sParent
             }
-            if (sParent != p){ // 说明他们不相邻了
+            if (sParent != p) { // 说明他们不相邻了
                 // 4.2 如果后继节点和被删除节点如果不相邻，需要去处理后继节点之后的节点
-                shift(sParent,s,s.right); // 这里为啥顶的是右孩子呢？ 因为找的后继节点已经是左子树中最小的，不存在还有左子树更小的情况；也就是说它只有右孩子，不可能有左孩子。所以顶上去的是右孩子
+                shift(sParent, s, s.right); // 这里为啥顶的是右孩子呢？ 因为找的后继节点已经是左子树中最小的，不存在还有左子树更小的情况；也就是说它只有右孩子，不可能有左孩子。所以顶上去的是右孩子
                 s.right = p.right; // 将顶上去的右节点指向被删除节点指向的右节点
             }
             // 4.3 后继节点取代被删除节点
-            shift(parent,p,s);
+            shift(parent, p, s);
             s.left = p.left; // 后记节点和待删除节点相邻，向顶上去的节点的左指向 指向 被删除节点指向的左节点
         }
         return p.value;
+    }
+
+    /**
+     * 删除 - 递归版
+     *
+     * @param node 起点
+     * @param key  待删除的值
+     * @return 删剩下的孩子
+     */
+    private BSTNode doDelete(BSTNode node, int key) {
+        return null;
     }
 
     /**
@@ -315,6 +331,98 @@ public class BSTTree1 {
             }
         }
         return null;
+    }
+
+    // 在中序遍历 左值右
+    /*
+            4
+          /   \
+         2     6
+        / \   / \
+       1   3 5   7
+     */
+
+    // 找 < key 的所有 value
+    public List<Object> less(int key) {
+        ArrayList<Object> result = new ArrayList<>();
+        LinkedList<BSTNode> stack = new LinkedList<>();
+        BSTNode p = root;
+        while (p != null || !stack.isEmpty()) {
+            if (p != null) {
+                // 压栈
+                stack.push(p);
+                p = p.left;
+            } else {
+                BSTNode pop = stack.pop();
+                // 处理值
+                if (pop.key < key) {
+                    result.add(pop.value);
+                } else {
+                    break;
+                }
+                p = pop.right;
+            }
+        }
+        return result;
+    }
+
+    // 找 > key 的所有 value
+    public List<Object> greater(int key) {
+        /*ArrayList<Object> result = new ArrayList<>();
+        LinkedList<BSTNode> stack = new LinkedList<>();
+        BSTNode p = root;
+        while (p != null || !stack.isEmpty()) {
+            if (p != null) {
+                stack.push(p);
+                p = p.left;
+            } else {
+                BSTNode pop = stack.pop();
+                if (pop.key > key) {
+                    result.add(pop.value);
+                }
+                p = pop.right;
+            }
+        }
+        return result;*/
+        // 反向中序遍历
+        ArrayList<Object> result = new ArrayList<>();
+        LinkedList<BSTNode> stack = new LinkedList<>();
+        BSTNode p = root;
+        while (p != null || !stack.isEmpty()) {
+            if (p != null) {
+                stack.push(p);
+                p = p.right;
+            } else {
+                BSTNode pop = stack.pop();
+                if (pop.key > key) {
+                    result.add(pop.value);
+                } else {
+                    break; // 反向中序遍历
+                }
+                p = pop.left;
+            }
+        }
+        return result;
+    }
+
+    // 找 >= key1 且 <= key2 的所有 value
+    public List<Object> between(int key1, int key2) {
+        ArrayList<Object> result = new ArrayList<>();
+        LinkedList<BSTNode> stack = new LinkedList<>();
+        BSTNode p = root;
+        while (p != null || !stack.isEmpty()) {
+            if (p != null) {
+                stack.push(p);
+                p = p.left;
+            } else {
+                BSTNode pop = stack.pop();
+                if (pop.key >= key1 && pop.key <= key2) {
+                    result.add(pop.value);
+                }
+                p = pop.right;
+            }
+        }
+        return result;
     }
 
 }
