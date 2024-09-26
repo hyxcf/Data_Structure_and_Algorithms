@@ -241,7 +241,7 @@ public class BSTTree1 {
             shift(parent, p, p.right);
         } else if (p.right == null) {
             // 情况2
-            shift(parent, p.left, p);
+            shift(parent, p, p.left);
         } else {
             // 情况4  (复杂)！！！！！！ 不懂了看书，书上画的有图
             // 4.1 被删除节点找后继
