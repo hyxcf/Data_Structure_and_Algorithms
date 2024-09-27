@@ -1,5 +1,7 @@
 package com.hyx.treenode.avltree;
 
+import com.hyx.leetcode.treenode.ercha_search.TreeNode;
+
 /**
  * @Author：hyx
  * @Date：2024/9/26 21:15
@@ -64,11 +66,12 @@ public class AVLTree {
 
     /**
      * 右旋
-     *          red
-     *        /
-     *  yellow
-     *      \
-     *     green
+     * red
+     * /
+     * yellow
+     * \
+     * green
+     *
      * @param red 要旋转的节点
      * @return 新的根节点
      */
@@ -85,13 +88,13 @@ public class AVLTree {
 
     /**
      * 左旋
-     *          red                                      -- yellow --
-     *        /      \                                /               \
-     *       1        yellow            ->           red               2
-     *              /       \                       /   \               \
-     *            green      2                     1   green             3
-     *                        \
-     *                         3
+     * red                                      -- yellow --
+     * /      \                                /               \
+     * 1        yellow            ->           red               2
+     * /       \                       /   \               \
+     * green      2                     1   green             3
+     * \
+     * 3
      *
      * @param red 要旋转的节点
      * @return 新的根节点
@@ -144,13 +147,72 @@ public class AVLTree {
 
     AVLNode root;
 
-    public void put(int key,Object value){
-        root = doPut(root,key,value);
+    public void put(int key, Object value) {
+        root = doPut(root, key, value);
     }
+
     // 使用递归实现put
-    private AVLNode doPut(AVLNode node,int key,Object value){
-        // 1.
-        return null;
+    private AVLNode doPut(AVLNode node, int key, Object value) {
+        // 1.找到空位，创建新节点
+        if (node == null) {
+            return new AVLNode(key, value);
+        }
+        // 2.key已经存在，更新
+        if (key == node.key) {
+            node.value = value;
+            return node;
+        }
+        // 3.继续查找
+        if (key < node.key) {
+            node.left = doPut(node.left, key, value);
+        } else {
+            node.right = doPut(node.right, key, value);
+        }
+        // 新增节点，节点的高度需要变化
+        updateHeight(node);
+        // 新增节点，还要考虑失衡的情况
+        return balance(node);
+    }
+
+    // remove
+    public void remove(AVLNode node, int key) {
+        root = doRemove(node, key);
+    }
+
+    private AVLNode doRemove(AVLNode node, int key) {
+        // 1.node == null
+        if (node == null) {
+            return null;
+        }
+        // 2.没找到key
+        if (key < node.key) {
+            node.left = doRemove(node.left, key);
+        } else if (node.key < key) {
+            node.right = doRemove(node.right, key);
+        } else {
+            // 3.找到key 1）没有孩子 2）只有一个孩子 3）有两个孩子
+            if (node.left == null && node.right == null) {
+                return null;
+            } else if (node.left == null) {
+                node = node.right;
+            } else if (node.right == null) {
+                node = node.left;
+            } else {
+                // 有两个孩子
+                AVLNode s = node.right; // s 后继节点
+                while (s.left != null){
+                    s = s.left;
+                }
+                // 处理后继节点的后事
+                s.right = doRemove(node.right,s.key); // fixme:这步不太理解
+                s.left = node.left;
+                node = s;
+            }
+        }
+        // 4.更新高度
+        updateHeight(node);
+        // 5.balance
+        return balance(node);
     }
 
 
