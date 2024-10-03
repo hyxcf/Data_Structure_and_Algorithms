@@ -241,7 +241,7 @@ public class RedBlackTree {
         }
     }
 
-    /** 
+    /**
      * 删除
      * 正常删、会用到李代桃僵技巧，遇到黑黑不平衡进行调整
      *
@@ -255,21 +255,134 @@ public class RedBlackTree {
         doRemove(deleted);
     }
 
+    // 复杂调整(删除的是黑色，剩下的是null也是黑节点)
+    // 处理双黑（case3、case4、case5）
+    /*
+        case3：被调整节点的兄弟为红，此时两个侄子定为黑
+        case4：被调整节点的兄弟为黑，两个侄子都为黑
+        case5：被调整节点的兄弟为黑，至少一个红侄子
+     */
+    private void fixDoubleBlack(Node node) {
+        if (node == root) {
+            return;
+        }
+        Node parent = node.parent;
+        Node sibling = node.sibling();
+        // case 3 兄弟节点是红色，需要对父亲进行左旋或者是右旋，然后进行换色
+        if (isRed(sibling)) {
+            if (node.isLeftChild()) {
+                leftRotate(parent);
+            } else {
+                rightRotate(parent);
+            }
+            parent.color = RED;
+            sibling.color = BLACK;
+            fixDoubleBlack(node);
+            return;
+        }
+        // 兄弟是黑色
+        // case 4 ：被调整节点的兄弟为黑，两个侄子都为黑
+        /*
+            - 将兄弟变红，目的是将删除节点和兄弟那边的黑色高度同时减少1
+            - 如果父亲是红，则需将父亲变为黑，避免红红，此时路径黑节点数目不变
+            - 如果父亲是黑，说明这条路径还是少黑，再次让父节点触发双黑
+         */
+        if (sibling != null) {
+            if (isBlack(sibling.left) && isBlack(sibling.right)) {
+                sibling.color = RED;
+                if (isRed(parent)) {
+                    parent.color = BLACK;
+                } else {
+                    fixDoubleBlack(parent);
+                }
+            } else {
+                // case5：被调整节点的兄弟为黑，至少一个红侄子
+                /*
+                    - 如果兄弟是左孩子，左侄子是红，LL不平衡
+                    - 如果兄弟是左孩子，右侄子是红，LR不平衡
+                    - 如果兄弟是右孩子，右侄子是红，RR不平衡
+                    - 如果兄弟是右孩子，左侄子是红，RL不平衡
+                 */
+                // LL 右旋 + 变色
+                if (sibling.isLeftChild() && isRed(sibling.left)) {
+                    rightRotate(parent);
+                    sibling.left.color = BLACK;
+                    sibling.color = parent.color;
+                }
+                // LR 左旋 + 右旋 + 变色
+                else if (sibling.isLeftChild() && isRed(sibling.right)) {
+                    sibling.right.color = parent.color;
+                    leftRotate(sibling);
+                    rightRotate(parent);
+                }
+                // RR
+                else if (!sibling.isLeftChild() && isRed(sibling.right)) {
+                    leftRotate(parent);
+                    sibling.right.color = BLACK;
+                    sibling.color = parent.color;
+                }
+                // RL
+                else {
+                    sibling.left.color = parent.color;
+                    rightRotate(sibling);
+                    leftRotate(parent);
+                }
+                parent.color = BLACK;
+
+            }
+        } else {
+            fixDoubleBlack(parent);
+        }
+    }
+
+
+    // 删除黑色节点需要考虑平衡，删除红色节点不需要考虑平衡
     private void doRemove(Node deleted) {
         Node replaced = findReplaced(deleted);
+        Node parent = deleted.parent;
         if (replaced == null) { // 没有孩子
+            // case1 : 删除的是根节点
             if (deleted == root) {
                 root = null;
+            } else { // 不是根节点，且没有孩子，比如说（叶子节点）
+                if (isBlack(deleted)) {
+                    // 复杂调整(删除的是黑色，剩下的是null也是黑节点)
+                    fixDoubleBlack(deleted);
+                } else {
+                    // 红色叶子，无需任何处理
+                }
+                if (deleted.isLeftChild()) {
+                    parent.left = null;
+                } else {
+                    parent.right = null;
+                }
+                deleted.parent = null; // help gc
             }
             return;
         }
         // 有一个孩子的情况
         if (deleted.left == null || deleted.right == null) {
+            // case1 : 删除的是根节点
             if (deleted == root) {
                 root.key = replaced.key;
                 root.value = replaced.value;
                 root.left = null;
                 root.right = null;
+            } else { // 删除的不是根节点，且有一个孩子
+                if (deleted.isLeftChild()) {
+                    parent.left = replaced;
+                } else {
+                    parent.right = replaced;
+                }
+                replaced.parent = parent;
+                deleted.left = deleted.right = deleted.parent = null;//  help gc
+                if (isBlack(deleted) && isBlack(replaced)) {
+                    // 复杂处理(删除的是黑色，剩下的也是黑色)
+                    fixDoubleBlack(replaced);
+                } else {
+                    // case 2: 删除的是黑色，剩下的是红色，剩下的这个红节点变黑
+                    replaced.color = BLACK;
+                }
             }
             return;
         }
