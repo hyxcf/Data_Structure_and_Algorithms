@@ -292,6 +292,7 @@ public class BTree {
     }
 
     /**
+     * 页合并
      * @param parent 父节点
      * @param x      被调整节点
      * @param i      被调整节点对应的索引
