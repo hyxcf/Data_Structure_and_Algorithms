@@ -1,5 +1,7 @@
 package com.hyx.leetcode.hash;
 
+import java.util.HashMap;
+
 /**
  * @version 0.1
  * @Author hyx
@@ -15,8 +17,28 @@ public class E02LeetCode3 {
      * 输入: s = "abcabcbb"
      * 输出: 3
      * 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+     * a   b   c   a   b   c
+     * b
+     * e
+     * a b b a
+     * b
+     * e
      */
     public int lengthOfLongestSubstring(String s) {
-
+        HashMap<Character, Integer> map = new HashMap<>();
+        int maxLength = 0;
+        // 定义头尾指针
+        int begin = 0;
+        for (int end = 0; end < s.length(); end++) {
+            char c = s.charAt(end);
+            if (map.containsKey(c)) {
+                begin = Math.max(begin, map.get(c) + 1);
+                map.put(c, end);
+            } else {
+                map.put(c, end);
+            }
+            maxLength = Math.max(maxLength, end - begin + 1);
+        }
+        return maxLength;
     }
 }
