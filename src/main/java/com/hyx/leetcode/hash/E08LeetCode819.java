@@ -36,7 +36,7 @@ public class E08LeetCode819 {
             3、在 map 集合中找到 value 最大的，返回它对应的 key 即可
      */
 
-    public String mostCommonWord1(String paragraph, String[] banned) {
+    public String mostCommonWord1(String paragraph, String[] banned) { // 15ms
         String[] split = paragraph.toLowerCase().split("[^A-Za-z]+");
         Set<String> set = Set.of(banned);
         HashMap<String, Integer> map = new HashMap<>();
@@ -55,7 +55,7 @@ public class E08LeetCode819 {
         return optional.map(Map.Entry::getKey).orElse(null);
     }
 
-    public String mostCommonWord2(String paragraph, String[] banned) {
+    public String mostCommonWord2(String paragraph, String[] banned) { // 14ms
         String[] split = paragraph.toLowerCase().split("[^A-Za-z]+");
         Set<String> set = Set.of(banned);
         HashMap<String, Integer> map = new HashMap<>();
@@ -81,7 +81,7 @@ public class E08LeetCode819 {
         return maxKey;
     }
 
-    public String mostCommonWord(String paragraph, String[] banned) {
+    public String mostCommonWord(String paragraph, String[] banned) { // 10ms
         Set<String> set = Set.of(banned);
         HashMap<String, Integer> map = new HashMap<>();
         char[] chars = paragraph.toLowerCase().toCharArray();
@@ -91,10 +91,11 @@ public class E08LeetCode819 {
                 sb.append(ch);
             } else {
                 String key = sb.toString();
-                if (!set.contains(key)) {
+                if (!set.contains(key) && !key.equals("")) {
                     map.compute(key, (k, v) -> v == null ? 1 : v + 1);
                 }
-                sb = new StringBuilder(); // 重新拼接
+//                sb = new StringBuilder(); // 重新拼接
+                sb.setLength(0);
             }
         }
         // 防止 “Bob” 也就是一个字符串结束的情况，要做一个收尾操作
@@ -120,8 +121,8 @@ public class E08LeetCode819 {
 
     public static void main(String[] args) {
         E08LeetCode819 e08 = new E08LeetCode819();
-        String key = e08.mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.", new String[]{"hit"});
-//        String key = e08.mostCommonWord("Bob. hIt, baLl", new String[]{"bob", "hit"});
+//        String key = e08.mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.", new String[]{"hit"});
+        String key = e08.mostCommonWord("Bob. hIt, baLl", new String[]{"bob", "hit"});
         System.out.println(key);
     }
 
