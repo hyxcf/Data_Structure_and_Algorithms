@@ -12,6 +12,15 @@ import java.util.Arrays;
  */
 public class BubbleSort {
 
+    /*
+        3 2 4 1 6
+              i j
+            i j
+          i j
+        i j
+        j
+     */
+
     private static void bubble(int[] a) {
         int j = a.length - 1;
         while (true){
