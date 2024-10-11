@@ -75,7 +75,7 @@ public class BubbleSort {
     // 非递归版
     private static void bubble(int[] a) {
         int j = a.length - 1;
-        while (true) {
+        do {
             int x = 0;
             for (int i = 0; i < j; i++) {
                 if (a[i] > a[i + 1]) {
@@ -86,10 +86,7 @@ public class BubbleSort {
                 }
             }
             j = x;
-            if (j == 0) {
-                break;
-            }
-        }
+        } while (j != 0);
     }
 
     public static void main(String[] args) {
