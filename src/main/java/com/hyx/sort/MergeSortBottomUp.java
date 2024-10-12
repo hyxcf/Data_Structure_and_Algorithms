@@ -18,12 +18,12 @@ public class MergeSortBottomUp {
         int[] a2 = new int[n];
         // width 代表有序区间的宽度，取值一次为 1、2、4 ...
         for (int width = 1; width < n; width *= 2) { // width : 1  2  4
-            // [left,right] 分别代表带合并区域的左右边界
+            // [left,right] 分别代表待合并区域的左右边界
             for (int left = 0; left < n; left += 2 * width) {
                 // 为了防止 right 超出数组的有效范围
                 int right = Math.min(left + 2 * width - 1, n - 1);
                 int m = Math.min(left + width - 1, n - 1);
-                merge(a1, left, m, m + 1, right, a2);
+                    merge(a1, left, m, m + 1, right, a2);
             }
             System.arraycopy(a2, 0, a1, 0, n);
         }
