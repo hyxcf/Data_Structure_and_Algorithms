@@ -19,6 +19,26 @@ public class MergeSortTopDown {
         - 合 - 两个有序的结果，可以进行合并排序（参见数组练习 E01. 合并有序数组）
      */
 
+    public static void sort(int[] a1) {
+        int[] a2 = new int[a1.length];
+        spilt(a1, 0, a1.length - 1, a2);
+    }
+
+    public static void spilt(int[] a1, int left, int right, int[] a2) {
+        // 2.治
+        if (left == right) {
+            return;
+        }
+        // 1.分
+        int m = (left + right) >>> 1;
+
+        spilt(a1, left, m, a2);
+        spilt(a1, m + 1, right, a2);
+        // 3.合
+        merge(a1, left, m, m + 1, right, a2);
+        System.arraycopy(a2, left, a1, left, right - left + 1);
+    }
+
     /**
      * 合并
      *
@@ -47,26 +67,6 @@ public class MergeSortTopDown {
         if (j > jEnd) {
             System.arraycopy(a1, i, a2, k, iEnd - i + 1);
         }
-    }
-
-    public static void sort(int[] a1) {
-        int[] a2 = new int[a1.length];
-        spilt(a1, 0, a1.length - 1, a2);
-    }
-
-    public static void spilt(int[] a1, int left, int right, int[] a2) {
-        // 2.治
-        if (left == right) {
-            return;
-        }
-        // 1.分
-        int m = (left + right) >>> 1;
-
-        spilt(a1, left, m, a2);
-        spilt(a1, m + 1, right, a2);
-        // 3.合
-        merge(a1, left, m, m + 1, right, a2);
-        System.arraycopy(a2, left, a1, left, right - left + 1);
     }
 
     public static void main(String[] args) {
