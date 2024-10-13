@@ -20,7 +20,6 @@ public class ShellSort {
 
     public static void sort(int[] a) {
         for (int gap = a.length >> 1; gap >= 1; gap = gap >> 1) {
-            // gap = 4  2  1
             for (int low = gap; low < a.length; low++) {
                 // 待插入元素
                 int t = a[low];
