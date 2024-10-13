@@ -1,15 +1,19 @@
+/*
 package com.hyx.leetcode.treenode.ercha;
 
 import java.util.LinkedList;
 
+*/
 /**
  * @Author：hyx
  * @Date：2024/9/24 10:21
  * 根据后缀表达式构造表达树
- */
+ *//*
+
 public class E05ExpressionTree {
 
-    /*
+    */
+/*
         中缀表达式           (2-1)*3
         后缀（逆波兰）表达式   21-3*
 
@@ -22,7 +26,8 @@ public class E05ExpressionTree {
 
         1.遇到数字入栈
         2.遇到运算符出栈，建立节点关系，再入栈
-     */
+     *//*
+
 
     public TreeNode constructExpressionTree(String[] tokens) {
         LinkedList<TreeNode> stack = new LinkedList<>();
@@ -69,3 +74,4 @@ public class E05ExpressionTree {
     }
 
 }
+*/
