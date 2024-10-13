@@ -24,7 +24,7 @@ public class SelectionSort {
                     max = i;
                 }
             }
-            if (max != right) {
+            if (max != right) { // 一点小优化
                 swap(a, max, right);
             }
         }
@@ -37,10 +37,28 @@ public class SelectionSort {
     }
 
     public static void main(String[] args) {
-        int[] a = {6, 5, 4, 3, 2, 1};
+        int[] a = {5, 2, 1, 2, 0};
         System.out.println(Arrays.toString(a));
         sort(a);
         System.out.println(Arrays.toString(a));
     }
+
+    /*
+        原始数组:[5,2,1,2,0]
+        5   2   1   2   0
+                        r
+        m
+
+        0   2   1   2   5
+                    r
+                    m
+        0   2   1   2   5
+                    r
+                    m
+
+        0   2   1   2   5
+                r
+                m
+     */
 
 }
