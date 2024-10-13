@@ -40,7 +40,7 @@ public class ShellSort {
     }
 
     public static void main(String[] args) {
-        int[] a = {6, 5, 4, 3, 2, 1, 9, 8, 0};
+        int[] a = {6, 5, 1, 9, 8, 0};
         System.out.println(Arrays.toString(a));
         sort(a);
         System.out.println(Arrays.toString(a));
