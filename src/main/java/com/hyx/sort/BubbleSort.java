@@ -12,49 +12,6 @@ import java.util.Arrays;
  */
 public class BubbleSort {
 
-    /*
-        优化:每次循环时，若能确定 更合适 的右边界，则可以减少冒泡次数
-        x 记录的是最后无序的右边界
-
-        3   2   1   4   5
-        i  i+1
-        x
-        2   3   1   4   5
-        i  i+1
-        x
-        2   1   3   4   5
-            i  i+1
-            x
-        2   1   3   4   5
-                    i  i+1
-            x
-
-
-       8    9   2   3   1
-       i   i+1
-       x
-
-       8    2   9   3   1
-            i  i+1
-            x
-       8    2   3   9   1
-                i  i+1
-                x
-       8    2   3   1   9
-                    i  i+1
-                    x
-       2    8   3   1   9
-       i   i+1
-       x
-       2    3   8   1   9
-            i  i+1
-            x
-       2    3   1   8   9
-                i  i+1
-                x
-       以此类推
-     */
-
     // 递归版
     private static void bubble2(int[] a, int j) {
         if (j == 0) {
@@ -95,4 +52,72 @@ public class BubbleSort {
         bubble(a);
         System.out.println(Arrays.toString(a));
     }
+
+    /*
+        优化:每次循环时，若能确定 更合适 的右边界，则可以减少冒泡次数
+        x 记录的是最后无序的右边界
+
+        3   2   1   4   5
+        i  i+1
+        x
+                        j
+
+        2   1   3   4   5
+                i  i+1
+                x
+                j
+
+        2   1   3   4   5
+        i  i+1
+        x
+                j
+        1   2   3   4   5
+            i  i+1
+        x
+        j
+        j = 0 退出循环
+
+
+       8    9   2   3   1
+       i   i+1
+       x
+                        j
+       8    9   2   3   1
+            i  i+1
+       x
+                        j
+       8    2   3   1   9
+                    i  i+1
+                    x
+                    j
+       ----
+       8    2   3   1   9
+       i   i+1
+       x            j
+       2    3   1   8   9
+                i  i+1
+                x
+                j
+       ----
+       2    3   1   8   9
+       i   i+1
+       x
+                j
+       2    1   3   8   9
+            i  i+1
+            x
+            j
+       ----
+       2    1   3   8   9
+       i   i+1
+       x
+            j
+       ----
+       1    2   3   8   9
+       i   i+1
+       x
+       j
+       j = 0,排序完成,排序结果为 [1,2,3,8,9]
+     */
+
 }
