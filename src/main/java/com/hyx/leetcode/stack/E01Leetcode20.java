@@ -1,11 +1,15 @@
+/*
 package com.hyx.leetcode.stack;
 
+*/
 /**
  * @author hyx
- */
+ *//*
+
 public class E01Leetcode20 {
 
-    /*
+    */
+/*
                 (   [    {
 
                 底 - 栈 - 顶
@@ -15,7 +19,8 @@ public class E01Leetcode20 {
         遇到右括号，把它于栈顶元素对比
             若相等，栈顶元素弹出，继续对比下一组
             若不等，无效括号直接返回false
-     */
+     *//*
+
 
     public static boolean isValid(String s) {
         ArrayStack<Character> stack = new ArrayStack<>(s.length());
@@ -44,3 +49,4 @@ public class E01Leetcode20 {
     }
 
 }
+*/
