@@ -42,7 +42,7 @@ public class InsertionSort {
     }
 
     // 非递归版
-    private static void insertion(int[] a) {
+    public static void insertion(int[] a) {
         for (int low = 1; low < a.length; low++) {
             // 待插入元素
             int t = a[low];
