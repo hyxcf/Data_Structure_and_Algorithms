@@ -1,16 +1,20 @@
+/*
 package com.hyx.leetcode.stack;
 
 import java.util.LinkedList;
 
+*/
 /**
  * 中缀表达式转后缀表达式
  *
  * @author hyx
- */
+ *//*
+
 
 public class E03InfixToSuffix {
 
-    /*
+    */
+/*
         a+b           ab+
         a+b-c         ab+c-
         a*b+c         ab*c+
@@ -27,7 +31,8 @@ public class E03InfixToSuffix {
         4. 带()
             - 左括号直接入栈，左括号的优先级设置为0
             - 右括号就把栈顶到左括号为止的所有运算符出栈
-     */
+     *//*
+
 
     public static void main(String[] args) {
 //        System.out.println(infixToSuffix("a+b"));
@@ -99,3 +104,4 @@ public class E03InfixToSuffix {
         };
     }
 }
+*/
