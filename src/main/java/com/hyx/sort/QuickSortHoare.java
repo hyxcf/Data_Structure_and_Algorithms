@@ -53,7 +53,7 @@ public class QuickSortHoare {
         int idx = ThreadLocalRandom.current().nextInt(right - left + 1) + left;
         // [0~9] right - left + 1 = 3    [0,2] + 4 =[4,6]
         // 1、选择最左侧元素作为基准点
-        swap(a,idx,left);
+        swap(a, idx, left);
         int pv = a[left];
         int i = left; // i 从左往右 找大的
         int j = right;// j 从右往左 找小的
@@ -66,11 +66,11 @@ public class QuickSortHoare {
             while (i < j && a[i] <= pv) {
                 i++;
             }
-            swap(a, i, j);
             // 3.交换位置
-
+            swap(a, i, j);
         }
-        swap(a, left, i);
+        // 最后交换基准点
+        swap(a, left, i); // 此时 最左侧元素为最终基准点
         return i;
     }
 
@@ -81,8 +81,8 @@ public class QuickSortHoare {
     }
 
     public static void main(String[] args) {
-//        int[] a = {5, 3, 7, 2, 9, 8, 1, 4};
-        int[] a = {5, 1, 1, 2, 0, 0};
+        int[] a = {5, 3, 7, 2, 9, 8, 1, 4};
+//        int[] a = {5, 1, 1, 2, 0, 0};
         System.out.println(Arrays.toString(a));
         sort(a);
         System.out.println(Arrays.toString(a));
