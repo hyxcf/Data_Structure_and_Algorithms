@@ -1,7 +1,6 @@
 package com.hyx.sort;
 
 import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class QuickSortHandleDuplicate {
 
@@ -54,7 +53,7 @@ public class QuickSortHandleDuplicate {
                 j--;
             }
         }
-        swap(a, j, left);
+        swap(a, j, left); // j 是找小的，所以让 j 与基准点交换
         return j;
     }
 
