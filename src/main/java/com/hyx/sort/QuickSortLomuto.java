@@ -42,21 +42,21 @@ public class QuickSortLomuto {
         4、最后基准点与 i 交换，i 即为基准点最终索引
      */
     private static int partition(int[] a, int left, int right) {
-            // 1、选择最右侧元素作为基准点
-            int pv = a[right];
-            int i = left;
-            int j = left;
-            while (j < right) {
-                if (a[j] < pv) { // j 找基准点小的，i找基准点大的
-                    if (i != j) {
-                        swap(a, i, j);
-                    }
-                    i++;
+        // 1、选择最右侧元素作为基准点
+        int pv = a[right];
+        int i = left;
+        int j = left;
+        while (j < right) {
+            if (a[j] < pv) { // j 找基准点小的，i找基准点大的
+                if (i != j) {
+                    swap(a, i, j);
                 }
-                j++;
+                i++;
             }
-            swap(a, i, right);
-            return i;
+            j++;
+        }
+        swap(a, i, right);
+        return i; // 此时的i为最终基准点
     }
 
 
@@ -68,7 +68,7 @@ public class QuickSortLomuto {
 
     public static void main(String[] args) {
 //        int[] a = {5, 3, 7, 2, 9, 8, 1, 4};
-        int[] a = {5, 1, 1, 2, 0, 0};
+        int[] a = {4, 3, 7, 2, 9, 8, 1, 5};
         System.out.println(Arrays.toString(a));
         sort(a);
         System.out.println(Arrays.toString(a));
@@ -99,6 +99,29 @@ public class QuickSortLomuto {
                     i
                                 j
     l                           r
+
+执行顺序
+quick(int[] a,int 0,int 7)
+partition(a,0,7) return p = 4; l=0 r=7
+    quick(a, 0, 3);
+    partition(a,0,3) return p=0 l=0 r=3
+        quick(a,0,0-1) return;
+        quick(a,1,3)
+            partition(a,1,3) return p=3 l=1 r=3
+                quick(a,1,2)
+                    partition(a,1,2) return p=1 l=1 r=2
+                       quick(a,1,0) return;
+                       quick(a,2,2) return;
+                quick(a,4,3) return;
+    quick(a,5,7)
+    partition(a,5,7) return p=7 l=5 r=7
+        quick(a,5,6)
+            partition(a,5,6) return p=5 l=5 r=6
+                quick(a,5,4) return;
+                quick(a,6,6) return;
+        quick(a,8,7) return;
+结束，排序完成
+
  */
 
 
