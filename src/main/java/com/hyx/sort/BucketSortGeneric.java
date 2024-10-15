@@ -1,7 +1,6 @@
 package com.hyx.sort;
 
-import com.hyx.DynamicArray;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -15,7 +14,7 @@ import java.util.Arrays;
 public class BucketSortGeneric {
 
     public static void main(String[] args) {
-        int[] ages = {9, 0, 5, 1, 3, 2, 4, 6, 8, 7};// 假设人类年龄 99
+        int[] ages = {9, 0, -1, 1, 3, -2, 4, 6, 8, 7};// 假设人类年龄 99
         System.out.println(Arrays.toString(ages));
         sort(ages, 3);
         System.out.println(Arrays.toString(ages));
@@ -46,28 +45,30 @@ public class BucketSortGeneric {
                 max = ages[i];
             }
         }
+
         // 1.创建桶
-        DynamicArray[] buckets = new DynamicArray[(max - min) / range + 1];
+        ArrayList<Integer>[] buckets2 = new ArrayList[(max - min) / range + 1];
         // 1.1 初始化桶
-        for (int i = 0; i < buckets.length; i++) {
-            buckets[i] = new DynamicArray();
+        for (int i = 0; i < buckets2.length; i++) {
+            buckets2[i] = new ArrayList<>();
         }
         // 2.放入数据
         for (int age : ages) {
-            buckets[(age - min) / range].addLast(age);
+            buckets2[(age - min) / range].add(age);
         }
         // 3.排序桶内元素
-        int k = 0;
-        for (DynamicArray bucket : buckets) {
-            // 排序
-            int[] array = bucket.stream().toArray();
-            InsertionSort.insertion(array);
-            System.out.println(Arrays.toString(array));
-            for (int v : array) {
-                ages[k++] = v;
+        int k2 = 0;
+        for (ArrayList<Integer> bucket2 : buckets2) {
+            Integer[] arr = new Integer[bucket2.size()];
+            Integer[] arrayInteger = bucket2.toArray(arr);
+            int[] arrayInt = Arrays.stream(arrayInteger).mapToInt(Integer::valueOf).toArray();
+            // 使用选择排序
+            InsertionSort.insertion(arrayInt);
+            for (int v : arrayInt) {
+                ages[k2++] = v;
             }
+            System.out.println(bucket2);
+            System.out.println(Arrays.toString(ages));
         }
     }
-
-
 }
