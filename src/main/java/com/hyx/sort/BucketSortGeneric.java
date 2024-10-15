@@ -61,10 +61,10 @@ public class BucketSortGeneric {
         for (ArrayList<Integer> bucket2 : buckets2) {
             Integer[] arr = new Integer[bucket2.size()];
             arr = bucket2.toArray(arr);
-            int[] arrayInt = Arrays.stream(arr).mapToInt(Integer::valueOf).toArray();
+            int[] array = Arrays.stream(arr).mapToInt(Integer::valueOf).toArray();
             // 使用选择排序
-            InsertionSort.insertion(arrayInt);
-            for (int v : arrayInt) {
+            InsertionSort.insertion(array);
+            for (int v : array) {
                 ages[k2++] = v;
             }
             System.out.println(bucket2);
