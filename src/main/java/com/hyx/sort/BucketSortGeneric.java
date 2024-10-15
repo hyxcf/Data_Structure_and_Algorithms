@@ -60,8 +60,8 @@ public class BucketSortGeneric {
         int k2 = 0;
         for (ArrayList<Integer> bucket2 : buckets2) {
             Integer[] arr = new Integer[bucket2.size()];
-            Integer[] arrayInteger = bucket2.toArray(arr);
-            int[] arrayInt = Arrays.stream(arrayInteger).mapToInt(Integer::valueOf).toArray();
+            arr = bucket2.toArray(arr);
+            int[] arrayInt = Arrays.stream(arr).mapToInt(Integer::valueOf).toArray();
             // 使用选择排序
             InsertionSort.insertion(arrayInt);
             for (int v : arrayInt) {
