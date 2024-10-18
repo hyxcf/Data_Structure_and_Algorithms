@@ -1,10 +1,10 @@
-package com.hyx.picture;
+package com.hyx.graph;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 拓扑排序 - 深度有限(DFS)
+ * 拓扑排序 - 深度优先(DFS)
  */
 
 public class TopologicalSortDFS {

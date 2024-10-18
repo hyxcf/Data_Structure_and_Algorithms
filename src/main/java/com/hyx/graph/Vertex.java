@@ -1,4 +1,4 @@
-package com.hyx.picture;
+package com.hyx.graph;
 
 import java.util.List;
 import java.util.Objects;
