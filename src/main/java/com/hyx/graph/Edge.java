@@ -1,4 +1,4 @@
-package com.hyx.picture;
+package com.hyx.graph;
 
 /**
  * @version 0.1
