@@ -1,6 +1,7 @@
 package com.hyx.picture;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @version 0.1
@@ -41,6 +42,19 @@ public class Vertex {
         b.edges = List.of(new Edge(d));
         c.edges = List.of(new Edge(d));
         d.edges = List.of();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vertex vertex = (Vertex) o;
+        return Objects.equals(name, vertex.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
     @Override
