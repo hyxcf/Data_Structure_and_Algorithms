@@ -1,4 +1,4 @@
-package com.hyx.leetcode.greedy;
+package com.hyx.leetcode.greedy.recursion;
 
 /**
  * @version 0.1
