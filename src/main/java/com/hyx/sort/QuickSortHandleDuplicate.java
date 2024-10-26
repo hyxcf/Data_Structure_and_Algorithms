@@ -1,6 +1,7 @@
 package com.hyx.sort;
 
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class QuickSortHandleDuplicate {
 
@@ -33,8 +34,9 @@ public class QuickSortHandleDuplicate {
             循环外 j 和 基准点交换，j 即为分区位置
      */
     private static int partition(int[] a, int left, int right) {
-//        int idx = ThreadLocalRandom.current().nextInt(right - left + 1) + left;
-//        swap(a, left, idx);
+        // 算随机值的时间复杂度是 O(n * log(n))
+        int idx = ThreadLocalRandom.current().nextInt(right - left + 1) + left;
+        swap(a, left, idx);
         int pv = a[left];
         int i = left + 1;// 第一个 i 肯定等于它自身，所以可以直接跳过，写成 left + 1
         int j = right;
