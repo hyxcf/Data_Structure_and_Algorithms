@@ -12,16 +12,96 @@ import java.util.Arrays;
  */
 public class Summary {
 
-
     public static void main(String[] args) {
         int[] arr = {4, 2, 3, 1, 9, 8, 3};
+        System.out.println("基于比较的排序算法");
         // sort01(arr);
 //		sort02(arr);
 //		sort03(arr);
 //		sort04(arr);
 //		sort05(arr);
-        sort06(arr);
+//		sort06(arr);
+        System.out.println("不基于比较的排序算法");
+//		sort07(arr);
+        sort08(arr);// 基数排序还是比较难理解的
+
         System.out.println(Arrays.toString(arr));
+    }
+
+    // 基数排序(比较难理解)
+    private static void sort08(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        radixSort(arr, 0, arr.length - 1, maxbits(arr));
+    }
+
+    private static void radixSort(int[] arr, int left, int right, int digit) {
+        final int radix = 10; // 十进制的数以十为基底
+        int i = 0, j = 0;
+        int[] help = new int[right - left + 1];
+        // 这个循环统计 arr 在 d 位中出现的次数，用 count 数组收集
+        for (int d = 1; d <= digit; d++) {
+            int[] count = new int[10];
+            for (i = left; i <= right; i++) {
+                j = getDigit(arr[i], d);
+                count[j]++;
+            }
+            // 求前缀和
+            for (i = 1; i < radix; i++) {
+                count[i] = count[i] + count[i - 1];
+            }
+            // 创建一个 help 数组，对 arr 从右向左读个位，根据 count` 的次数判断位置，并向 help 中写入数据
+            for (i = right; i >= left; i--) {
+                j = getDigit(arr[i], d);
+                help[count[j] - 1] = arr[i];
+                count[j]--;
+            }
+            for (i = left, j = 0; i <= right; i++, j++) {
+                arr[i] = help[j];
+            }
+        }
+    }
+
+    private static int getDigit(int i, int d) {
+        return ((i / ((int) Math.pow(10, d - 1))) % 10);
+    }
+
+    private static int maxbits(int[] arr) {
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            max = Math.max(max, arr[i]);
+        }
+        int res = 0;
+        while (max != 0) {
+            res++;
+            max /= 10;
+        }
+        return res;
+    }
+
+    // 计数排序
+    private static void sort07(int[] arr) {
+        int max = arr[0], min = arr[0];
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] < min)
+                min = arr[i];
+            if (arr[i] > max)
+                max = arr[i];
+        }
+        int[] count = new int[max - min + 1];
+        // 向 count 中写入数据
+        for (int e : arr) {
+            count[e - min]++;
+        }
+        int k = 0;
+        for (int i = 0; i < count.length; i++) {
+            // i + min 代表原始数组元素 a[i] 元素出现次数
+            while (count[i] > 0) {
+                arr[k++] = i + min;
+                count[i]--;
+            }
+        }
     }
 
     private static void sort06(int[] arr) {
@@ -198,4 +278,3 @@ public class Summary {
         arr[j] = t;
     }
 }
-
