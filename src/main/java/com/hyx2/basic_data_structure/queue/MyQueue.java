@@ -1,4 +1,4 @@
-package com.hyx2.basic_data_structure;
+package com.hyx2.basic_data_structure.queue;
 
 /**
  * @version 0.1

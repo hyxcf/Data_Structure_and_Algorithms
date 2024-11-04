@@ -18,7 +18,7 @@ public class Code03_UnRecursiveTraversalBT {
         2、右孩子不为空，先压右
         3、左孩子不为空，再压左
      */
-    // 左右头
+    // 头左右
     public static void pre(TreeNode head) {
         System.out.println("pre-order");
         if (head != null) {
@@ -82,9 +82,9 @@ public class Code03_UnRecursiveTraversalBT {
                     s1.push(head.right);
                 }
             }
-            while (!s2.isEmpty()) {
-                System.out.println(s2.pop().val + " ");
-            }
+                while (!s2.isEmpty()) {
+                    System.out.println(s2.pop().val + " ");
+                }
         }
         System.out.println();
     }

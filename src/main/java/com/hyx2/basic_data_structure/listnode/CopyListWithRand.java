@@ -1,4 +1,4 @@
-package com.hyx2.basic_data_structure.mianshiti.listnode;
+package com.hyx2.basic_data_structure.listnode;
 
 import java.util.HashMap;
 

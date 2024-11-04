@@ -1,4 +1,4 @@
-package com.hyx2.basic_data_structure.mianshiti;
+package com.hyx2.basic_data_structure.array;
 
 /**
  * @version 0.1
