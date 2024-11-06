@@ -1,10 +1,8 @@
 package com.hyx.hash;
 
-import com.google.common.hash.Hashing;
+//import com.google.common.hash.Hashing;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.HashSet;
 
 /**
  * @version 0.1
@@ -255,8 +253,8 @@ public class HashTable {
         table.print();
         
         // MurmurHash 哈希算法
-        int hash2 = Hashing.murmur3_32().hashString("abc", StandardCharsets.UTF_8).asInt();
-        System.out.println(hash2);
+//        int hash2 = Hashing.murmur3_32().hashString("abc", StandardCharsets.UTF_8).asInt();
+//        System.out.println(hash2);
     }
 
 }
