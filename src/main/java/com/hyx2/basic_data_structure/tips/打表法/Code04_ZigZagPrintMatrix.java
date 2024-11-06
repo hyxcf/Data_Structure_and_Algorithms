@@ -20,10 +20,10 @@ public class Code04_ZigZagPrintMatrix {
         boolean fromUp = false; // 是不是从右上往左下打印
         while (Ar != Endr + 1) {
             printLevel(matrix, Ar, Ac, Br, Bc, fromUp);
-            Ar = Ac == Endc ? Ar + 1 : Ar;
-            Ac = Ac == Endc ? Ac : Ac + 1;
-            Bc = Br == Endr ? Bc + 1 : Bc;
-            Br = Br == Endr ? Br : Br + 1;
+            Ar = Ac == Endc ? Ar + 1 : Ar;  // A的列数如果到了最后一列，那么A的行号+1否则行号不变
+            Ac = Ac == Endc ? Ac : Ac + 1;  // A的列数如果到了最后一列，那么列数不变，否则+1
+            Bc = Br == Endr ? Bc + 1 : Bc;  // B的行数如果到了最后一行，那么B的列数+1，否则不变
+            Br = Br == Endr ? Br : Br + 1;  // B的列数如果到了最后一行，那么B的行数不变，否则+1
             fromUp = !fromUp;
         }
         System.out.println();
