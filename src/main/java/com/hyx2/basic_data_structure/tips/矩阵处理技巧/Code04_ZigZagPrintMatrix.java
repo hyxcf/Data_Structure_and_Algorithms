@@ -1,4 +1,4 @@
-package com.hyx2.basic_data_structure.tips.打表法;
+package com.hyx2.basic_data_structure.tips.矩阵处理技巧;
 
 /**
  * @version 0.1
