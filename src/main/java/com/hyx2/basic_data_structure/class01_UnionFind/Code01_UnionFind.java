@@ -1,4 +1,4 @@
-package com.hyx2.basic_data_structure.class1_UnionFind;
+package com.hyx2.basic_data_structure.class01_UnionFind;
 
 import java.util.HashMap;
 import java.util.List;
