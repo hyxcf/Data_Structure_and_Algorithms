@@ -1,4 +1,4 @@
-package com.hyx2.basic_data_structure.greedy;
+package com.hyx2.basic_data_structure.class02_greedy;
 
 import java.util.Arrays;
 import java.util.Comparator;
