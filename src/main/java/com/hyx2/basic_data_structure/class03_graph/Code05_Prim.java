@@ -10,7 +10,7 @@ import java.util.Set;
  * @version 0.1
  * @className Code05_Prim
  * @date 2025/1/2 23:07
- * @description
+ * @description Prim算法：从点的角度出发
  * @since jdk 11
  */
 public class Code05_Prim {
