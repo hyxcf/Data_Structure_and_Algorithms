@@ -7,7 +7,7 @@ import java.util.*;
  * @version 0.1
  * @className Code04_Kruskal
  * @date 2025/1/2 21:54
- * @description 只适用于有向图，无向图会出现少一侧的情况
+ * @description 只适用于有向图，无向图会出现少一侧的情况 Kruskal算法：从边的角度出发，使用并查集的技巧
  * @since jdk 11
  */
 // undirected graph only
