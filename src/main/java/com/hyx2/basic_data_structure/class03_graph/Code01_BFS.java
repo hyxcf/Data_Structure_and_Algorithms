@@ -28,8 +28,8 @@ public class Code01_BFS {
             Node cur = queue.poll();
             for (Node next : cur.nexts) {
                 if (!set.contains(next)) {
-                    queue.add(cur);
-                    set.add(cur);
+                    queue.add(next);
+                    set.add(next);
                 }
             }
         }
