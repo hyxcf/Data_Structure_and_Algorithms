@@ -63,7 +63,7 @@ public class Code07_Knapsack {
             return 0;
         }
         int p1 = process2(w, v, index + 1, rest); // 没有要当前index货物，后续产生的最大价值
-        int p2next = process2(w, v, index, rest - w[index]); // 要当前的货物，后续产生的最大价值
+        int p2next = process2(w, v, index + 1, rest - w[index]); // 要当前的货物，后续产生的最大价值
         int p2 = -1;
         if (p2next != -1) {
             p2 = v[index] + p2next;
