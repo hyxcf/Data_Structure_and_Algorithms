@@ -11,8 +11,83 @@ public class Demo {
 //        bubbleSort(arr);
 //        insertSort(arr);
 //        eventOddTimers(arr);
-        eventOddTimersTwo(arr);
+//        eventOddTimersTwo(arr);
+//        mergeSort(arr);
+//        quickSort(arr);
+        
         System.out.println(Arrays.toString(arr));
+    }
+
+    /**
+     * 2025-08-11 星期一 复习 归并排序 快速排序 数组小和 逆序对问题
+     */
+    // 快排 O(n * log(n)) 
+    public static void quickSort(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        quickSort(arr, 0, arr.length - 1);
+    }
+
+    private static void quickSort(int[] arr, int l, int r) {
+        if (l < r) {
+            swap(arr, l + (int) (Math.random() * (r - l + 1)), r); // fixme：因为有这个时间复杂度才为O(n * log(n))
+            int[] p = partition(arr, l, r);
+            quickSort(arr, l, p[0] - 1);
+            quickSort(arr, p[1] + 1, r);
+        }
+    }
+
+    private static int[] partition(int[] arr, int l, int r) {
+        int less = l - 1;
+        int more = r; // 这里不要写成 r+1，是错误的
+        while (l < more) {
+            if (arr[l] < arr[r]) {
+                swap(arr, ++less, l++);
+            } else if (arr[l] > arr[r]) {
+                swap(arr, --more, l);
+            } else {
+                l++;
+            }
+        }
+        swap(arr, more, r); // fixme:最后排完序要记得进行交换
+        return new int[]{l, r};
+    }
+
+
+    // 归并排序 O(n * log(n)) 分治思想
+    public static void mergeSort(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        process(arr, 0, arr.length - 1);
+    }
+
+    private static void process(int[] arr, int l, int r) {
+        if (l >= r) {
+            return;
+        }
+        int mid = l + ((r - l) >> 1);
+        process(arr, l, mid);
+        process(arr, mid + 1, r);
+        merge(arr, l, mid, r);
+    }
+
+    private static void merge(int[] arr, int l, int mid, int r) {
+        int[] help = new int[r - l + 1];
+        int p1 = l;
+        int p2 = mid + 1;
+        int i = 0;
+        while (p1 <= mid && p2 <= r) {
+            help[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
+        }
+        while (p1 <= mid) {
+            help[i++] = arr[p1++];
+        }
+        while (p2 <= r) {
+            help[i++] = arr[p2++];
+        }
+        System.arraycopy(help, 0, arr, l, help.length);
     }
 
 
@@ -53,19 +128,19 @@ public class Demo {
             }
         }
     }
-    
+
     // 异或问题：给你一堆数，只有一个是奇数，其余的都是偶数 
     // fixme：异或满足交换律和结合律。a ^ a = 0    a ^ 0 = a 这两个是最重要的  异或：相同为0 不同为1  
-    public static void eventOddTimers(int[] arr){
+    public static void eventOddTimers(int[] arr) {
         int eor = 0;
         for (int i = 0; i < arr.length; i++) {
             eor ^= arr[i];
         }
         System.out.println(eor);
     }
-    
+
     // 异或问题：给你一堆数，只有两个是奇数，其余的都是偶数 
-    public static void eventOddTimersTwo(int[] arr){
+    public static void eventOddTimersTwo(int[] arr) {
         int eor = 0;
         for (int i = 0; i < arr.length; i++) {
             eor ^= arr[i]; // 此时eor = a ^ b
@@ -73,7 +148,7 @@ public class Demo {
         int rightOne = eor & (~eor + 1); // 这个公式是得到最右边的1的位置
         int onlyOne = 0;
         for (int i : arr) {
-            if ((i & rightOne) == 1){
+            if ((i & rightOne) == 1) {
                 onlyOne ^= i;
             }
         }

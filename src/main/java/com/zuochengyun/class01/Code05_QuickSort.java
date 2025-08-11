@@ -27,7 +27,7 @@ public class Code05_QuickSort {
 
     private static int[] partition(int[] arr, int l, int r) {
         int less = l - 1;
-        int more = r + 1;
+        int more = r;
         while (l < more) {
             if (arr[l] < arr[r]) {
                 swap(arr, ++less, l++);
@@ -37,6 +37,7 @@ public class Code05_QuickSort {
                 l++;
             }
         }
+        swap(arr, more, r);
         return new int[]{l, r};
     }
 
