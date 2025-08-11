@@ -40,6 +40,7 @@ public class Code09_NiXuDui {
         int res = 0;
         while (p1 <= mid && p2 <= r) {
             if (arr[p1] > arr[p2]) {
+                // fixme：核心
                 // 左组当前元素大于右组当前元素
                 // 那么左组从p1到mid的元素都大于arr[p2]
                 for (int k = p1; k <= mid; k++) {
