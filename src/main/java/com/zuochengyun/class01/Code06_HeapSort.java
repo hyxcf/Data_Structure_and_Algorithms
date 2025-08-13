@@ -13,15 +13,15 @@ public class Code06_HeapSort {
         int[] arr = {5, 3, 1, 6, 2, 7, 2, 6};
         heapSort(arr);
         System.out.println(Arrays.toString(arr));
-        System.out.println("堆排序,时间复杂度为O(N*logN),额外空间复杂度为O(N*logN),无稳定性");
+        System.out.println("堆排序,时间复杂度为O(N*logN),额外空间复杂度为O(1),无稳定性");
     }
 
     public static void heapSort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
         }
-        // 建堆
-        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+        // 从最后一个非叶子节点开始，自底向上进行堆化
+        for (int i = arr.length / 2 - 1; i >= 0; i--) { // 最后一个非叶子节点
             heapify(arr, i, arr.length);
         }
         int heapSize = arr.length;
