@@ -20,11 +20,11 @@ public class Demo {
     }
 
     /**
-     * 2025-08-13 星期三 复习 堆排序
+     * 2025-08-13 星期三 复习 堆排序 O(n * log(n))  O(1)
      */
     public static void heapSort(int[] arr) {
         if (arr == null || arr.length < 2) {
-            return;
+            return; 
         }
         // 建堆
         for (int i = arr.length / 2 - 1; i >= 0; i--) {
@@ -54,7 +54,7 @@ public class Demo {
     /**
      * 2025-08-11 星期一 复习 归并排序 快速排序 数组小和 逆序对问题
      */
-    // 快排 O(n * log(n)) 
+    // 快排 O(log(n)) 
     public static void quickSort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
