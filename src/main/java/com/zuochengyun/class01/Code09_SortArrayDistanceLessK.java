@@ -1,9 +1,7 @@
 package com.zuochengyun.class01;
 
-import com.hyx.queue.priorityqueue.Priority;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.PriorityQueue;
 
 /**

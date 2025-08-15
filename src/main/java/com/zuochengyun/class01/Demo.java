@@ -6,7 +6,8 @@ public class Demo {
 
     public static void main(String[] args) {
 //        int[] arr = {1, 3, 4, 7, 7, 3, 1};
-        int[] arr = {1, 3, 4, 5, 7, 7, 3, 1};
+//        int[] arr = {1, 3, 4, 5, 7, 7, 3, 1};
+        int[] arr = {1, 2, 5, 4, 1};
 //        selectSort(arr);
 //        bubbleSort(arr);
 //        insertSort(arr);
@@ -14,17 +15,164 @@ public class Demo {
 //        eventOddTimersTwo(arr);
 //        mergeSort(arr);
 //        quickSort(arr);
-        heapSort(arr);
-
+//        heapSort(arr);
+//        heapSort2(arr);
+//        mergeSort2(arr);
+//        quickSort2(arr);
+        System.out.println("数组小和为：" + arrSum(arr));
         System.out.println(Arrays.toString(arr));
     }
+
+    /**
+     * 2025-08-15 星期五 复习 这周所学的知识 堆排序 归并排序 快速排序 数组小和 逆序对问题 选择排序，冒泡排序，插入排序， 异或的知识，对数器
+     */
+    /**
+     * 数组小和问题 : 求出左侧的数字比他小的 和  1 2 5 4 1      1+1+2+2+1 = 7
+     * 求左数字比他小的，也就是从左往右看 有几个比他大的，比如说1右侧有三个比他大的，所以有3个1的小和
+     */
+    public static int arrSum(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return 0;
+        }
+        return processArrSum(arr, 0, arr.length - 1);
+    }
+
+    private static int processArrSum(int[] arr, int l, int r) {
+        if (l == r) {
+            return 0;
+        }
+        int mid = l + ((r - l) >> 1);
+        return processArrSum(arr, l, mid)
+                + processArrSum(arr, mid + 1, r)
+                + mergeArrSum(arr, l, mid, r);
+    }
+
+    private static int mergeArrSum(int[] arr, int l, int mid, int r) {
+        int[] help = new int[r - l + 1];
+        int p1 = l;
+        int p2 = mid + 1;
+        int i = 0;
+        int sum = 0;
+        while (p1 <= mid && p2 <= r) {
+            if (arr[p1] < arr[p2]) {
+                sum += (r - p2 + 1) * arr[p1];
+                help[i++] = arr[p1++];
+            } else {
+                help[i++] = arr[p2++];
+            }
+        }
+        while (p1 <= mid) {
+            help[i++] = arr[p1++];
+        }
+        while (p2 <= r) {
+            help[i++] = arr[p2++];
+        }
+        System.arraycopy(help, 0, arr, l, r - l + 1);
+        return sum;
+    }
+
+    public static void quickSort2(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        quickSort2(arr, 0, arr.length - 1);
+    }
+
+    private static void quickSort2(int[] arr, int l, int r) {
+        if (l < r) {
+            swap(arr, l + (int) (Math.random() * (r - l + 1)), r);
+            int[] p = partition2(arr, l, r);
+            quickSort2(arr, l, p[0] - 1);
+            quickSort2(arr, p[1] + 1, r);
+        }
+    }
+
+    private static int[] partition2(int[] arr, int l, int r) {
+        int less = l - 1;
+        int more = r; // 这里不要写成 r + 1, 因为 r 已经被当成基准点了
+        while (l < more) {
+            if (arr[l] < arr[r]) {
+                swap(arr, ++less, l++);
+            } else if (arr[l] > arr[r]) {
+                swap(arr, --more, l);
+            } else {
+                l++;
+            }
+        }
+        swap(arr, more, r);
+        return new int[]{less + 1, more};
+    }
+
+    public static void mergeSort2(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        process2(arr, 0, arr.length - 1);
+    }
+
+    public static void process2(int[] arr, int l, int r) {
+        if (l == r) {
+            return;
+        }
+        int mid = l + ((r - l) >> 1);
+        process2(arr, l, mid);
+        process2(arr, mid + 1, r);
+        merge2(arr, l, mid, r);
+    }
+
+    public static void merge2(int[] arr, int l, int mid, int r) {
+        int[] help = new int[r - l + 1];
+        int p1 = l;
+        int p2 = mid + 1;
+        int i = 0;
+        while (p1 <= mid && p2 <= r) {
+            help[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
+        }
+        while (p1 <= mid) {
+            help[i++] = arr[p1++];
+        }
+        while (p2 <= r) {
+            help[i++] = arr[p2++];
+        }
+        System.arraycopy(help, 0, arr, l, help.length);
+    }
+
+    public static void heapSort2(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            // 建堆
+            heapify2(arr, i, arr.length);
+        }
+        int heapSize = arr.length;
+        while (heapSize > 0) { // 拿最大的那个和最后的 --heapSize 进行交换
+            swap(arr, 0, --heapSize);
+            heapify(arr, 0, heapSize);
+        }
+    }
+
+    private static void heapify2(int[] arr, int parent, int heapSize) {
+        int left = parent * 2 + 1;
+        while (left < heapSize) {
+            int largest = left + 1 < heapSize && arr[left + 1] > arr[left] ? left + 1 : left;
+            largest = arr[parent] < arr[largest] ? largest : parent;
+            if (largest == parent) {
+                break;
+            }
+            swap(arr, largest, parent);
+            parent = largest;
+            left = parent * 2 + 1;
+        }
+    }
+
 
     /**
      * 2025-08-13 星期三 复习 堆排序 O(n * log(n))  O(1)
      */
     public static void heapSort(int[] arr) {
         if (arr == null || arr.length < 2) {
-            return; 
+            return;
         }
         // 建堆
         for (int i = arr.length / 2 - 1; i >= 0; i--) {

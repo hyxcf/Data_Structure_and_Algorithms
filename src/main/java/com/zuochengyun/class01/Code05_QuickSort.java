@@ -1,5 +1,7 @@
 package com.zuochengyun.class01;
 
+import java.util.Arrays;
+
 /**
  * 快排 最差情况 O(n²)  要随机确定一个划分值，使时间复杂度为O(n * log(n)) 空间复杂度O(log n)
  * 规则:
@@ -8,6 +10,11 @@ package com.zuochengyun.class01;
  * 3) [i] > num, [i] 和 > 区域的前一个交换， > 区左扩，i原地不动！！！
  */
 public class Code05_QuickSort {
+    public static void main(String[] args) {
+        int[] arr = {5, 3, 1, 6, 2, 7, 2, 6};
+        quickSort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
 
     public static void quickSort(int[] arr) {
         if (arr == null || arr.length < 2) {
@@ -38,7 +45,7 @@ public class Code05_QuickSort {
             }
         }
         swap(arr, more, r);
-        return new int[]{l, r};
+        return new int[]{less + 1, more};
     }
 
     private static void swap(int[] arr, int l, int r) {
