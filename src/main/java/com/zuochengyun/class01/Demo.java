@@ -4,6 +4,13 @@ import java.util.Arrays;
 
 public class Demo {
 
+    /*
+    不具备稳定性的排序：
+        选择排序、快速排序、堆排序
+    不具备稳定性的排序：
+        冒泡排序、插入排序、归并排序、一切桶排序思想下的排序
+     */
+
     public static void main(String[] args) {
 //        int[] arr = {1, 3, 4, 7, 7, 3, 1};
 //        int[] arr = {1, 3, 4, 5, 7, 7, 3, 1};
