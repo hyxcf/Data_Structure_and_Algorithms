@@ -7,9 +7,17 @@ public class Demo {
     /*
     不具备稳定性的排序：
         选择排序、快速排序、堆排序
-    不具备稳定性的排序：
+    具备稳定性的排序：
         冒泡排序、插入排序、归并排序、一切桶排序思想下的排序
     todo：复习排序算法的 时间、空间、稳定性
+                时间       空间      稳定性
+    冒泡排序     O(n²)      O(1)      √
+    插入排序     O(n²)      O(1)      √
+    选择排序     O(n²)      O(1)      ×
+    归并排序     O(n logn)  O(n)      √
+    堆排序       O(n logn)  O(1)      ×
+    快速排序     O(n logn)  O(logn)   ×
+         
      */
 
     public static void main(String[] args) {
@@ -156,7 +164,7 @@ public class Demo {
         int heapSize = arr.length;
         while (heapSize > 0) { // 拿最大的那个和最后的 --heapSize 进行交换
             swap(arr, 0, --heapSize);
-            heapify(arr, 0, heapSize);
+            heapify2(arr, 0, heapSize);
         }
     }
 
