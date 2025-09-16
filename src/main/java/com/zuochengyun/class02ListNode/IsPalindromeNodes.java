@@ -7,6 +7,8 @@ import com.hyx.leetcode.listnode.ListNode;
  */
 public class IsPalindromeNodes {
 
+    // 方法3 把中间右边的链表放入栈中，依次弹出，直到栈中弹尽为止
+    
     // 方法2
     // 将方法1的步骤1和步骤2进行合并，在一次循环里既找到中间点，也把前半个链表进行反转。然后进行步骤3 ，比较两个链表
     public static boolean isPalindrome2(ListNode head){
