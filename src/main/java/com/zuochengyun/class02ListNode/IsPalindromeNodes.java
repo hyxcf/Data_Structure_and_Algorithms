@@ -71,7 +71,7 @@ public class IsPalindromeNodes {
         ListNode fast = p1;
         while (fast != null && fast.next != null) {
             low = low.next;
-            fast = fast.next;
+            fast = fast.next.next;
         }
         return low;
     }
