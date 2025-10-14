@@ -24,21 +24,23 @@ public class Code07_FindFirstIntersectNode {
         return null;// 一个链表有环，一个链表无环，则注定不会相交
     }
 
-    private static ListNode getLoopNode(ListNode head1) {
-        ListNode fast = head1;
-        ListNode low = head1;
-        while (fast != low) {
-            fast = fast.next.next;
-            low = low.next;
+    private static ListNode getLoopNode(ListNode head) {
+        ListNode l = head;
+        ListNode f = head;
+        while (f != null && f.next != null) {
+            l = l.next;
+            f = f.next.next;
+            if (l == f) {
+                f = head;
+                while (l != f) { // 进到这里就说明已经有环了，不会出现死循环的情
+                    l = l.next;
+                    f = f.next;
+                }
+                return l;
+            }
         }
-        fast = head1;
-        while (fast != low) {
-            fast = fast.next;
-            low = low.next;
-        }
-        return low;
+        return null;
     }
-
 
     /**
      * 两个  有环链表  的相交问题
