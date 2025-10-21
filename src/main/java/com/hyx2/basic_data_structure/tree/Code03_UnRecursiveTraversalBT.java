@@ -1,6 +1,7 @@
 package com.hyx2.basic_data_structure.tree;
 
 
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -45,10 +46,10 @@ public class Code03_UnRecursiveTraversalBT {
             Stack<TreeNode> stack = new Stack<>();
             while (!stack.isEmpty() || head != null) {
                 if (head != null) {
-                    stack.push(head);
+                    stack.push(head); // 整条左边界依次入栈
                     head = head.left;
                 } else {
-                    head = stack.pop();
+                    head = stack.pop(); // 上面条件不满足：弹出节点就打印。   右树继续上面的操作
                     System.out.println(head.val + " ");
                     head = head.right;
                 }
@@ -57,7 +58,7 @@ public class Code03_UnRecursiveTraversalBT {
         System.out.println();
     }
 
-    // 左右头
+    // 左右头  （反过来就是 头右左，也就是先序遍历头左右【左右反过来】）
     /*
              1
            /  \
@@ -82,10 +83,33 @@ public class Code03_UnRecursiveTraversalBT {
                     s1.push(head.right);
                 }
             }
-                while (!s2.isEmpty()) {
-                    System.out.println(s2.pop().val + " ");
-                }
+            while (!s2.isEmpty()) {
+                System.out.println(s2.pop().val + " ");
+            }
         }
         System.out.println();
     }
+
+    // 后续遍历的另一种操作
+    public static void pos2(TreeNode h) {
+        System.out.println("pos-order: ");
+        if (h != null) {
+            Stack<TreeNode> stack = new Stack<>();
+            stack.push(h);
+            TreeNode c = null;
+            while (!stack.isEmpty()) {
+                c = stack.peek();
+                if (c.left != null && h != c.left && h != c.right) {
+                    stack.push(c.left);
+                } else if (c.right != null && h != c.right) {
+                    stack.push(c.right);
+                } else {
+                    System.out.println(stack.pop().val + " ");
+                    h = c;
+                }
+            }
+        }
+        System.out.println();
+    }
+
 }
