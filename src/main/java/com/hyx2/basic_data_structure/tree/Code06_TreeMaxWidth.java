@@ -21,8 +21,8 @@ public class Code06_TreeMaxWidth {
         }
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(head);
-        TreeNode curEnd = head; // 当前层的节点
-        TreeNode nextEnd = null; // 下一层的节点
+        TreeNode curEnd = head; // 当前层的最右节点
+        TreeNode nextEnd = null; // 下一层的最右节点
         int max = 0;
         int curLevelNodes = 0; // 当前层的节点数
         while (!queue.isEmpty()){
