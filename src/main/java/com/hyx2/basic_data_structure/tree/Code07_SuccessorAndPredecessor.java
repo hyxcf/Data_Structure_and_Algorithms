@@ -25,17 +25,15 @@ public class Code07_SuccessorAndPredecessor {
      * @param node node
      * @return node
      */
-    public Node successor(Node node) {
-        if (node == null) {
-            return null;
-        }
+    public Node predecessor(Node node) {
+        if (node == null) return null;
         if (node.left != null) {
             return getRightMost(node.left);
         } else {
             Node parent = node.parent;
-            while (parent != null && node.right != node) { // 当前节点是父亲节点左孩子
+            while (parent != null && parent.right != node) {
                 node = parent;
-                parent = node.parent;
+                parent = parent.parent;
             }
             return parent;
         }
@@ -57,7 +55,7 @@ public class Code07_SuccessorAndPredecessor {
      * @param node node
      * @return node.next
      */
-    public Node predecessor(Node node) {
+    public Node successor(Node node) {
         if (node == null) {
             return null;
         }
