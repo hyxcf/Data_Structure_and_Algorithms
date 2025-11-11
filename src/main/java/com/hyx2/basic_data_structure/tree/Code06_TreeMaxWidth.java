@@ -45,4 +45,24 @@ public class Code06_TreeMaxWidth {
         return max;
     }
 
+    public int maxWidth(TreeNode node) {
+        if (node == null) return 0;
+
+        int maxWidth = 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(node);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            maxWidth = Math.max(maxWidth, levelSize);
+
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode current = queue.poll();
+                if (current.left != null) queue.add(current.left);
+                if (current.right != null) queue.add(current.right);
+            }
+        }
+        return maxWidth;
+    }
+    
 }
