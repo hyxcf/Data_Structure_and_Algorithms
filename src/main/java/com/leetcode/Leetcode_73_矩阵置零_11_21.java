@@ -4,7 +4,7 @@ package com.leetcode;
  * 11_21 十一月二十一号
  * 73：力扣第73题
  */
-public class 矩阵置零11_21_73 {
+public class Leetcode_73_矩阵置零_11_21 {
 
     /**
      * 原地算法
