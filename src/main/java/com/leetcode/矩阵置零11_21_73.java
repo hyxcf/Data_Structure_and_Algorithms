@@ -16,7 +16,7 @@ public class 矩阵置零11_21_73 {
         boolean flagCol = false, flagRow = false;
         for (int i = 0; i < row; i++) {
             if (matrix[i][0] == 0) {
-                flagCol = true;
+                flagCol = true; // 这里和下面要注意到底是行为0还是列为0
             }
         }
         for (int j = 0; j < col; j++) {
@@ -40,7 +40,7 @@ public class 矩阵置零11_21_73 {
             }
         }
         if (flagCol) {
-            for (int i = 0; i < row; i++) {
+            for (int i = 0; i < row; i++) {  // 在这里和下面的要注意 flagCol、flagRwo、row、col 的用法
                 matrix[i][0] = 0;
             }
         }
