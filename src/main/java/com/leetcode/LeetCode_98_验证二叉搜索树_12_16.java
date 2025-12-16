@@ -31,7 +31,7 @@ public class LeetCode_98_验证二叉搜索树_12_16 {
         if (root == null) return true;
         boolean a = isValidBST(root.left);
         if (!a) return false;
-        if (prev > root.val) {
+        if (prev >= root.val) {
             return false;
         }
         prev = root.val;
