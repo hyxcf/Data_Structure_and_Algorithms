@@ -48,6 +48,7 @@ public class LeetCode_105_从前序与中序遍历序列构造二叉树_12_19 {
      * @return 重建的二叉树根节点
      *
      * 💡 关键：root 是 preorder 的索引，left/right 是 inorder 的索引范围。
+     *  fixme：前序告诉我谁是根，中序告诉我左右子树有多长
      */
     TreeNode recur(int root, int left, int right) {
         if (left > right) return null;                          // 递归终止：空子树
