@@ -37,6 +37,21 @@ public class LeetCode_560_和为K的子数组_12_20 {
         }
     }
 
+
+    /**
+     * ❓ 为什么 cnt.put(0, 1) 很重要？
+     * 考虑 nums = [2], k = 2：
+     *
+     * 初始：s = 0
+     * 加上 2：s = 2
+     * s - k = 0
+     * 如果没有 cnt.put(0,1)，就会认为“之前没出现过0”，答案为0 → 错误！
+     * 但实际上，整个数组 [2] 的和就是 2，应该算1次。
+     *
+     * 这个 s=0 对应的是 “从开头到当前位置” 的情况（即 i=0）。
+     *
+     * ✅ s[0] = 0 是前缀和的起点，必须初始化！
+     */
     class Solution2 {
         public int subarraySum(int[] nums, int k) {
             Map<Integer, Integer> cnt = new HashMap<>(nums.length + 1, 1); // 预分配空间
