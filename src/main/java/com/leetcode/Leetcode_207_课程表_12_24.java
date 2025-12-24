@@ -12,7 +12,42 @@ public class Leetcode_207_课程表_12_24 {
         请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。
      */
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        return false;
+        // 1.构建邻接表和入度数组
+        List<List<Integer>> graph = new ArrayList<>();
+        int[] inDegree = new int[numCourses];
+        // 初始化图
+        for (int i = 0; i < numCourses; i++) {
+            graph.add(new ArrayList<>());
+        }
+        // 建图
+        for (int[] prerequisite : prerequisites) {
+            int a = prerequisite[0];
+            int b = prerequisite[1];
+            graph.get(b).add(a);
+            inDegree[a]++;
+        }
+        // 2.将所有入度为0的课程加入队列
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (inDegree[i] == 0) {
+                queue.offer(i);
+            }
+        }
+        // 3.拓扑排序
+        int learned = 0;
+        while (!queue.isEmpty()) {
+            Integer course = queue.poll();
+            learned++;
+            // 遍历该课程的所有后续课程
+            for (Integer next : graph.get(course)) {
+                inDegree[next]--;
+                if (inDegree[next] == 0) {
+                    queue.offer(next);
+                }
+            }
+        }
+        // 4.判断是否学完所有课程
+        return learned == numCourses;
     }
 
     private static class Solution {
