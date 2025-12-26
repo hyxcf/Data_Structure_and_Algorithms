@@ -7,6 +7,42 @@ import java.util.Queue;
 
 public class Code01_全排列问题 {
 
+    // 方法二：交换法
+    private static class Solution2 {
+        List<List<Integer>> res;
+        List<Integer> arr;
+
+        public List<List<Integer>> permute(int[] nums) {
+            res = new ArrayList<>();
+            arr = new ArrayList<>();
+            if (nums.length == 0) return res;
+            for (int num : nums) {
+                arr.add(num);
+            }
+            dfs(0);
+            return res;
+        }
+
+        private void dfs(int x) {
+            if (x == arr.size() - 1) {
+                res.add(new ArrayList<>(arr));
+                return;
+            }
+            for (int i = x; i < arr.size(); i++) {
+                swap(x, i);
+                dfs(x + 1);
+                swap(x, i);
+            }
+        }
+
+        void swap(int i, int j) {
+            int temp = arr.get(i);
+            arr.set(i, arr.get(j));
+            arr.set(j, temp);
+        }
+    }
+
+    // 方法一：路径选择法
     public List<List<Integer>> permute(int[] nums) {
         int len = nums.length;
         List<List<Integer>> res = new ArrayList<>();
