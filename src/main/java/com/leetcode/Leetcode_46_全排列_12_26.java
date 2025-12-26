@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Leetcode_49_全排列_12_26 {
+public class Leetcode_46_全排列_12_26 {
 
     public List<List<Integer>> permute(int[] nums) {
         int len = nums.length;
