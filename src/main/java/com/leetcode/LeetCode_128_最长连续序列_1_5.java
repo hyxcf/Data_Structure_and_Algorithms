@@ -1,9 +1,6 @@
 package com.leetcode;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class LeetCode_128_最长连续序列_1_5 {
     
@@ -39,7 +36,7 @@ public class LeetCode_128_最长连续序列_1_5 {
             while (set.contains(y)) {
                 y++;
             }
-            res = Math.max(res, y - x);
+            res = Math.max(res, y - x); // fixme：这里易错
         }
         return res;
     }
