@@ -3,25 +3,13 @@ package com.leetcode;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LeetCode_560_和为K的子数组_1_12 {
-
-/*
-    给你一个整数数组 nums 和一个整数 k ，请你统计并返回 该数组中和为 k 的子数组的个数 。
-    子数组是数组中元素的连续非空序列。
-
-    示例 1：
-        输入：nums = [1,1,1], k = 2
-        输出：2
-    示例 2：
-        输入：nums = [1,2,3], k = 3
-        输出：2
- */
+public class LeetCode_560_和为K的子数组_12_20 {
 
     public int subarraySum(int[] nums, int k) {
         return 0;
     }
 
-    static class Solution {
+    class Solution {
         public int subarraySum(int[] nums, int k) {
             // 前缀和
             // 数组元素   0 1 1 1
@@ -64,7 +52,7 @@ public class LeetCode_560_和为K的子数组_1_12 {
      *
      * ✅ s[0] = 0 是前缀和的起点，必须初始化！
      */
-    static class Solution2 {
+    class Solution2 {
         public int subarraySum(int[] nums, int k) {
             Map<Integer, Integer> cnt = new HashMap<>(nums.length + 1, 1); // 预分配空间
             cnt.put(0, 1); // s[0]=0 单独统计
@@ -78,22 +66,6 @@ public class LeetCode_560_和为K的子数组_1_12 {
             return ans;
         }
     }
-
-    static class PreviewSolution {
-        public int subarraySum(int[] nums, int k) {
-            int pre = 0;
-            int count = 0;
-            Map<Integer, Integer> map = new HashMap<>(nums.length + 1);
-            map.put(0, 1);
-            for (int num : nums) {
-                pre += num;
-                count += map.getOrDefault(pre - k, 0);
-                map.merge(pre, 1, Integer::sum);
-            }
-            return count;
-        }
-    }
-
 
 }
 
