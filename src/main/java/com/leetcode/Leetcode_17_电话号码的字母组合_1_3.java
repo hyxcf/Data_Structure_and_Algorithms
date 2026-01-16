@@ -48,4 +48,31 @@ public class Leetcode_17_电话号码的字母组合_1_3 {
         }
     }
 
+    static class Solution2 {
+
+        private static final String[] MAPPING = new String[]{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+        public List<String> letterCombinations(String digits) {
+            if (digits.isEmpty()) {
+                return List.of();
+            }
+            List<String> res = new ArrayList<>();
+            char[] path = new char[digits.length()];
+            dfs(0, path, res, digits.toCharArray());
+            return res;
+        }
+
+        private void dfs(int index, char[] path, List<String> res, char[] digits) {
+            if (index == digits.length) {
+                res.add(String.valueOf(path));
+                return;
+            }
+            String letters = MAPPING[digits[index] - '0'];
+            for (char c : letters.toCharArray()) {
+                path[index] = c;
+                dfs(index + 1, path, res, digits);
+            }
+        }
+    }
+
 }
