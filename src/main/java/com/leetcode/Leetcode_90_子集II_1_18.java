@@ -44,4 +44,30 @@ public class Leetcode_90_子集II_1_18 {
         }
     }
 
+
+    static class Solution2 {
+        public List<List<Integer>> subsetsWithDup(int[] nums) {
+            List<List<Integer>> res = new ArrayList<>();
+            if (nums.length == 0) {
+                return res;
+            }
+            List<Integer> paths = new ArrayList<>();
+            Arrays.sort(nums);
+            backtrack(0, nums, paths, res);
+            return res;
+        }
+
+        private void backtrack(int index, int[] nums, List<Integer> paths, List<List<Integer>> res) {
+            res.add(new ArrayList<>(paths));
+            for (int i = index; i < nums.length; i++) {
+                if (i != index && nums[i] == nums[i - 1]) {
+                    continue;
+                }
+                paths.add(nums[i]);
+                backtrack(i + 1, nums, paths, res);
+                paths.remove(paths.size() - 1);
+            }
+        }
+    }
+
 }
