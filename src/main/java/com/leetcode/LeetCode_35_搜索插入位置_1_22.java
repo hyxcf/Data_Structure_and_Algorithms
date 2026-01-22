@@ -19,7 +19,7 @@ public class LeetCode_35_搜索插入位置_1_22 {
         int pre = 0;
         int last = nums.length - 1;
         while (pre <= last) {
-            int mid = (pre + last) >> 1;
+            int mid = (pre + last) >>> 1;
             if (nums[mid] < target) {
                 pre = mid + 1;
             } else if (nums[mid] > target) {
