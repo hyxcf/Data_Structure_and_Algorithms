@@ -25,7 +25,7 @@ public class LeetCode_42_接雨水_1_26 {
         stack.push(0);
         int sum = 0;
         for (int i = 1; i < height.length; i++) {
-            // 两个墙相等，存不下雨水，把老的弹出栈，新的再加入栈
+            // 两个墙相等，存不下雨水，加入栈
             while (!stack.isEmpty() && height[i] > height[stack.peek()]) {
                 int mid = stack.pop();
                 if (!stack.isEmpty()) {

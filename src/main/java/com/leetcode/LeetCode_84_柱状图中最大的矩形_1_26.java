@@ -1,5 +1,7 @@
 package com.leetcode;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 public class LeetCode_84_柱状图中最大的矩形_1_26 {
@@ -15,33 +17,23 @@ public class LeetCode_84_柱状图中最大的矩形_1_26 {
         输入： heights = [2,4]
         输出： 4
      */
+    // fixme:首尾都加元素0，尾部加0是因为如果数组是单调递减的则无法出栈；头部加0是因为数组中第一个元素无法判断
     public int largestRectangleArea(int[] heights) {
-        return 0;
-    }
-
-    // 读懂题意：这个是找左右两边第一个小于当前值的数
-    static class Solution {
-        public int largestRectangleArea(int[] heights) {
-            int[] newHeight = new int[heights.length + 2];
-            System.arraycopy(heights, 0, newHeight, 1, heights.length);
-            newHeight[heights.length + 1] = 0;
-            newHeight[0] = 0;
-
-            Stack<Integer> stack = new Stack<>();
-            stack.push(0);
-
-            int res = 0;
-            for (int i = 1; i < newHeight.length; i++) {
-                while (newHeight[i] < newHeight[stack.peek()]) {
-                    int mid = stack.pop();
-                    int w = i - stack.peek() - 1;
-                    int h = newHeight[mid];
-                    res = Math.max(res, w * h);
-                }
-                stack.push(i);
-
+        int res = 0;
+        Deque<Integer> st = new ArrayDeque<>();
+        int[] tmp = new int[heights.length + 2];
+        tmp[0] = 0;
+        tmp[tmp.length - 1] = 0;
+        for (int i = 0; i < heights.length; i++) tmp[i + 1] = heights[i];
+        heights = tmp;
+        for (int i = 0; i < heights.length; i++) {
+            while (!st.isEmpty() && heights[st.peek()] > heights[i]) {
+                int tmpInt = st.pop();
+                res = Math.max(res, heights[tmpInt] * (i - st.peek() - 1));
             }
-            return res;
+            st.push(i);
         }
+        return res;
     }
+
 }
