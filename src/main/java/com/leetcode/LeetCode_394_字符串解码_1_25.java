@@ -5,12 +5,12 @@ import java.util.Stack;
 /**
  * @author hyx
  * @version 0.1
- * @className LeetCode3_94_字符串解码_1_25
+ * @className LeetCode_394_字符串解码_1_25
  * @date 2026/1/25 21:39
  * @description
  * @since jdk 11
  */
-public class LeetCode3_94_字符串解码_1_25 {
+public class LeetCode_394_字符串解码_1_25 {
 
     /*
     给定一个经过编码的字符串，返回它解码后的字符串。
@@ -58,5 +58,37 @@ public class LeetCode3_94_字符串解码_1_25 {
         }
         return res.toString();
     }
+
+    static class Preview_1_29 {
+        public String decodeString(String s) {
+            // 使用两个栈进行存储
+            Stack<Integer> mulStack = new Stack<>();
+            Stack<String> pathStack = new Stack<>();
+            int mul = 0;
+            StringBuilder res = new StringBuilder();
+            for (char c : s.toCharArray()) {
+                if (c == '[') {
+                    mulStack.push(mul);
+                    pathStack.push(res.toString());
+                    mul = 0;
+                    res = new StringBuilder();
+                } else if (c == ']') {
+                    StringBuilder temp = new StringBuilder();
+                    Integer curMul = mulStack.pop();
+                    for (int i = 0; i < curMul; i++) {
+                        temp.append(res);
+                    }
+                    res = new StringBuilder(pathStack.pop() + temp);
+                } else if (c >= '0' && c <= '9') {
+                    mul = mul * 10 + Integer.parseInt(c + "");
+                } else {
+                    res.append(c);
+                }
+            }
+            return res.toString();
+        }
+
+    }
+
 }
 
