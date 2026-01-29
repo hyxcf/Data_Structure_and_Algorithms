@@ -52,4 +52,25 @@ public class LeetCode_20_有效的括号_1_25 {
         }
         return stack.isEmpty();
     }
+
+    static class Preview_1_29 {
+        public boolean isValid(String s) {
+            if (s.length() % 2 == 1)
+                return false;
+            Stack<Character> st = new Stack<>();
+            for (char c : s.toCharArray()) {
+                if (c == '(') {
+                    st.push(')');
+                } else if (c == '{') {
+                    st.push('}');
+                } else if (c == '[') {
+                    st.push(']');
+                } else if (st.isEmpty() || st.pop() != c) {
+                    return false;
+                }
+            }
+            return st.isEmpty(); // fixme:这里应该判断栈是否为空
+        }
+    }
+
 }

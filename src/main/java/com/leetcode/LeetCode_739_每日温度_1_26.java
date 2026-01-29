@@ -1,5 +1,7 @@
 package com.leetcode;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 public class LeetCode_739_每日温度_1_26 {
@@ -33,5 +35,25 @@ public class LeetCode_739_每日温度_1_26 {
             stack.push(i);
         }
         return ans;
+    }
+
+
+    // 复习
+    static class Preview_1_29 {
+        public int[] dailyTemperatures(int[] temperatures) {
+            // 单调栈,找周围比他大的元素，栈内元素应该是单调递增
+            int n = temperatures.length;
+            int[] res = new int[n];
+            Deque<Integer> st = new ArrayDeque<>();
+            st.push(0);
+            for (int i = 1; i < n; i++) {
+                while (!st.isEmpty() && temperatures[i] > temperatures[st.peek()]) {
+                    int mid = st.pop();
+                    res[mid] = i - mid;
+                }
+                st.push(i);
+            }
+            return res;
+        }
     }
 }
