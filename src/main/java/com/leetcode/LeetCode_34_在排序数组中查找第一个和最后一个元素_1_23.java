@@ -26,7 +26,7 @@ public class LeetCode_34_在排序数组中查找第一个和最后一个元素_
         int right = lowerBound(nums, target + 1) - 1;
         return new int[]{left, right};
     }
-    
+
     /*
         | 情况 | `lowerBound` 返回值 | 原因 |
         |------|---------------------|------|
@@ -36,7 +36,7 @@ public class LeetCode_34_在排序数组中查找第一个和最后一个元素_
         | `target` 不存在（中间值） | 第一个大于 target 的位置 | 仍满足 ≥ target |
      */
     private int lowerBound(int[] nums, int target) {
-        int pre = 0, last = nums.length;
+        int pre = 0, last = nums.length; // fixme:但注意：如果所有元素都 < target，那么“第一个 ≥ target 的位置”就是数组末尾之后的位置，即 nums.length。
         while (pre < last) {
             int mid = (pre + last) >>> 1;
             if (nums[mid] < target) {
@@ -79,4 +79,39 @@ public class LeetCode_34_在排序数组中查找第一个和最后一个元素_
         }
         return new int[]{left, right};
     }
+
+
+    static class Preview_1_30 {
+
+        // 经典解法：直接找使用二分找target和target+1的元素位置-1就是本题答案
+
+        public int[] searchRange(int[] nums, int target) {
+            if (nums == null || nums.length < 1) {
+                return new int[]{-1, -1};
+            }
+            int left = lowerRound(nums, target);
+            if (left == nums.length || nums[left] != target) {
+                return new int[]{-1, -1};
+            }
+            int right = lowerRound(nums, target + 1) - 1;
+            return new int[]{left, right};
+        }
+
+        // 二分法经典找最左侧元素的标准写法
+        private int lowerRound(int[] nums, int target) {
+            int pre = 0, last = nums.length;
+            while (pre < last) {
+                int mid = (pre + last) >>> 1;
+                if (nums[mid] > target) {
+                    pre = mid + 1;
+                } else {
+                    last = mid;
+                }
+            }
+            return pre;
+        }
+
+
+    }
+
 }

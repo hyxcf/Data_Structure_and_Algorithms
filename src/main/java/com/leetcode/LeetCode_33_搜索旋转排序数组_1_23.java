@@ -76,4 +76,42 @@ public class LeetCode_33_搜索旋转排序数组_1_23 {
             3 < 1？❌ 不成立 → 认为不在右半 → 去左半 → 但 left=0, right=-1 → 溢出
             👉 根本原因：你在判断“左半是否有序”时用了 nums[pre] < nums[mid]，但当 nums[pre] == nums[mid] 时，左半仍然可能是有序的！
      */
+
+
+    static class Preview_1_30 {
+
+        public int search(int[] nums, int target) {
+            if (nums == null || nums.length == 0) {
+                return -1;
+            }
+            int pre = 0;
+            int last = nums.length - 1;
+            while (pre <= last) {
+                int mid = pre + (last - pre) / 2;
+                if (nums[mid] == target) {
+                    return mid;
+                }
+                if (nums[mid] >= nums[pre]) { // 判断左侧是否有序
+                    // 这个if判断在左侧这个区间，在左边找，不在则在右边找
+                    if (nums[pre] <= target && target < nums[mid]) {
+                        last = mid - 1;
+                    } else {
+                        pre = mid + 1;
+                    }
+                } else {
+                    // 右侧有序，因为左半无序
+                    // 这个if判断在右侧这个区间，在右边找，不在则在左边找
+                    if (nums[mid] < target && target <= nums[last]) {
+                        pre = mid + 1;
+                    } else {
+                        last = mid - 1;
+                    }
+                }
+            }
+            return -1;
+        }
+
+    }
+
+
 }

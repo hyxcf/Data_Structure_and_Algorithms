@@ -30,4 +30,36 @@ public class LeetCode_35_搜索插入位置_1_22 {
         }
         return pre;
     }
+
+    static class Preview_1_39 {
+        /*
+            分析过程：[1,3,5,6] target:2
+            mid : 1  nums[mid]:3    nums[mid] > target pre=0 last=mid-1=0
+            mid : 0  nums[mid]:1    nums[mid] < target pre=1 last=0
+            return 1;
+            分析过程：[1,3,5,6] target:7
+            mid : 1  nums[mid]:3    nums[mid] < target pre=2 last=3
+            mid : 2  nums[mid]:5    nums[mid] < target pre=3 last=3
+            mid : 3  nums[mid]:6    nums[mid] < target pre=4 last=3
+            return 4;
+         */
+        public int searchInsert(int[] nums, int target) {
+            if (nums.length == 0) {
+                return -1;
+            }
+            int pre = 0;
+            int last = nums.length - 1;
+            while (pre <= last) {
+                int mid = (pre + last) >>> 1;
+                if (nums[mid] > target) {
+                    last = mid - 1;
+                } else if (nums[mid] < target) {
+                    pre = mid + 1;
+                } else {
+                    return mid;
+                }
+            }
+            return pre;
+        }
+    }
 }

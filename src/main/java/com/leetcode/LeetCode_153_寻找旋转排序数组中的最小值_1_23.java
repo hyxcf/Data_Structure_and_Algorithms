@@ -49,4 +49,22 @@ public class LeetCode_153_寻找旋转排序数组中的最小值_1_23 {
         return nums[pre];
     }
 
+    static class Preview_1_30 {
+        public int findMin(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return 0;
+            }
+            int pre = 0, last = nums.length - 1;
+            while (pre < last) {
+                int mid = pre + (last - pre) / 2;
+                if (nums[mid] < nums[last]) {
+                    last = mid; // 说明右半部分单调递增，最小值肯定在左半部分
+                } else {
+                    pre = mid + 1; // // 反之 说明左半部分单调递增，最小值肯定在右半部分
+                }
+            }
+            return nums[pre];
+        }
+    }
+
 }
