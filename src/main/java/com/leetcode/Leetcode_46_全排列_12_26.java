@@ -116,4 +116,37 @@ dfs(0) @ [1,2,3]
         }
     }
 
+    private static class Preview_1_31 {
+        // 回溯复习
+        public List<List<Integer>> permute(int[] nums) {
+            List<List<Integer>> res = new ArrayList<>();
+            if (nums.length == 0) {
+                return res;
+            }
+            List<Integer> path = new ArrayList<>();
+            for (int num : nums) {
+                path.add(num);
+            }
+            dfs(0, path, res);
+            return res;
+        }
+
+        private void dfs(int index, List<Integer> path, List<List<Integer>> res) {
+            if (index == path.size() - 1) {
+                res.add(new ArrayList<>(path));
+                return;
+            }
+            for (int x = index; x < path.size(); x++) {
+                swap(path, index, x);
+                dfs(index + 1, path, res);
+                swap(path, index, x);
+            }
+        }
+
+        private void swap(List<Integer> arr, int i, int j) {
+            int temp = arr.get(i);
+            arr.set(i, arr.get(j));
+            arr.set(j, temp);
+        }
+    }
 }
