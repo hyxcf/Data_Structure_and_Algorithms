@@ -55,4 +55,39 @@ public class Leetcode_131_分割回文串_1_18 {
         return true;
     }
 
+    static class Preview_2_1 {
+        public List<List<String>> partition(String s) {
+            List<List<String>> res = new ArrayList<>();
+            if (s == null || s.isEmpty()) {
+                return res;
+            }
+            List<String> path = new ArrayList<>();
+            backtrack(0, s, path, res);
+            return res;
+        }
+
+        private void backtrack(int start, String s, List<String> path, List<List<String>> res) {
+            if (start == s.length()) {
+                res.add(new ArrayList<>(path));
+                return;
+            }
+            for (int end = start; end < s.length(); end++) {
+                if (isHuiWen(start, end, s)) {
+                    path.add(s.substring(start, end + 1));
+                    backtrack(start + 1, s, path, res);
+                    path.remove(path.size() - 1);
+                }
+            }
+        }
+
+        private boolean isHuiWen(int start, int end, String s) {
+            while (start < end) {
+                if (s.charAt(start++) != s.charAt(end--)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+    }
 }
