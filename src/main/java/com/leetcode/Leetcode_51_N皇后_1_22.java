@@ -75,7 +75,54 @@ public class Leetcode_51_N皇后_1_22 {
             dig1[d1] = false;
             dig2[d2] = false;
         }
-    
+
+    }
+
+    private static class Preview_2_1 {
+        public List<List<String>> solveNQueens(int n) {
+            List<List<String>> res = new ArrayList<>();
+            if (n == 0) {
+                return res;
+            }
+            char[][] board = new char[n][n];
+            for (char[] chars : board) {
+                Arrays.fill(chars, '.');
+            }
+            boolean[] col = new boolean[n];
+            boolean[] dig1 = new boolean[2 * n - 1];// 主对角线
+            boolean[] dig2 = new boolean[2 * n - 1];// 副对角线
+            backtrack(0, n, col, dig1, dig2, board, res);
+            return res;
+        }
+
+        private void backtrack(int row, int n, boolean[] cols, boolean[] dig1, boolean[] dig2, char[][] board, List<List<String>> res) {
+            if (row == n) {
+                List<String> temp = new ArrayList<>();
+                for (char[] r : board) {
+                    temp.add(String.valueOf(r));
+                }
+                res.add(temp);
+                return;
+            }
+            for (int col = 0; col < n; col++) {
+                // 主对角线
+                int d1 = row - col + n - 1;
+                // 副对角线
+                int d2 = row + col;
+                if (cols[col] || dig1[d1] || dig2[d2]) {
+                    continue;
+                }
+                cols[col] = true;
+                dig1[d1] = true;
+                dig2[d2] = true;
+                board[row][col] = 'Q';
+                backtrack(row + 1, n, cols, dig1, dig2, board, res);
+                board[row][col] = '.';
+                cols[col] = false;
+                dig1[d1] = false;
+                dig2[d2] = false;
+            }
+        }
     }
 
 }
