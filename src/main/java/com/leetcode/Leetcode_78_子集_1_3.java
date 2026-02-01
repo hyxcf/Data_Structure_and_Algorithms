@@ -109,4 +109,23 @@ public class Leetcode_78_子集_1_3 {
     }
 
 
+    static class Preview_2_1 {
+        public List<List<Integer>> subsets(int[] nums) {
+            List<List<Integer>> res = new ArrayList<>();
+            List<Integer> path = new ArrayList<>();
+            backtrack(0, nums, path, res);
+            return res;
+        }
+
+        private void backtrack(int index, int[] nums, List<Integer> path, List<List<Integer>> res) {
+            res.add(new ArrayList<>(path));
+            for (int i = index; i < nums.length; i++) {
+                path.add(nums[i]);
+                backtrack(i + 1, nums, path, res);
+                path.remove(path.size() - 1);
+            }
+        }
+    }
+
+
 }
