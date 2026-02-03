@@ -50,7 +50,7 @@ public class Leetcode_208_实现Trie前缀树_12_25 {
             int index = 0;
             for (char c : word.toCharArray()) {
                 index = c - 'a';
-                if (node.nexts[index] == null){
+                if (node.nexts[index] == null) {
                     return false;
                 }
                 node = node.nexts[index];
@@ -59,14 +59,14 @@ public class Leetcode_208_实现Trie前缀树_12_25 {
         }
 
         public boolean startsWith(String prefix) {
-            if (prefix == null){
+            if (prefix == null) {
                 return false;
             }
             Node node = root;
             int index = 0;
             for (char c : prefix.toCharArray()) {
                 index = c - 'a';
-                if (node.nexts[index] == null){
+                if (node.nexts[index] == null) {
                     return false;
                 }
                 node = node.nexts[index];
@@ -149,4 +149,73 @@ public class Leetcode_208_实现Trie前缀树_12_25 {
         }
         return true;
     }
+
+    private static class Preview_2_3 {
+        class Trie {
+
+            private Node root;
+
+            public Trie() {
+                root = new Node();
+            }
+
+            public void insert(String word) {
+                if (word == null || word.isEmpty()) {
+                    return;
+                }
+                char[] chs = word.toCharArray();
+                Node node = root;
+                node.pass++;
+                int index = 0;
+                for (char ch : chs) {
+                    index = ch - 'a';
+                    if (node.nexts[index] == null) {
+                        node.nexts[index] = new Node();
+                    }
+                    node = node.nexts[index];
+                    node.pass++;
+                }
+                node.end++;
+            }
+
+            public boolean search(String word) {
+                if (word == null || word.isEmpty()) {
+                    return false;
+                }
+                char[] chs = word.toCharArray();
+                Node node = root;
+                int index = 0;
+                for (char ch : chs) {
+                    index = ch - 'a';
+                    if (node.nexts[index] == null) {
+                        return false;
+                    }
+                    node = node.nexts[index];
+                }
+                if (node.end == 0) {
+                    return false;
+                }
+                return true;
+            }
+
+            public boolean startsWith(String prefix) {
+                if (prefix == null || prefix.isEmpty()) {
+                    return false;
+                }
+                char[] chs = prefix.toCharArray();
+                Node node = root;
+                int index = 0;
+                for (char ch : chs) {
+                    index = ch - 'a';
+                    if (node.nexts[index] == null) {
+                        return false;
+                    }
+                    node = node.nexts[index];
+                }
+                return true;
+            }
+        }
+    }
+
+
 }
