@@ -10,11 +10,11 @@ public class LeetCode_94_中序遍历_12_11 {
     public List<Integer> inorderTraversal(TreeNode root) {
         ArrayList<Integer> list = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
-        while (!stack.isEmpty() || root != null){
-            if (root != null){
+        while (!stack.isEmpty() || root != null) {
+            if (root != null) {
                 stack.push(root);
                 root = root.left;
-            }else {
+            } else {
                 root = stack.pop();
                 list.add(root.val);
                 root = root.right;
@@ -23,5 +23,24 @@ public class LeetCode_94_中序遍历_12_11 {
         return list;
     }
 
+
+    static class Preview_2_3 {
+        // 二叉树的中序遍历
+        public List<Integer> inorderTraversal(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            Stack<TreeNode> stack = new Stack<>();
+            while (!stack.isEmpty() || root != null) {
+                if (root != null) {
+                    stack.push(root);
+                    root = root.left;
+                } else {
+                    root = stack.pop();
+                    res.add(root.val);
+                    root = root.right;
+                }
+            }
+            return res;
+        }
+    }
 
 }

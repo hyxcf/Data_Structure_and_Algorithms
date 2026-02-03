@@ -19,6 +19,7 @@ public class LeetCode_543_二叉树的直径_12_23 {
     }
 
     class Solution {
+        // fixme:强调：ans 记录的是“经过当前节点的最长路径”
         private int ans;
 
         public int diameterOfBinaryTree(TreeNode root) {
