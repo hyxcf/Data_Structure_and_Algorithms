@@ -1,5 +1,7 @@
 package com.leetcode;
 
+import java.util.Stack;
+
 public class Leetcode_230_二叉搜索树中第k个最小的元素_12_17 {
 
     /*
@@ -26,6 +28,34 @@ public class Leetcode_230_二叉搜索树中第k个最小的元素_12_17 {
             res = root.val;
         }
         dfs(root.right);
+    }
+
+    static class Preview_2_4 {
+        // fixme:求二叉搜索树中第K个最小的元素，本质上就是考理不理解中序遍历 左<中<右 的特性
+        public int kthSmallest(TreeNode root, int k) {
+            TreeNode p = root;
+            Stack<TreeNode> stack = new Stack<>();
+            int count = 0; // 用来记录中序遍历到第几个节点
+
+            while (p != null || !stack.isEmpty()) {
+                if (p != null) {
+                    stack.push(p);
+                    p = p.left;
+                } else {
+                    TreeNode pop = stack.pop();
+                    // 👇 这里是中序访问点 —— 和你原来处理 prev 的位置完全一致
+                    count++;
+                    if (count == k) {
+                        return pop.val; // 找到第 k 小，直接返回
+                    }
+                    p = pop.right;
+                }
+            }
+
+            // 题目保证 1 <= k <= 节点总数，所以理论上不会执行到这里
+            return -1;
+        }
+
     }
 
 }
