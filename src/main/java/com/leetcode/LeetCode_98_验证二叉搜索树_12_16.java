@@ -38,6 +38,28 @@ public class LeetCode_98_验证二叉搜索树_12_16 {
         return isValidBST(root.right);
     }
 
+    static class Preview_2_4 {
+        public boolean isValidBST(TreeNode root) {
+            if (root == null) return true;
+            Stack<TreeNode> st = new Stack<>();
+            long prev = Long.MIN_VALUE;
+            while (!st.isEmpty() || root != null) {
+                if (root != null) {
+                    st.push(root);
+                    root = root.left;
+                } else {
+                    TreeNode pop = st.pop();
+                    if (pop.val <= prev) {
+                        return false;
+                    }
+                    prev = pop.val;
+                    root = pop.right;
+                }
+            }
+            return true;
+        }
+    }
+
 }
 /*                  [10]
                 prev : 8
