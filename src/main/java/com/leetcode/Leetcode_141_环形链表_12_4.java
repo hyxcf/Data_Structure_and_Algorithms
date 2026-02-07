@@ -6,6 +6,7 @@ public class Leetcode_141_环形链表_12_4 {
 
     /**
      * 判断链表中是否有环
+     *
      * @param head
      * @return
      */
@@ -21,5 +22,20 @@ public class Leetcode_141_环形链表_12_4 {
         }
         return false;
     }
-    
+
+    private static class Preview_2_7 {
+        public boolean hasCycle(ListNode head) {
+            ListNode low = head;
+            ListNode fast = head;
+            while (fast != null && fast.next != null) {
+                low = low.next;
+                fast = fast.next.next;
+                if (low == fast) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
 }
