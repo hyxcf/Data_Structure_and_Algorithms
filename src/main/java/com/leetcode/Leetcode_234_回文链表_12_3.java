@@ -6,7 +6,7 @@ public class Leetcode_234_回文链表_12_3 {
 
     // 方法2
     // 将方法1的步骤1和步骤2进行合并，在一次循环里既找到中间点，也把前半个链表进行反转。然后进行步骤3 ，比较两个链表
-    public static boolean isPalindrome2(ListNode head) {
+    public boolean isPalindrome2(ListNode head) {
         if (head == null || head.next == null) {
             return true;
         }
@@ -34,8 +34,8 @@ public class Leetcode_234_回文链表_12_3 {
         return true;
     }
 
-    public static boolean isPalindrome(ListNode p1) {
-        if (p1 == null || p1.next == null) return false;
+    public boolean isPalindrome(ListNode p1) {
+        if (p1 == null || p1.next == null) return true;
         // 1.先找到中间节点
         // 2.反转节点依次进行比较
         ListNode mid = middle(p1);
@@ -50,7 +50,7 @@ public class Leetcode_234_回文链表_12_3 {
         return true;
     }
 
-    private static ListNode reverseListNode(ListNode o1) {
+    private ListNode reverseListNode(ListNode o1) {
         ListNode n1 = null;
         while (o1 != null) {
             ListNode nextNode = o1.next;
@@ -61,7 +61,7 @@ public class Leetcode_234_回文链表_12_3 {
         return n1;
     }
 
-    private static ListNode middle(ListNode p1) {
+    private ListNode middle(ListNode p1) {
         ListNode low = p1;
         ListNode fast = p1;
         while (fast != null && fast.next != null) {
@@ -69,5 +69,74 @@ public class Leetcode_234_回文链表_12_3 {
             fast = fast.next.next;
         }
         return low;
+    }
+
+    static class Preview_2_7 {
+        public boolean isPalindrome(ListNode p1) {
+            if (p1 == null || p1.next == null) {
+                return true;
+            }
+            ListNode middle = middle(p1);
+            ListNode newHead = reverseNode(middle);
+            while (newHead != null) {
+                if (newHead.val != p1.val) {
+                    return false;
+                }
+                newHead = newHead.next;
+                p1 = p1.next;
+            }
+            return true;
+        }
+
+        private ListNode reverseNode(ListNode node) {
+            ListNode n1 = null;
+            while (node != null) {
+                ListNode tempNode = node.next;
+                node.next = n1;
+                n1 = node;
+                node = tempNode;
+            }
+            return n1;
+        }
+
+        private ListNode middle(ListNode p1) {
+            ListNode low = p1;
+            ListNode fast = p1;
+            while (fast != null && fast.next != null) {
+                low = low.next;
+                fast = fast.next.next;
+            }
+            return low;
+        }
+
+        public boolean isPalindrome2(ListNode p1) {
+            // 在求中点的同时翻转链表
+            if (p1 == null || p1.next == null) {
+                return true;
+            }
+            ListNode fast = p1;
+            ListNode low = p1;
+            ListNode n1 = null;
+            ListNode o1 = p1;
+            while (fast != null && fast.next != null) {
+                low = low.next;
+                fast = fast.next.next;
+                o1.next = n1;
+                n1 = o1;
+                o1 = low;
+            }
+            // 如果是奇数，则需往前进一位
+            if (fast != null) {
+                low = low.next;
+            }
+            while (n1 != null) {
+                if (n1.val != low.val) {
+                    return false;
+                }
+                low = low.next;
+                n1 = n1.next;
+            }
+            return true;
+        }
     }
 }
