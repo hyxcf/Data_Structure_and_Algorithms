@@ -5,13 +5,13 @@ import com.hyx.leetcode.listnode.ListNode;
 public class Leetcode_19_删除链表的倒数第N个结点_12_5 {
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode s = new ListNode(-1,head);
+        ListNode s = new ListNode(-1, head);
         ListNode p1 = s;
         ListNode p2 = s;
-        for (int i = 0; i < n + 1; i++){
+        for (int i = 0; i < n + 1; i++) {
             p1 = p1.next;
         }
-        while (p1 != null){
+        while (p1 != null) {
             p1 = p1.next;
             p2 = p2.next;
         }
@@ -33,4 +33,33 @@ public class Leetcode_19_删除链表的倒数第N个结点_12_5 {
         没有虚拟头时，你需要特殊处理“删除头节点”的逻辑。
         有了 s，p2 可以自然停在 s 上，直接 s.next = s.next.next 即可。
      */
+
+    /*
+        给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+        示例 1：
+            输入：head = [1,2,3,4,5], n = 2
+            输出：[1,2,3,5]
+        示例 2：
+            输入：head = [1], n = 1
+            输出：[]
+        示例 3：
+            输入：head = [1,2], n = 1
+            输出：[1]
+     */
+    static class Preview_2_8 {
+        public ListNode removeNthFromEnd(ListNode head, int n) {
+            ListNode s =new ListNode(-1,head);
+            ListNode p1 =s;
+            ListNode p2 = s;
+            for (int i = 0; i < n + 1;i++){
+                p1 = p1.next;
+            }
+            while (p1 != null){
+                p1 = p1.next;
+                p2 = p2.next;
+            }
+            p2.next = p2.next.next;
+            return s.next;
+        }
+    }
 }
