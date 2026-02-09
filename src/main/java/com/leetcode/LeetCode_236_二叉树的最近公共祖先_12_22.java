@@ -35,6 +35,13 @@ public class LeetCode_236_二叉树的最近公共祖先_12_22 {
         return root;
     }
 
+    /*
+    fixme:
+        递归函数的行为是：
+        “我在我的地盘（子树）里找 p 和 q。
+        如果我自己就是 p 或 q，我立刻上报（返回自己）；
+        否则，我问左右孩子，再综合他们的答案上报。”
+     */
     static class Preview_2_5 {
         // 二叉树的最近公共祖先
         public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
