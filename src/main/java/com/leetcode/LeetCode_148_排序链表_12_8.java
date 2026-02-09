@@ -58,7 +58,7 @@ public class LeetCode_148_排序链表_12_8 {
             return sortList(head, null);
         }
 
-        // fixme：这种处理方式更优雅，因为他并没有修改链表的结构
+        // fixme：这种处理方式更优雅，它没有额外分配节点内存，只是重新连接原有的节点 —— 这是链表归并排序的优势。
         public ListNode sortList(ListNode head, ListNode tail) {
             if (head == null) {
                 return head;
@@ -148,6 +148,60 @@ public class LeetCode_148_排序链表_12_8 {
                 }
             }
             return head;
+        }
+    }
+
+    private static class Preview_2_9 {
+        public ListNode sortList(ListNode head) {
+            if (head == null || head.next == null) {
+                return head;
+            }
+            return sortList(head, null);
+        }
+
+        private ListNode sortList(ListNode head, ListNode tail) {
+            if (head == null) {
+                return head;
+            }
+            if (head.next == tail) {
+                head.next = null;
+                return head;
+            }
+            ListNode slow = head, fast = head;
+            while (fast != tail) {
+                slow = slow.next;
+                fast = fast.next;
+                if (fast != tail) {
+                    fast = fast.next;
+                }
+            }
+            ListNode mid = slow;
+            ListNode list1 = sortList(head, mid);
+            ListNode list2 = sortList(mid, tail);
+            ListNode sorted = merge(list1, list2);
+            return sorted;
+        }
+
+        private ListNode merge(ListNode p1, ListNode p2) {
+            ListNode s = new ListNode(-1);
+            ListNode cur = s;
+            while (p1 != null && p2 != null) {
+                if (p1.val < p2.val) {
+                    cur.next = p1;
+                    p1 = p1.next;
+                } else {
+                    cur.next = p2;
+                    p2 = p2.next;
+                }
+                cur = cur.next;
+            }
+            if (p1 != null) {
+                cur.next = p1;
+            }
+            if (p2 != null) {
+                cur.next = p2;
+            }
+            return s.next;
         }
     }
 
