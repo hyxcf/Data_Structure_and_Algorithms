@@ -11,9 +11,9 @@ public class LeetCode_24_两两交换链表中的节点_12_6 {
      * 输出：[2,1,4,3]
      */
     public ListNode swapPairs(ListNode head) {
-        ListNode s = new ListNode(-1,head);
+        ListNode s = new ListNode(-1, head);
         ListNode temp = s;
-        while (temp.next != null && temp.next.next != null){
+        while (temp.next != null && temp.next.next != null) {
             ListNode p1 = temp.next;
             ListNode p2 = temp.next.next;
             temp.next = p2;
@@ -22,6 +22,22 @@ public class LeetCode_24_两两交换链表中的节点_12_6 {
             temp = p1;
         }
         return s.next;
+    }
+
+    private static class Preview_2_9 {
+        public ListNode swapPairs(ListNode head) {
+            ListNode s = new ListNode(-1, head);
+            ListNode cur = s;
+            while (cur.next != null && cur.next.next != null) {
+                ListNode p1 = cur.next;
+                ListNode p2 = cur.next.next;
+                cur.next = p2;
+                p1.next = p2.next;
+                p2.next = p1;
+                cur = p1;
+            }
+            return s.next;
+        }
     }
 
 
