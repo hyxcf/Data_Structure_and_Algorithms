@@ -31,7 +31,7 @@ public class LeetCode_215_数组中第K个最大元素_1_27 {
             PriorityQueue<Integer> minHeap = new PriorityQueue<>();// 默认最小堆
             for (int num : nums) {
                 minHeap.offer(num);
-                if (minHeap.size() > k){
+                if (minHeap.size() > k) {
                     minHeap.poll();// 弹出最小的
                 }
             }
@@ -40,7 +40,7 @@ public class LeetCode_215_数组中第K个最大元素_1_27 {
 
     }
 
-    
+
     static public class Solution2 {
         private int quickSelect(List<Integer> nums, int k) {
             // 随机选择基准数
@@ -76,6 +76,42 @@ public class LeetCode_215_数组中第K个最大元素_1_27 {
             return quickSelect(numList, k);
         }
     }
+
+
+        private static class Preview_2_10 {
+            public int findKthLargest(int[] nums, int k) {
+                List<Integer> list = new ArrayList<>();
+                for (int num : nums) {
+                    list.add(num);
+                }
+                return quickSelect2(list, k);
+            }
+
+            private int quickSelect2(List<Integer> nums, int k) {
+                // 找一个随机基准点
+                int pivot = nums.get(new Random().nextInt(nums.size()));
+                List<Integer> big = new ArrayList<>();
+                List<Integer> equal = new ArrayList<>();
+                List<Integer> small = new ArrayList<>();
+                for (Integer num : nums) {
+                    if (num > pivot) {
+                        big.add(num);
+                    } else if (num < pivot) {
+                        small.add(num);
+                    } else {
+                        equal.add(num);
+                    }
+                }
+                if (big.size() >= k) {
+                    return quickSelect2(big, k);
+                }
+                if (nums.size() - small.size() < k) {
+                    return quickSelect2(small, k - nums.size() + small.size());
+                }
+                return pivot;
+            }
+        }
+
 }
 /*
     情况 2：if (nums.size() - small.size() < k)
