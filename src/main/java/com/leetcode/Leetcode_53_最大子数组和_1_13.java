@@ -20,13 +20,31 @@ public class Leetcode_53_最大子数组和_1_13 {
         int sum = 0;
         int res = nums[0];
         for (int num : nums) {
-            if (sum < 0){
+            if (sum < 0) {
                 sum = num;
             } else {
                 sum += num;
             }
-            res = Math.max(res,sum);
+            res = Math.max(res, sum);
         }
         return res;
     }
+
+
+    private static class Preview_2_10 {
+        public int maxSubArray(int[] nums) {
+            int res = nums[0];
+            int sum = 0;
+            for (int num : nums) {
+                if (sum < 0) {
+                    sum = num;
+                } else {
+                    sum += num;
+                }
+                res = Math.max(res, sum);
+            }
+            return res;
+        }
+    }
+
 }

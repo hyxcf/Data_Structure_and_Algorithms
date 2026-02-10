@@ -1,5 +1,7 @@
 package com.leetcode;
 
+import static com.google.common.primitives.Ints.reverse;
+
 public class Leetcode_189_轮转数组_1_13 {
 
     /*
@@ -46,4 +48,20 @@ public class Leetcode_189_轮转数组_1_13 {
      * 例子：如果数组长度是 7 (nums.length = 7) 并且你需要旋转 10 次 (k = 10)，实际上只需要旋转 10 % 7 = 3
      * 次，因为旋转 7 次会让数组回到初始状态，额外的 3 次旋转才是实际有效的旋转次数。
      */
+    private static class Preview_2_10 {
+        public void rotate(int[] nums, int k) {
+            k %= nums.length;
+            reverse2(nums, 0, nums.length - 1);
+            reverse2(nums, 0, k - 1);
+            reverse2(nums, k, nums.length - 1);
+        }
+
+        private void reverse2(int[] nums, int start, int end) {
+            while (start < end) {
+                int temp = nums[start];
+                nums[start++] = nums[end];
+                nums[end--] = temp;
+            }
+        }
+    }
 }

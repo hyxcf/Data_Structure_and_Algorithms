@@ -1,5 +1,7 @@
 package com.leetcode;
 
+import java.util.Arrays;
+
 public class Leetcode_238_除了自身以外数组的乘积_1_15 {
     
     /*
@@ -33,11 +35,35 @@ public class Leetcode_238_除了自身以外数组的乘积_1_15 {
         }
         // 后缀积
         int R = 1;
-        for (int i = n - 1; i >= 0; i--){
+        for (int i = n - 1; i >= 0; i--) {
             res[i] *= R;
             R *= nums[i];
         }
         return res;
+    }
+
+    private static class Preview_2_10 {
+        // 前缀积和后缀积
+        public int[] productExceptSelf(int[] nums) {
+            if (nums.length < 2) {
+                return nums;
+            }
+            int n = nums.length;
+            int[] res = new int[n];
+            Arrays.fill(res, 1);
+            int L = 1;
+            for (int i = 0; i < n; i++) {
+                res[i] *= L;
+                L *= nums[i];
+            }
+            // 后缀积
+            int R = 1;
+            for (int i = n - 1; i >= 0; i--) {
+                res[i] *= R;
+                R *= nums[i];
+            }
+            return res;
+        }
     }
 
 }
