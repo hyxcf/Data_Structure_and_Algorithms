@@ -1,5 +1,7 @@
 package com.leetcode;
 
+import com.sun.org.apache.bcel.internal.generic.LREM;
+
 import java.nio.file.FileStore;
 
 public class Leetcode_76_最小覆盖子串_1_12 {
@@ -42,26 +44,73 @@ public class Leetcode_76_最小覆盖子串_1_12 {
             char charRight = sCharArray[right];
             if (tMap[charRight] > 0) {
                 sMap[charRight]++;
-                if (sMap[charRight] <= tMap[charRight]){
+                if (sMap[charRight] <= tMap[charRight]) {
                     count++;
                 }
             }
-            while (count == tLen){
-                if (right - left + 1 < minLen){
+            while (count == tLen) {
+                if (right - left + 1 < minLen) {
                     minLen = right - left + 1;
                     reStart = left;
                 }
                 char charLeft = sCharArray[left];
-                if (tMap[charLeft]> 0) {
+                if (tMap[charLeft] > 0) {
                     sMap[charLeft]--;
-                    if (sMap[charLeft] < tMap[charLeft]){
+                    if (sMap[charLeft] < tMap[charLeft]) {
                         count--;
                     }
                 }
                 left++;
             }
-            
+
         }
         return minLen > sLen ? "" : s.substring(reStart, reStart + minLen);
     }
+
+    // 最小覆盖子串
+    private static class Preview_2_11 {
+        public String minWindow(String s, String t) {
+            int sLen = s.length();
+            int tLen = t.length();
+            if (sLen == 0 || tLen == 0 || sLen < tLen) {
+                return "";
+            }
+            char[] sMap = new char[128];
+            char[] tMap = new char[128];
+            char[] sCharArray = s.toCharArray();
+            char[] tCharArray = t.toCharArray();
+            for (char c : tCharArray) {
+                tMap[c]++;
+            }
+            int count = 0;
+            int left = 0;
+            int restart = 0;
+            int minLen = sLen + 1;
+            for (int right = 0; right < sLen; right++) {
+                char charRight = sCharArray[right];
+                if (tMap[charRight] > 0) {
+                    sMap[charRight]++;
+                    if (sMap[charRight] <= tMap[charRight]) {
+                        count++;
+                    }
+                }
+                while (count == tLen) {
+                    if (right - left + 1 < minLen) {
+                        minLen = right - left + 1;
+                        restart = left;
+                    }
+                    char charLeft = sCharArray[left];
+                    if (tMap[charLeft] > 0) {
+                        sMap[charLeft]--;
+                        if (sMap[charLeft] < tMap[charLeft]) {
+                            count--;
+                        }
+                    }
+                    left++;
+                }
+            }
+            return minLen > sLen ? "" : s.substring(restart, restart + minLen);
+        }
+    }
+
 }
