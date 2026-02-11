@@ -40,4 +40,33 @@ public class LeetCode_128_最长连续序列_1_5 {
         }
         return res;
     }
+
+
+    // 最长连续序列
+    private static class Preview_2_11 {
+        public int longestConsecutive(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return 0;
+            }
+            // 去重
+            Set<Integer> set = new HashSet<>();
+            for (int num : nums) {
+                set.add(num);
+            }
+            int count = 0;
+            for (Integer x : set) {
+                // fixme:这一步很妙
+                if (set.contains(x - 1)) {
+                    continue;
+                }
+                int y = x + 1;
+                while (set.contains(y)) {
+                    y++;
+                }
+                count = Math.max(count, y - x);
+            }
+            return count;
+        }
+    }
+
 }
