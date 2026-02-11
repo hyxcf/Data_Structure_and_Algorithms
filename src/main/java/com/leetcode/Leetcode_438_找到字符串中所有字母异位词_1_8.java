@@ -89,4 +89,39 @@ public class Leetcode_438_找到字符串中所有字母异位词_1_8 {
         }
     }
 
+
+    private static class Preview_2_11 {
+        // 找到字符串中所有字母异位词
+        public List<Integer> findAnagrams(String s, String p) {
+            List<Integer> res = new ArrayList<>();
+            char[] sArr = new char[26];
+            char[] pArr = new char[26];
+            char[] sCharArray = s.toCharArray();
+            for (char c : p.toCharArray()) {
+                pArr[c - 'a']++;
+            }
+            for (int start = 0, end = 0; end < s.length(); end++) {
+                sArr[sCharArray[end] - 'a']++;
+                if (end - start + 1 > p.length()) {
+                    sArr[sCharArray[start++] - 'a']--;
+                }
+                if ((end - start + 1 == p.length())) {
+                    if (isSame(sArr, pArr)) {
+                        res.add(start);
+                    }
+                }
+            }
+            return res;
+        }
+
+        private boolean isSame(char[] sArr, char[] pArr) {
+            for (int i = 0; i < pArr.length; i++) {
+                if (pArr[i] != sArr[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
 }
