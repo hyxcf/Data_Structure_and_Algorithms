@@ -30,7 +30,7 @@ public class LeetCode_295_数据流的中位数_1_27 {
             medianFinder.findMedian(); // return 2.0
      */
     // fixme:使用双堆法
-   static class MedianFinder {
+    static class MedianFinder {
         // 左半：最大堆（存较小的一半）
         private PriorityQueue<Integer> maxHeap;
         // 右半：最小堆（存较大的一半）
@@ -64,4 +64,39 @@ public class LeetCode_295_数据流的中位数_1_27 {
             return maxHeap.size() > minHeap.size() ? maxHeap.peek() : minHeap.peek();
         }
     }
+
+    // 数据流的中位数
+    private static class Preview_2_11{
+        class MedianFinder {
+
+            PriorityQueue<Integer> maxHeap;
+            PriorityQueue<Integer> minHeap;
+
+            public MedianFinder() {
+                maxHeap = new PriorityQueue<>((a, b) -> b - a);
+                minHeap = new PriorityQueue<>();
+            }
+
+            public void addNum(int num) {
+                if (maxHeap.isEmpty() || num <= maxHeap.peek()) {
+                    maxHeap.offer(num);
+                } else{
+                    minHeap.offer(num);
+                }
+                if (minHeap.size() +1 < maxHeap.size()) {
+                    minHeap.offer(maxHeap.poll());
+                } else if (maxHeap.size() + 1 < minHeap.size()) {
+                    maxHeap.offer(minHeap.poll());
+                }
+            }
+
+            public double findMedian() {
+                if (maxHeap.size() == minHeap.size()) {
+                    return (maxHeap.peek() + minHeap.peek()) / 2.0;
+                }
+                return maxHeap.size() > minHeap.size() ? maxHeap.peek() : minHeap.peek();
+            }
+        }
+    }
+
 }
