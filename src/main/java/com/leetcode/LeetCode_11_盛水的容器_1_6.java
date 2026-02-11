@@ -35,4 +35,22 @@ public class LeetCode_11_盛水的容器_1_6 {
         }
         return maxSize;
     }
+
+
+    private static class Preview_2_11 {
+        public int maxArea(int[] height) {
+            int maxArea = -1, left = 0, right = height.length - 1;
+            while (left < right) {
+                int min = Math.min(height[left], height[right]);
+                maxArea = Math.max(maxArea, (right - left) * min);
+                while (left < right && height[left] <= min) { // fixme:注意这里是小于等于
+                    left++;
+                }
+                while (left < right && height[right] <= min) {
+                    right--;
+                }
+            }
+            return maxArea;
+        }
+    }
 }
