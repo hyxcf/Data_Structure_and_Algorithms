@@ -1,5 +1,8 @@
 package com.leetcode;
 
+import org.checkerframework.checker.units.qual.A;
+
+import javax.swing.text.html.CSS;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +38,24 @@ public class Leetcode_3_无重复字符的最长子串_1_7 {
             maxLength = Math.max(maxLength, end - start + 1);
         }
         return maxLength;
+    }
+
+    // 无重复字符的最长子串
+    private static class Preview_2_11 {
+        public int lengthOfLongestSubstring(String s) {
+            if (s.isEmpty()) return 0;
+            Map<Character, Integer> map = new HashMap<>();
+            int maxLength = 0;
+            for (int start = 0, end = 0; end < s.length(); end++) {
+                char c = s.charAt(end);
+                if (map.containsKey(c)) {
+                    start = Math.max(start, map.get(c) + 1);
+                }
+                map.put(c, end);
+                maxLength = Math.max(maxLength, end - start + 1);
+            }
+            return maxLength;
+        }
     }
 
 }
