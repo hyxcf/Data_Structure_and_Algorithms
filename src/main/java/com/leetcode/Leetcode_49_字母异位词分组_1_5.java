@@ -1,9 +1,6 @@
 package com.leetcode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Leetcode_49_字母异位词分组_1_5 {
 
@@ -29,6 +26,21 @@ public class Leetcode_49_字母异位词分组_1_5 {
             map.computeIfAbsent(String.valueOf(temp), v -> new ArrayList<>()).add(str);
         }
         return new ArrayList<>(map.values());
+    }
+
+    // 字母异位词分组
+    private static class Preview_2_11 {
+        public List<List<String>> groupAnagrams(String[] strs) {
+            Map<String,List<String>> map = new HashMap<>();
+            for (String str : strs) {
+                char[] chars = new char[26];
+                for (char c : str.toCharArray()) {
+                    chars[c - 'a']++;
+                }
+                map.computeIfAbsent(Arrays.toString(chars), k -> new ArrayList<>()).add(str);
+            }
+            return new ArrayList<>(map.values());
+        }
     }
 
 }
