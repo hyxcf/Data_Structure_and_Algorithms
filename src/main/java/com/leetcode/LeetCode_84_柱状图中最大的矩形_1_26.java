@@ -36,4 +36,31 @@ public class LeetCode_84_柱状图中最大的矩形_1_26 {
         return res;
     }
 
+    private static class Preview_2_12 {
+        /*
+            fixme:
+                找左右两边第一个大元素，使用单调递增栈
+                找左右两边第一个小元素，使用单调递减栈
+         */
+        public int largestRectangleArea(int[] heights) {
+            int res = 0;
+            Deque<Integer> st = new ArrayDeque<>();
+            int[] tmp = new int[heights.length + 2];
+            tmp[0] = 0;
+            tmp[tmp.length - 1] = 0;
+            for (int i = 0; i < heights.length; i++) {
+                tmp[i + 1] = heights[i];
+            }
+            heights = tmp;
+            for (int i = 0; i < heights.length; i++) {
+                while (!st.isEmpty() && heights[st.peek()] > heights[i]) {
+                    int tmpInt = st.pop();
+                    res = Math.max(res, heights[tmpInt] * (i - st.peek() - 1));
+                }
+                st.push(i);
+            }
+            return res;
+        }
+    }
+
 }
