@@ -56,4 +56,22 @@ public class LeetCode_739_每日温度_1_26 {
             return res;
         }
     }
+
+    private static class Preview_2_12 {
+        public int[] dailyTemperatures(int[] temperatures) {
+            int n = temperatures.length;
+            int[] res = new int[n];
+            Deque<Integer> st = new ArrayDeque<>();
+            st.push(0);
+            for (int i = 1; i < n; i++) {
+                while (!st.isEmpty() && temperatures[i] > temperatures[st.peek()]) {
+                    int mid = st.pop();
+                    res[mid] = i - mid;
+                }
+                st.push(i);
+            }
+            return res;
+        }
+    }
+
 }
