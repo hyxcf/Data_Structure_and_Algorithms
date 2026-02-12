@@ -87,7 +87,38 @@ public class LeetCode_394_字符串解码_1_25 {
             }
             return res.toString();
         }
+    }
 
+    /**
+     * 字符串解码
+     */
+    private static class Preview_2_12 {
+        public String decodeString(String s) {
+            Stack<Integer> mulSatStack = new Stack<>();
+            Stack<String> pathStack = new Stack<>();
+            int mul = 0;
+            StringBuilder res = new StringBuilder();
+            for (char c : s.toCharArray()) {
+                if (c == '[') {
+                    mulSatStack.push(mul);
+                    pathStack.push(res.toString());
+                    mul = 0;
+                    res = new StringBuilder();
+                } else if (c == ']') {
+                    StringBuilder temp = new StringBuilder();
+                    Integer curMul = mulSatStack.pop();
+                    for (Integer i = 0; i < curMul; i++) {
+                        temp.append(res);
+                    }
+                    res = new StringBuilder(pathStack.pop() + temp);
+                } else if (c >= '0' && c <= '9') {
+                    mul = mul * 10 + Integer.parseInt(c + "");
+                } else {
+                    res.append(c);
+                }
+            }
+            return res.toString();
+        }
     }
 
 }
