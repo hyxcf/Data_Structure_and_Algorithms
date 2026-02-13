@@ -80,6 +80,7 @@ public class LeetCode_35_搜索插入位置_1_22 {
                     last = mid;
                 }
             }
+            return pre;
         }
     }
 
