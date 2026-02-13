@@ -65,22 +65,16 @@ public class LeetCode_35_搜索插入位置_1_22 {
 
     private static class Preview_2_13 {
         public int searchInsert(int[] nums, int target) {
-            if (nums.length == 0) {
-                return -1;
-            }
-            int pre = 0;
-            int last = nums.length - 1;
-            while (pre <= last) {
+            int pre = 0, last = nums.length; // 注意：last = n
+            while (pre < last) {
                 int mid = (pre + last) >>> 1;
-                if (nums[mid] > target) {
-                    last = mid - 1;
-                } else if (nums[mid] < target) {
+                if (nums[mid] < target) {
                     pre = mid + 1;
                 } else {
-                    return mid;
+                    last = mid; // nums[mid] >= target
                 }
             }
-            return pre;
+            return pre; // 第一个 >= target 的下标
         }
     }
 
