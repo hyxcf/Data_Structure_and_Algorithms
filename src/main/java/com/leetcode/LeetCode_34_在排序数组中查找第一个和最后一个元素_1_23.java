@@ -102,16 +102,40 @@ public class LeetCode_34_在排序数组中查找第一个和最后一个元素_
             int pre = 0, last = nums.length;
             while (pre < last) {
                 int mid = (pre + last) >>> 1;
-                if (nums[mid] > target) {
-                    pre = mid + 1;
-                } else {
+                if (nums[mid] >= target) {
                     last = mid;
+                } else {
+                    pre = mid + 1;
                 }
             }
             return pre;
         }
-
-
     }
 
+    private static class Preview_2_13 {
+        public int[] searchRange(int[] nums, int target) {
+            if (nums == null || nums.length < 1) {
+                return new int[]{-1, -1};
+            }
+            int left = getRound(nums, target);
+            if (left == nums.length || nums[left] != target) {
+                return new int[]{-1, -1};
+            }
+            int right = getRound(nums, target) - 1;
+            return new int[]{left, right};
+        }
+
+        private int getRound(int[] nums, int target) {
+            int pre = 0, last = nums.length;
+            while (pre < last) {
+                int mid = (pre + last) >>> 1;
+                if (nums[mid] >= target) {
+                    last = mid;
+                } else {
+                    pre = mid + 1;
+                }
+            }
+            return pre;
+        }
+    }
 }

@@ -46,7 +46,7 @@ public class LeetCode_33_搜索旋转排序数组_1_23 {
                 return mid;
             }
             // 判断左半部分是否有序
-            if (nums[pre] <= nums[mid]) { // fixme:这里是 <= 
+            if (nums[pre] <= nums[mid]) { // fixme:这里是 <=  为什么用 <= 而不是 <？     当 pre == mid 时（比如只剩一个元素），nums[pre] == nums[mid],此时左半（只有一个元素）当然是有序的,如果用 <，会错误地认为“无序”，导致逻辑错误，✅ 所以必须用 <=
                 if (nums[pre] <= target && target < nums[mid]) {
                     last = mid - 1;
                 } else {
@@ -111,6 +111,57 @@ public class LeetCode_33_搜索旋转排序数组_1_23 {
             return -1;
         }
 
+    }
+    // fixme：这道题目的解题思路是每次都进行二分，找到有序的区间，如果target在这个区间就在这个区间进行二分，如果不在，则在另一半区域进行二分，利用局部空间的有序性
+
+    /*
+        整数数组 nums 按升序排列，数组中的值 互不相同 。
+
+        在传递给函数之前，nums 在预先未知的某个下标 k（0 <= k < nums.length）上进行了 向左旋转，
+        使数组变为 [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]（下标 从 0 开始 计数）。
+        例如， [0,1,2,4,5,6,7] 下标 3 上向左旋转后可能变为 [4,5,6,7,0,1,2] 。
+
+        给你 旋转后 的数组 nums 和一个整数 target ，如果 nums 中存在这个目标值 target ，则返回它的下标，否则返回 -1 。
+        你必须设计一个时间复杂度为 O(log n) 的算法解决此问题。
+        示例 1：
+        输入：nums = [4,5,6,7,0,1,2], target = 0
+        输出：4
+        示例 2：
+        输入：nums = [4,5,6,7,0,1,2], target = 3
+        输出：-1
+        示例 3：
+        输入：nums = [1], target = 0
+        输出：-1
+     */
+    private static class Preview_2_13 {
+        public int search(int[] nums, int target) {
+            if (nums == null || nums.length == 0) {
+                return -1;
+            }
+            int pre = 0;
+            int last = nums.length - 1;
+            while (pre <= last) {
+                int mid = pre + (last - pre) / 2;
+                if (nums[mid] == target) {
+                    return mid;
+                }
+                // 左半部分有序
+                if (nums[mid] >= nums[pre]) {
+                    if (nums[pre] <= target && target < nums[mid]) {
+                        last = mid - 1;
+                    } else {
+                        pre = mid + 1;
+                    }
+                } else {
+                    if (nums[mid] < target && target <= nums[last]) {
+                        pre = mid + 1;
+                    } else {
+                        last = mid - 1;
+                    }
+                }
+            }
+            return -1;
+        }
     }
 
 
