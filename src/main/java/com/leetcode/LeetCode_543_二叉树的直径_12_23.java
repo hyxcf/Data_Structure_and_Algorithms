@@ -37,4 +37,22 @@ public class LeetCode_543_二叉树的直径_12_23 {
             return Math.max(lLen, rLen);
         }
     }
+
+    private static class Preview_2_24 {
+        public int diameterOfBinaryTree(TreeNode root) {
+            int[] max = new int[1];
+            dfs(root, max);
+            return max[0];
+        }
+
+        private int dfs(TreeNode root, int[] max) {
+            if (root == null) {
+                return -1;
+            }
+            int lLen = dfs(root.left, max) + 1;
+            int rLen = dfs(root.right, max) + 1;
+            max[0] = Math.max(max[0], lLen + rLen);
+            return Math.max(lLen, rLen);
+        }
+    }
 }
