@@ -77,4 +77,26 @@ public class LeetCode_114_二叉树展开为链表_12_18 {
             }
         }
     }
+
+    private static class Preview_2_24 {
+        // 二叉树展开为链表
+        public void flatten(TreeNode root) {
+            if (root == null) return;
+            while (root != null) {
+                if (root.left == null) {
+                    root = root.right;
+                } else {
+                    TreeNode pre = root.left;
+                    while (pre.right != null) {
+                        pre = pre.right;
+                    }
+                    pre.right = root.right;
+                    root.right = root.left;
+                    root.left = null;
+                    root = root.right;
+                }
+            }
+        }
+    }
+
 }
