@@ -48,7 +48,6 @@ public class LeetCode_94_中序遍历_12_11 {
         public List<Integer> inorderTraversal(TreeNode root) {
             List<Integer> res = new ArrayList<>();
             Stack<TreeNode> stack = new Stack<>();
-            stack.push(root);
             while (!stack.isEmpty() || root != null) {
                 if (root != null) {
                     stack.push(root);
