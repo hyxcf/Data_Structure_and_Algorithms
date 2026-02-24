@@ -80,4 +80,56 @@ public class LeetCode_104_二叉树的最大深度_12_11 {
         }
     }
 
+    // 今天是大年初八，上班的第一天，昨天我晚上八点就睡了，今天基本上都不困。说明睡眠还是很重要的！最近要准备面试的八股文了，加油！
+    private static class Preview_2_24 {
+        // 递归1
+        public int maxDepth1(TreeNode root) {
+            if (root == null) return 0;
+            int left = maxDepth1(root.left);
+            int right = maxDepth1(root.right);
+            return Math.max(left, right) + 1;
+        }
+
+        // 层序遍历2
+        public int maxDepth2(TreeNode root) {
+            if (root == null) return 0;
+            Queue<TreeNode> queue = new LinkedList<>();
+            int res = 0;
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                for (int i = 0; i < size; i++) {
+                    TreeNode node = queue.poll();
+                    if (node.right != null) queue.offer(node.right);
+                    if (node.left != null) queue.offer(node.left);
+                }
+                res++;
+            }
+            return res;
+        }
+
+        // 使用非递归后序遍历，栈的最大高度即为最大深度 左右中
+        public int maxDepth3(TreeNode root) {
+            if (root == null) return 0;
+            Stack<TreeNode> stack = new Stack<>();
+            TreeNode visitedNode = null;
+            int res = 0;
+            while (!stack.isEmpty() || root != null) {
+                if (root != null) {
+                    stack.push(root);
+                    res = Math.max(res, stack.size());
+                    root = root.left;
+                } else {
+                    TreeNode peek = stack.peek();
+                    if (peek.right == null || peek.right == visitedNode) {
+                        visitedNode = stack.pop();
+                    } else {
+                         root = peek.right;
+                    }
+                }
+            }
+            return res;
+        }
+    }
+
 }
