@@ -37,4 +37,24 @@ public class LeetCode_226_翻转二叉树_12_11 {
         }
     }
 
+    private static class Preview_2_24 {
+        // 翻转二叉树
+        public TreeNode invertTree(TreeNode root) {
+            reverse(root);
+            return root;
+        }
+
+        private void reverse(TreeNode node) {
+            if (node == null) {
+                return;
+            }
+            TreeNode temp = node.left;
+            node.left = node.right;
+            node.right = temp;
+            reverse(node.left);
+            reverse(node.right);
+        }
+
+    }
+
 }
