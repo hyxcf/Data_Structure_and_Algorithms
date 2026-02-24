@@ -48,25 +48,52 @@ public class LeetCode_102_二叉树的层序遍历_12_15 {
     static class Preview_2_4 {
         public List<List<Integer>> levelOrder(TreeNode root) {
             List<List<Integer>> res = new ArrayList<>();
-            if(root == null){
+            if (root == null) {
                 return res;
             }
             Queue<TreeNode> queue = new LinkedList<>();
             queue.offer(root);
-            while(!queue.isEmpty()){
+            while (!queue.isEmpty()) {
                 List<Integer> path = new ArrayList<>();
                 int size = queue.size();
-                for(int i = 0; i < size; i++){
+                for (int i = 0; i < size; i++) {
                     TreeNode temp = queue.poll();
                     path.add(temp.val);
-                    if(temp.left != null){
+                    if (temp.left != null) {
                         queue.offer(temp.left);
                     }
-                    if(temp.right != null){
+                    if (temp.right != null) {
                         queue.offer(temp.right);
                     }
                 }
                 res.add(path);
+            }
+            return res;
+        }
+    }
+
+    private static class Preview_2_24 {
+        public List<List<Integer>> levelOrder(TreeNode root) {
+            List<List<Integer>> res = new ArrayList<>();
+            if (root == null) {
+                return res;
+            }
+            Queue<TreeNode> queue = new LinkedList<>();
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                List<Integer> list = new ArrayList<>();
+                for (int i = 0; i < size; i++) {
+                    TreeNode node = queue.poll();
+                    list.add(node.val);
+                    if (node.left != null) {
+                        queue.offer(node.left);
+                    }
+                    if (node.right != null) {
+                        queue.offer(node.right);
+                    }
+                }
+                res.add(list);
             }
             return res;
         }
