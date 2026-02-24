@@ -43,4 +43,24 @@ public class LeetCode_94_中序遍历_12_11 {
         }
     }
 
+    private static class Preview_2_24 {
+        // 二叉树的中序遍历 左中右
+        public List<Integer> inorderTraversal(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            Stack<TreeNode> stack = new Stack<>();
+            stack.push(root);
+            while (!stack.isEmpty() || root != null) {
+                if (root != null) {
+                    stack.push(root);
+                    root = root.left;
+                } else {
+                    root = stack.pop();
+                    res.add(root.val);
+                    root = root.right;
+                }
+            }
+            return res;
+        }
+    }
+
 }
