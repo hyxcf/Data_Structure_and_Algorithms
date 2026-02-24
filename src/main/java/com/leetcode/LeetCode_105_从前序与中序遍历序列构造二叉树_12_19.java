@@ -91,4 +91,27 @@ public class LeetCode_105_从前序与中序遍历序列构造二叉树_12_19 {
         }
     }
 
+    private static class Preview_2_24 {
+        // 从前序与中序遍历序列构造二叉树
+        public TreeNode buildTree(int[] preorder, int[] inorder) {
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < inorder.length; i++) {
+                map.put(inorder[i], i);
+            }
+            return recur(0, 0, preorder.length - 1, map, preorder);
+        }
+
+        private TreeNode recur(int preIndex, int left, int right, Map<Integer, Integer> map, int[] preorder) {
+            if (left > right) {
+                return null;
+            }
+            TreeNode node = new TreeNode(preorder[preIndex]);
+            // 根节点在中序数组中的下标位置
+            Integer index = map.get(preorder[preIndex]);
+            node.left = recur(preIndex + 1, left, index - 1, map, preorder);
+            node.right = recur(preIndex + 1 + (index - left), index + 1, right, map, preorder);
+            return node;
+        }
+    }
+
 }
