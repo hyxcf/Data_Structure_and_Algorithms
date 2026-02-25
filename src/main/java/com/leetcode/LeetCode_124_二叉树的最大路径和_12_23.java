@@ -86,4 +86,27 @@ public class LeetCode_124_二叉树的最大路径和_12_23 {
             return Math.max(leftSum + node.val, rightSum + node.val);
         }
     }
+
+    // 二叉树的最大路径和
+    private static class Preview_2_25 {
+        public int maxPathSum(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+            int[] res = new int[]{Integer.MIN_VALUE}; // todo: 关键修复！这里如果只有一个节点且为负数，如果不设置为最小值，则得到的结果是0是错误的
+            dfs(root, res);
+            return res[0];
+        }
+
+        private int dfs(TreeNode root, int[] res) {
+            if (root == null) {
+                return 0;
+            }
+            int leftSum = Math.max(dfs(root.left, res), 0);
+            int rightSum = Math.max(dfs(root.right, res), 0);
+            res[0] = Math.max(res[0], leftSum + rightSum + root.val);
+            return Math.max(leftSum + root.val, rightSum + root.val);
+        }
+    }
+
 }
