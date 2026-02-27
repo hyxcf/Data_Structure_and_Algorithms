@@ -48,5 +48,47 @@ public class Leetcode_22_括号生成_1_21 {
         }
     }
 
+    private static class Preview_2_27 {
+        /*
+            数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+            示例 1：
+                输入：n = 3
+                输出：["((()))","(()())","(())()","()(())","()()()"]
+            示例 2：
+                输入：n = 1
+                输出：["()"]
+         */
+        // 当 ) 的个数 大于 ( 的个数，直接剪枝
+        // 当 ) 的个数 等于 ( 的个数 = n，则直接添加
+        public List<String> generateParenthesis(int n) {
+            if (n <= 0) {
+                return new ArrayList<>();
+            }
+            List<String> ans = new ArrayList<>();
+            StringBuilder path = new StringBuilder();
+            backtracking(0, 0, n, path, ans);
+            return ans;
+        }
+
+        private void backtracking(int leftCount, int rightCount, int n, StringBuilder path, List<String> ans) {
+            if (rightCount > leftCount) {
+                return;
+            }
+            if (leftCount == n && rightCount == n) {
+                ans.add(path.toString());
+                return;
+            }
+            if (leftCount < n) {
+                path.append("(");
+                backtracking(leftCount + 1, rightCount, n, path, ans);
+                path.deleteCharAt(path.length() - 1);
+            }
+            if (rightCount < leftCount) {
+                path.append(")");
+                backtracking(leftCount, rightCount + 1, n, path, ans);
+                path.deleteCharAt(path.length() - 1);
+            }
+        }
+    }
 
 }

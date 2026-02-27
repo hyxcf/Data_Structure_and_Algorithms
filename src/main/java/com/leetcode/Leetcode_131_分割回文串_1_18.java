@@ -88,6 +88,50 @@ public class Leetcode_131_分割回文串_1_18 {
             }
             return true;
         }
-
     }
+
+    private static class Preview_2_27 {
+        /*
+            给你一个字符串 s，请你将 s 分割成一些 子串，使每个子串都是 回文串 。返回 s 所有可能的分割方案。
+            示例 1：
+                输入：s = "aab"
+                输出：[["a","a","b"],["aa","b"]]
+            示例 2：
+                输入：s = "a"
+                输出：[["a"]]
+         */
+        public List<List<String>> partition(String s) {
+            List<List<String>> res = new ArrayList<>();
+            if (s == null || s.isEmpty()) {
+                return res;
+            }
+            List<String> path = new ArrayList<>();
+            backtracking(0, s, path, res);
+            return res;
+        }
+
+        private void backtracking(int start, String s, List<String> path, List<List<String>> res) {
+            if (start == s.length()) {
+                res.add(new ArrayList<>(path));
+                return;
+            }
+            for (int end = start; end < s.length(); end++) {
+                if (isHuiWen(start, end, s)) {
+                    path.add(s.substring(start, end + 1));
+                    backtracking(end + 1, s, path, res);
+                    path.remove(path.size() - 1);
+                }
+            }
+        }
+
+        private boolean isHuiWen(int start, int end, String s) {
+            while (start < end) {
+                if (s.charAt(start++) != s.charAt(end--)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
 }
