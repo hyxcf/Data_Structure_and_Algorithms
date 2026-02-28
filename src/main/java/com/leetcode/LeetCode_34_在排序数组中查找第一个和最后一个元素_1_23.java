@@ -138,4 +138,35 @@ public class LeetCode_34_在排序数组中查找第一个和最后一个元素_
             return pre;
         }
     }
+
+    private static class Preview_2_28{
+        // 经典解法：直接找使用二分找target和target+1的元素位置-1就是本题答案
+
+        public int[] searchRange(int[] nums, int target) {
+            if (nums == null || nums.length < 1) {
+                return new int[] { -1, -1 };
+            }
+            int left = lowerRound(nums, target);
+            if (left == nums.length || nums[left] != target) {
+                return new int[] { -1, -1 };
+            }
+            int right = lowerRound(nums, target + 1) - 1;
+            return new int[] { left, right };
+        }
+
+        // 二分法经典找最左侧元素的标准写法
+        private int lowerRound(int[] nums, int target) {
+            int pre = 0, last = nums.length;
+            while (pre < last) {
+                int mid = (pre + last) >>> 1;
+                if (nums[mid] < target) {
+                    pre = mid + 1;
+                } else {
+                    last = mid;
+                }
+            }
+            return pre;
+        }
+    }
+
 }

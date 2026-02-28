@@ -135,5 +135,51 @@ public class LeetCode_74_搜索二维矩阵_1_22 {
         }
     }
 
+    private static class Preview_2_28{
+        public boolean searchMatrix(int[][] matrix, int target) {
+            if (matrix.length == 0) {
+                return false;
+            }
+            // 两种方法
+            // 1.使用整体二分
+            int m = matrix.length;
+            int n = matrix[0].length;
+            int pre = 0;
+            int last = m * n - 1;
+            while (pre <= last) {
+                int mid = (pre + last) >>> 1;
+                int num = matrix[mid / n][mid % n]; // todo : 应该统一使用 列数 n 来进行除法和取余运算。
+                if (target > num) {
+                    pre = mid + 1;
+                } else if (target < num) {
+                    last = mid - 1;
+                } else {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // 2.利用递增顺序只判断最后一个元素的大小，从而确定他在哪一组
+        public boolean searchMatrix2(int[][] matrix, int target) {
+            if (matrix.length == 0) {
+                return false;
+            }
+            int i = 0;
+            int j = matrix[0].length - 1;
+            while (i < matrix.length && j >= 0) { // 还有剩余元素
+                if (matrix[i][j] < target) {
+                    i++;
+                } else if (matrix[i][j] > target) {
+                    j--;
+                } else {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+    }
+
 }
 

@@ -78,4 +78,26 @@ public class LeetCode_35_搜索插入位置_1_22 {
         }
     }
 
+    private static class Preview_2_28{
+        /*
+            fixme:
+                循环结束时，pre == last。
+                这个重合点 pre 恰好就是：数组中第一个大于等于 target 的元素的下标。
+                如果 target 存在于数组中，pre 就是它的下标。
+                如果 target 不存在，pre 就是它应该插入的位置（所有比它小的数都在左边，所有比它大的数都在右边）。
+         */
+        public int searchInsert(int[] nums, int target) {
+            int pre = 0, last = nums.length;
+            while (pre < last) {
+                int mid = (pre + last) >>> 1;
+                if (nums[mid] < target) {
+                    pre = mid + 1;
+                } else {
+                    last = mid;
+                }
+            }
+            return pre;
+        }
+    }
+
 }
