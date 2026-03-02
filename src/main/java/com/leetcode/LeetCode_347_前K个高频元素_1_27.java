@@ -103,4 +103,52 @@ public class LeetCode_347_前K个高频元素_1_27 {
             return res;
         }
     }
+
+    private static class Preview_3_2 {
+        // 最小堆
+        public int[] topKFrequent(int[] nums, int k) {
+            if (nums.length == 0) {
+                return nums;
+            }
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int num : nums) {
+                map.put(num, map.getOrDefault(num, 0) + 1);
+            }
+            PriorityQueue<Map.Entry<Integer, Integer>> minHeap = new PriorityQueue<>((o1, o2) -> o1.getValue() - o2.getValue());
+            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                if (minHeap.size() < k) {
+                    minHeap.offer(entry);
+                } else {
+                    if (entry.getValue() > minHeap.peek().getValue()) {
+                        minHeap.poll();
+                        minHeap.offer(entry);
+                    }
+                }
+            }
+            int[] res = new int[k];
+            for (int i = 0; i < k; i++) {
+                res[i] = minHeap.poll().getKey();
+            }
+            return res;
+        }
+
+        // 排序法
+        public int[] topKFrequent2(int[] nums, int k) {
+            if (nums.length == 0) {
+                return nums;
+            }
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int num : nums) {
+                map.put(num, map.getOrDefault(num, 0) + 1);
+            }
+            List<Map.Entry<Integer, Integer>> list = new ArrayList<>(map.entrySet());
+            list.sort((a, b) -> b.getValue() - a.getValue());
+            int[] res = new int[k];
+            for (int i = 0; i < k; i++) {
+                res[i] = list.get(i).getKey();
+            }
+            return res;
+        }
+    }
+
 }

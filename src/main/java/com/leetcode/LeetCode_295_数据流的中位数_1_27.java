@@ -66,7 +66,7 @@ public class LeetCode_295_数据流的中位数_1_27 {
     }
 
     // 数据流的中位数
-    private static class Preview_2_11{
+    private static class Preview_2_11 {
         class MedianFinder {
 
             PriorityQueue<Integer> maxHeap;
@@ -80,13 +80,50 @@ public class LeetCode_295_数据流的中位数_1_27 {
             public void addNum(int num) {
                 if (maxHeap.isEmpty() || num <= maxHeap.peek()) {
                     maxHeap.offer(num);
-                } else{
+                } else {
                     minHeap.offer(num);
                 }
-                if (minHeap.size() +1 < maxHeap.size()) {
+                if (minHeap.size() + 1 < maxHeap.size()) {
                     minHeap.offer(maxHeap.poll());
                 } else if (maxHeap.size() + 1 < minHeap.size()) {
                     maxHeap.offer(minHeap.poll());
+                }
+            }
+
+            public double findMedian() {
+                if (maxHeap.size() == minHeap.size()) {
+                    return (maxHeap.peek() + minHeap.peek()) / 2.0;
+                }
+                return maxHeap.size() > minHeap.size() ? maxHeap.peek() : minHeap.peek();
+            }
+        }
+    }
+
+    // 数据流的中位数
+    private static class Preview_3_2 {
+
+        class MedianFinder {
+
+            private PriorityQueue<Integer> maxHeap;
+            private PriorityQueue<Integer> minHeap;
+
+            public MedianFinder() {
+                maxHeap = new PriorityQueue<>((a, b) -> b - a);
+                minHeap = new PriorityQueue<>();
+            }
+
+            public void addNum(int num) {
+                // 如果堆是空的，或者num比堆顶小
+                if (maxHeap.isEmpty() || num <= maxHeap.peek()) {
+                    maxHeap.offer(num);
+                } else {
+                    minHeap.offer(num);
+                }
+                // 平衡
+                if (minHeap.size() > maxHeap.size() + 1) {
+                    maxHeap.offer(minHeap.poll());
+                } else if (maxHeap.size() > minHeap.size() + 1) {
+                    minHeap.offer(maxHeap.poll());
                 }
             }
 
