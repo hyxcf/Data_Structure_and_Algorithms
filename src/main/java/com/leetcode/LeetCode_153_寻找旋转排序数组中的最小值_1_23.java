@@ -103,4 +103,32 @@ public class LeetCode_153_寻找旋转排序数组中的最小值_1_23 {
         }
     }
 
+    private static class Preview_3_3{
+        /*
+            | 问题 | 答案 |
+            |------|------|
+            | 为什么 `last = nums.length - 1`？ | 因为要访问 `nums[last]`，必须是合法下标 |
+            | 为什么 `while (pre < last)`？     | 1. 避免越界<br>2. 当 `pre == last` 时已找到最小值<br>3. 算法设计保证收敛到唯一解 |
+            | 为什么不 `pre <= last`？          | 会导致多一次无效循环，可能越界或死循环 |
+
+
+         */
+        public int findMin(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return -1;
+            }
+            int pre = 0, last = nums.length - 1;
+            while (pre < last) {
+                int mid = pre + (last - pre) / 2;
+                if (nums[mid] < nums[last]) {
+                    // 说明 右半部分是有序的，且 nums[mid] 可能就是最小值
+                    last = mid;
+                } else {
+                    pre = mid + 1; // 最小值一定在 (mid, last] 区间
+                }
+            }
+            return nums[pre];
+        }
+    }
+
 }

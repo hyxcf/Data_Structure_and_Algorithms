@@ -78,7 +78,7 @@ public class LeetCode_35_搜索插入位置_1_22 {
         }
     }
 
-    private static class Preview_2_28{
+    private static class Preview_2_28 {
         /*
             fixme:
                 循环结束时，pre == last。
@@ -86,6 +86,21 @@ public class LeetCode_35_搜索插入位置_1_22 {
                 如果 target 存在于数组中，pre 就是它的下标。
                 如果 target 不存在，pre 就是它应该插入的位置（所有比它小的数都在左边，所有比它大的数都在右边）。
          */
+        public int searchInsert(int[] nums, int target) {
+            int pre = 0, last = nums.length;
+            while (pre < last) {
+                int mid = (pre + last) >>> 1;
+                if (nums[mid] < target) {
+                    pre = mid + 1;
+                } else {
+                    last = mid;
+                }
+            }
+            return pre;
+        }
+    }
+
+    private static class Preview_3_3 {
         public int searchInsert(int[] nums, int target) {
             int pre = 0, last = nums.length;
             while (pre < last) {

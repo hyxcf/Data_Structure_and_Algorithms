@@ -135,7 +135,7 @@ public class LeetCode_74_搜索二维矩阵_1_22 {
         }
     }
 
-    private static class Preview_2_28{
+    private static class Preview_2_28 {
         public boolean searchMatrix(int[][] matrix, int target) {
             if (matrix.length == 0) {
                 return false;
@@ -180,6 +180,31 @@ public class LeetCode_74_搜索二维矩阵_1_22 {
         }
 
     }
+
+    private static class Preview_3_3 {
+        public boolean searchMatrix(int[][] matrix, int target) {
+            if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+                return false;
+            }
+            int m = matrix.length;
+            int n = matrix[0].length;
+            int pre = 0;
+            int last = m * n - 1;
+            while (pre <= last) {
+                int mid = pre + (last - pre) / 2;
+                int num = matrix[mid / n][mid % n];
+                if (num == target) {
+                    return true;
+                } else if (num < target) {
+                    pre = mid + 1;
+                } else {
+                    last = mid - 1;
+                }
+            }
+            return false;
+        }
+    }
+
 
 }
 

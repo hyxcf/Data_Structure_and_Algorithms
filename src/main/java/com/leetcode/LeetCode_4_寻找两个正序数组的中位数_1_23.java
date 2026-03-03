@@ -1,5 +1,7 @@
 package com.leetcode;
 
+import javax.sound.midi.MidiChannel;
+
 public class LeetCode_4_寻找两个正序数组的中位数_1_23 {
     
     /*
@@ -215,6 +217,56 @@ public class LeetCode_4_寻找两个正序数组的中位数_1_23 {
                         return maxLeft;
                     }
                     // 求右边的最小值
+                    if (i == m) {
+                        minRight = nums2[j];
+                    } else if (j == n) {
+                        minRight = nums1[i];
+                    } else {
+                        minRight = Math.min(nums1[i], nums2[j]);
+                    }
+                    return (maxLeft + minRight) / 2.0;
+                }
+            }
+            return 0d;
+        }
+    }
+
+    // 今天是元宵节。我也正着手准备面试题了，我不是老是打瞌睡吗，我发现嘴里吃个口香糖就行了。但是吃多了会不会有啥不好的影响？算了。不管了
+    private static class Preview_3_3 {
+        public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+            // 1、确保 m < n
+            int m = nums1.length;
+            int n = nums2.length;
+            if (m > n) {
+                return findMedianSortedArrays(nums2, nums1);
+            }
+            // 2、确定i和j的区间，不断调整
+            int iMin = 0;
+            int iMax = m;
+            // fixme: i+j = (m + n + 1) / 2; j = (m + n + 1) / 2 - i
+            while (iMin <= iMax) {
+                int i = (iMin + iMax) / 2;
+                int j = (m + n + 1) / 2 - i;
+                // 不断调整，缩小空间，注意特殊情况
+                if (i > 0 && j < n && nums1[i - 1] > nums2[j]) {
+                    iMax = i - 1;
+                } else if (j > 0 && i < m && nums1[i] < nums2[j - 1]) {
+                    iMin = i + 1;
+                } else {
+                    // i 刚刚好
+                    int maxLeft = 0;
+                    int minRight = 0;
+                    if (i == 0) {
+                        maxLeft = nums2[j - 1];
+                    } else if (j == 0) {
+                        maxLeft = nums1[i - 1];
+                    } else {
+                        maxLeft = Math.max(nums1[i - 1], nums2[j - 1]);
+                    }
+                    // 3、判断奇偶数，确定最值
+                    if ((m + n) % 2 == 1) {
+                        return maxLeft;
+                    }
                     if (i == m) {
                         minRight = nums2[j];
                     } else if (j == n) {
