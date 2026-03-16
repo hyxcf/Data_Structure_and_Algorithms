@@ -53,4 +53,23 @@ public class LeetCode_11_盛水的容器_1_6 {
             return maxArea;
         }
     }
+
+    // 双指针
+    private static class Preview_3_14 {
+        public int maxArea(int[] height) {
+            int maxArea = -1, left = 0, right = height.length - 1;
+            while (left < right) {
+                int min = Math.min(height[left], height[right]);
+                maxArea = Math.max(maxArea, (right - left) * min);
+                while (left < right && height[left] <= min) {
+                    left++;
+                }
+                while (left < right && height[right] <= min) {
+                    right--;
+                }
+            }
+            return maxArea;
+        }
+    }
+
 }

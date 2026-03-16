@@ -124,6 +124,61 @@ public class LeetCode_42_接雨水_1_26 {
             }
             return sum;
         }
+    }
+
+    /*
+    fixme:
+        记住口诀：(从栈底到栈顶)
+            求“更大” → 用 递减栈
+            求“更小” → 用 递增栈
+ */
+    private static class Preview_3_16 {
+        // 两种方法 1、单调栈  2、双指针
+        public int trap(int[] height) {
+            int len = height.length;
+            if (len < 2) {
+                return 0;
+            }
+            Stack<Integer> stack = new Stack<>();
+            stack.push(0);
+            int sum = 0;
+            for (int i = 1; i < len; i++) {
+                while (!stack.isEmpty() && height[stack.peek()] < height[i]) {
+                    Integer mid = stack.pop();
+                    if (!stack.isEmpty()) {
+                        Integer left = stack.peek();
+                        int h = (Math.min(height[left], height[i]) - height[mid]);
+                        int w = i - left + 1;
+                        sum += h * w;
+                    }
+                }
+                stack.push(i);
+            }
+            return sum;
+        }
+
+        // 双指针
+        public int trap2(int[] height) {
+            if (height.length < 2) {
+                return 0;
+            }
+            int sum = 0;
+            int left = 0, right = height.length - 1;
+            int leftMax = 0, rightMax = 0;
+            while (left < right) {
+                // 更新左右最大值
+                leftMax = Math.max(leftMax, height[left]);
+                rightMax = Math.max(rightMax, height[right]);
+                if (leftMax < rightMax) {
+                    sum += leftMax - height[left];
+                    left++;
+                } else {
+                    sum += rightMax - height[right];
+                    right--;
+                }
+            }
+            return sum;
+        }
 
     }
 

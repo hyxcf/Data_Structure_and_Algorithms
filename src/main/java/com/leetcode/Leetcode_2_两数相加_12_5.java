@@ -63,4 +63,32 @@ public class Leetcode_2_两数相加_12_5 {
         }
     }
 
+    private static class Preview_3_14 {
+        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+            ListNode node = new ListNode(0);
+            ListNode cur = node;
+            int num = 0;
+            while (l1 != null || l2 != null) {
+                int x = l1 != null ? l1.val : 0;
+                int y = l2 != null ? l2.val : 0;
+                // 要考虑进位的问题
+                int sum = x + y + num;
+                num = sum / 10;
+                sum = sum % 10;
+                cur.next = new ListNode(sum);
+                cur = cur.next;
+                if (l1 != null) {
+                    l1 = l1.next;
+                }
+                if (l2 != null) {
+                    l2 = l2.next;
+                }
+            }
+            if (num == 1){
+                cur.next = new ListNode(num);
+            }
+            return node.next;
+        }
+    }
+
 }

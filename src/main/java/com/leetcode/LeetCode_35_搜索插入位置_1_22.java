@@ -115,4 +115,22 @@ public class LeetCode_35_搜索插入位置_1_22 {
         }
     }
 
+    private static class Preview_3_16 {
+        public int searchInsert(int[] nums, int target) {
+            if (nums == null || nums.length == 0) {
+                return -1;
+            }
+            int pre = 0, last = nums.length;
+            while (pre < last) {
+                int mid = (pre + last) >>> 1;
+                if (nums[mid] < target) {
+                    pre = mid + 1;
+                } else {
+                    last = mid;
+                }
+            }
+            return pre;
+        }
+    }
+
 }

@@ -50,4 +50,28 @@ public class Leetcode_21_合并两个有序链表_12_5 {
         }
     }
 
+    private static class Preview_3_16 {
+        public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+            ListNode sentinel = new ListNode(-1, null);
+            ListNode p = sentinel;
+            while (list1 != null && list2 != null) {
+                if (list1.val < list2.val) {
+                    p.next = list1;
+                    list1 = list1.next;
+                } else {
+                    p.next = list2;
+                    list2 = list2.next;
+                }
+                p = p.next;
+            }
+            if (list1 != null) {
+                p.next = list1;
+            }
+            if (list2 != null) {
+                p.next = list2;
+            }
+            return sentinel.next;
+        }
+    }
+
 }

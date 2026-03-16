@@ -83,7 +83,7 @@ public class LeetCode_23_合并K个升序链表_12_10 {
     private static class Preview_2_9 {
         public ListNode mergeKLists(ListNode[] lists) {
             if (lists.length == 0) {
-                return new ListNode();
+                return null;
             }
             return spilt2(lists, 0, lists.length - 1);
         }
@@ -116,4 +116,45 @@ public class LeetCode_23_合并K个升序链表_12_10 {
         }
     }
 
+    // 合并 k 个升序链表，归并排序
+    private static class Preview_3_16 {
+        public ListNode mergeKLists(ListNode[] lists) {
+            if (lists.length == 0) {
+                return null;
+            }
+            return spilt(lists, 0, lists.length - 1);
+        }
+
+        private ListNode spilt(ListNode[] lists, int head, int tail) {
+            if (head == tail) {
+                return lists[head];
+            }
+            int mid = (head + tail) >>> 1;
+            ListNode p1 = spilt(lists, head, mid);
+            ListNode p2 = spilt(lists, mid + 1, tail);
+            return merge(p1, p2);
+        }
+
+        private ListNode merge(ListNode p1, ListNode p2) {
+            ListNode sentinel = new ListNode(-1, null);
+            ListNode p = sentinel;
+            while (p1 != null && p2 != null) {
+                if (p1.val < p2.val) {
+                    p.next = p1;
+                    p1 = p1.next;
+                } else {
+                    p.next = p2;
+                    p2 = p2.next;
+                }
+                p = p.next;
+            }
+            if (p1 != null) {
+                p.next = p1;
+            }
+            if (p2 != null) {
+                p.next = p2;
+            }
+            return sentinel.next;
+        }
+    }
 }

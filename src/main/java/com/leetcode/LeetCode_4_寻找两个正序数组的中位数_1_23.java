@@ -281,4 +281,48 @@ public class LeetCode_4_寻找两个正序数组的中位数_1_23 {
         }
     }
 
+    // 寻找两个正序数组中的中位数，今天是3月14号，面试题一看就困。。。。。。刚对接完平台，心力交瘁。不过好歹是问出来了 哈哈😄
+    private static class Preview_3_14 {
+        public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+            int m = nums1.length;
+            int n = nums2.length;
+            if (m > n) {
+                return findMedianSortedArrays(nums2, nums1);
+            }
+            int iMin = 0;
+            int iMax = m;
+            while (iMin <= iMax) {
+                int i = (iMin + iMax) / 2;
+                int j = (m + n + 1) / 2 - i;
+                if (i > 0 && j < n && nums1[i - 1] > nums2[j]) {
+                    iMax = i - 1;
+                } else if (j > 0 && i < m && nums1[i] < nums2[j - 1]) {
+                    iMin = i + 1;
+                } else {
+                    int maxLeft = 0;
+                    int minRight = 0;
+                    if (i == 0) {
+                        maxLeft = nums2[j - 1];
+                    } else if (j == 0) {
+                        maxLeft = nums1[i - 1];
+                    } else {
+                        maxLeft = Math.max(nums1[i - 1], nums2[j - 1]);
+                    }
+                    if ((m + n) % 2 == 1) {
+                        return maxLeft;
+                    }
+                    if (i == m) {
+                        minRight = nums2[j];
+                    } else if (j == n) {
+                        minRight = nums1[i];
+                    } else {
+                        minRight = Math.min(nums1[i], nums2[j]);
+                    }
+                    return (maxLeft + minRight) / 2.0;
+                }
+            }
+            return 0d;
+        }
+    }
+
 }
