@@ -185,4 +185,56 @@ public class Leetcode_79_单词搜索_1_21 {
         }
     }
 
+    private static class Preview_3_17 {
+        /*
+            给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 true ；否则，返回 false 。
+            单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+            示例 1：
+                输入：board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']], word = "ABCCED"
+                输出：true
+            示例 2：
+                输入：board = [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']], word = "SEE"
+                输出：true
+         */
+        public boolean exist(char[][] board, String word) {
+            if (board == null || board.length == 0 || board[0].length == 0) {
+                return false;
+            }
+            int m = board.length;
+            int n = board[0].length;
+            boolean[][] visited = new boolean[m][n];
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (backtracking(0, i, j, visited, board, word)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        // 这个index的目的是为了让我知道
+        // 1、当前word遍历到的索引
+        // 2、什么时候遍历完了这个word进而返回true
+        private boolean backtracking(int index, int i, int j, boolean[][] visited, char[][] board, String word) {
+            if (index == word.length()) {
+                return true;
+            }
+            if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || visited[i][j] || word.charAt(index) != board[i][j]) {
+                return false;
+            }
+            visited[i][j] = true;
+            if (backtracking(index + 1, i - 1, j, visited, board, word)
+                    || backtracking(index + 1, i + 1, j, visited, board, word)
+                    || backtracking(index + 1, i, j - 1, visited, board, word)
+                    || backtracking(index + 1, i, j + 1, visited, board, word)
+            ) {
+                return true;
+            } else {
+                visited[i][j] = false;
+                return false;
+            }
+        }
+    }
+
 }

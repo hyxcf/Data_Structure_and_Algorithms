@@ -162,7 +162,7 @@ public class Leetcode_78_子集_1_3 {
         public List<List<Integer>> subsets(int[] nums) {
             List<List<Integer>> res = new ArrayList<>();
             List<Integer> path = new ArrayList<>();
-            backtracking(0,nums,path,res);
+            backtracking(0, nums, path, res);
             return res;
         }
 
@@ -171,6 +171,24 @@ public class Leetcode_78_子集_1_3 {
             for (int i = index; i < nums.length; i++) {
                 path.add(nums[i]);
                 backtracking(i + 1, nums, path, res);
+                path.remove(path.size() - 1);
+            }
+        }
+    }
+
+    private static class Preview_3_17 {
+        public List<List<Integer>> subsets(int[] nums) {
+            List<List<Integer>> res = new ArrayList<>();
+            List<Integer> path = new ArrayList<>();
+            backtrack(0, nums, path, res);
+            return res;
+        }
+
+        private void backtrack(int index, int[] nums, List<Integer> path, List<List<Integer>> res) {
+            res.add(new ArrayList<>(path));
+            for (int i = index; i < nums.length; i++) {
+                path.add(nums[i]);
+                backtrack(i + 1, nums, path, res);
                 path.remove(path.size() - 1);
             }
         }
