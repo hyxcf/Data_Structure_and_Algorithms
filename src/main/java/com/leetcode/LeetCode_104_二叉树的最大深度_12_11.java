@@ -132,4 +132,27 @@ public class LeetCode_104_二叉树的最大深度_12_11 {
         }
     }
 
+    private static class Preview_3_18 {
+        public int maxDepth3(TreeNode root) {
+            Stack<TreeNode> stack = new Stack<>();
+            TreeNode visitedNode = null;
+            int res = 0;
+            while (!stack.isEmpty() || root != null) {
+                if (root != null) {
+                    stack.push(root);
+                    res = Math.max(stack.size(), res);
+                    root = root.left;
+                } else {
+                    TreeNode peek = stack.peek();
+                    if (peek.right == null || peek.right == visitedNode) {
+                        visitedNode = stack.pop();
+                    } else {
+                        root = peek.right;
+                    }
+                }
+            }
+            return res;
+        }
+    }
+
 }

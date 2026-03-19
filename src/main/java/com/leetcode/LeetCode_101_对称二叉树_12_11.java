@@ -61,4 +61,26 @@ public class LeetCode_101_对称二叉树_12_11 {
 
     }
 
+    private static class Preview_3_18 {
+        // 对称二叉树
+        public boolean isSymmetric(TreeNode root) {
+            return checkSymmetric(root.left, root.right);
+        }
+
+        private boolean checkSymmetric(TreeNode left, TreeNode right) {
+            if (left == null && right == null) {
+                return true;
+            }
+            if (left == null || right == null) {
+                return false;
+            }
+            if (left.val != right.val) {
+                return false;
+            }
+            return checkSymmetric(left.left, right.right) && checkSymmetric(left.right, right.left);
+        }
+
+    }
+
+
 }

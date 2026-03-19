@@ -114,4 +114,40 @@ public class LeetCode_105_从前序与中序遍历序列构造二叉树_12_19 {
         }
     }
 
+
+    /*
+        给定两个整数数组 preorder 和 inorder ，其中 preorder 是二叉树的先序遍历， inorder 是同一棵树的中序遍历，请构造二叉树并返回其根节点。
+        示例 1:
+            输入: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+            输出: [3,9,20,null,null,15,7]
+        示例 2:
+            输入: preorder = [-1], inorder = [-1]
+            输出: [-1]
+
+            preorder = [1, 2, 4, 5, 3]
+            inorder  = [4, 2, 5, 1, 3]
+     */
+    private static class Preview_3_18 {
+        // 从前序与中序遍历序列构造二叉树
+        // fixme：前序告诉我谁是根，中序告诉我左右子树有多长
+        public TreeNode buildTree(int[] preorder, int[] inorder) {
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < inorder.length; i++) {
+                map.put(inorder[i], i);
+            }
+            return recur(0, 0, preorder.length - 1, map, preorder);
+        }
+
+        private TreeNode recur(int preIndex, int left, int right, Map<Integer, Integer> map, int[] preorder) {
+            if (left > right) {
+                return null;
+            }
+            TreeNode node = new TreeNode(preorder[preIndex]);
+            // 根节点在中序数组中的下标位置
+            Integer index = map.get(preorder[preIndex]);
+            node.left = recur(preIndex + 1, left, index - 1, map, preorder);
+            node.right = recur(preIndex + 1 + (index - left), index + 1, right, map, preorder);
+            return node;
+        }
+    }
 }

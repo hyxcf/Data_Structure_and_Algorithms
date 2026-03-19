@@ -1,5 +1,6 @@
 package com.leetcode;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -54,6 +55,25 @@ public class LeetCode_94_中序遍历_12_11 {
                     root = root.left;
                 } else {
                     root = stack.pop();
+                    res.add(root.val);
+                    root = root.right;
+                }
+            }
+            return res;
+        }
+    }
+
+    private static class Preview_3_18 {
+        // 二叉树的中序遍历
+        public List<Integer> inorderTraversal(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            Stack<TreeNode> st = new Stack<>();
+            while (!st.isEmpty() || root != null) {
+                if (root != null) {
+                    st.push(root);
+                    root = root.left;
+                } else {
+                    root = st.pop();
                     res.add(root.val);
                     root = root.right;
                 }
