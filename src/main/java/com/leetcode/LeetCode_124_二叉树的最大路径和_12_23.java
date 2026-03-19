@@ -109,4 +109,33 @@ public class LeetCode_124_二叉树的最大路径和_12_23 {
         }
     }
 
+    /*
+        二叉树中的 路径 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中至多出现一次 。该路径至少包含一个节点，且不一定经过根节点。
+        路径和 是路径中各节点值的总和。
+        给你一个二叉树的根节点 root ，返回其最大路径和 。
+        示例 1：
+            输入：root = [1,2,3]
+            输出：6
+            解释：最优路径是 2 -> 1 -> 3 ，路径和为 2 + 1 + 3 = 6
+        示例 2：
+            输入：root = [-10,9,20,null,null,15,7]
+            输出：42
+            解释：最优路径是 15 -> 20 -> 7 ，路径和为 15 + 20 + 7 = 42
+     */
+    static class Preview_3_19 {
+        public int maxPathSum(TreeNode root) {
+            if (root == null) return 0;
+            int[] res = new int[]{Integer.MIN_VALUE};
+            dfs(root, res);
+            return res[0];
+        }
+
+        private int dfs(TreeNode root, int[] res) {
+            if (root == null) return 0;
+            int leftSum = Math.max(dfs(root.left, res), 0);
+            int rightSum = Math.max(dfs(root.right, res), 0);
+            res[0] = Math.max(res[0], leftSum + rightSum + root.val);
+            return Math.max(leftSum + root.val, rightSum + root.val);
+        }
+    }
 }

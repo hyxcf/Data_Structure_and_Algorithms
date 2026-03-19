@@ -54,4 +54,23 @@ public class Leetcode_142_环形链表2_12_4 {
         }
     }
 
+    private static class Preview_3_19 {
+        public ListNode detectCycle(ListNode head) {
+            if (head == null) return null;
+            ListNode slow = head, fast = head;
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+                if (slow == fast) {
+                    fast = head;
+                    while (slow != fast) {
+                        slow = slow.next;
+                        fast = fast.next;
+                    }
+                    return slow;
+                }
+            }
+            return null;
+        }
+    }
 }
