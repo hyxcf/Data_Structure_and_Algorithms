@@ -139,4 +139,35 @@ public class Leetcode_234_回文链表_12_3 {
             return true;
         }
     }
+
+    private static class Preview_3_20 {
+        public boolean isPalindrome(ListNode head) {
+            if (head == null || head.next == null) {
+                return true;
+            }
+            ListNode low = head;
+            ListNode fast = head;
+            ListNode n1 = null;
+            ListNode o1 = head;
+            while (fast != null && fast.next != null) {
+                low = low.next;
+                fast = fast.next.next;
+                o1.next = n1;
+                n1 = o1;
+                o1 = low;
+            }
+            if (fast != null) {
+                //说明是奇数长度，中心节点是 low， 被完美跳过，不参与比较。
+                low = low.next;
+            }
+            while (n1 != null) {
+                if (n1.val != low.val) {
+                    return false;
+                }
+                low = low.next;
+                n1 = n1.next;
+            }
+            return true;
+        }
+    }
 }

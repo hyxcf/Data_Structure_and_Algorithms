@@ -361,4 +361,81 @@ public class Leetcode_208_实现Trie前缀树_12_25 {
         }
     }
 
+    private static class Preview_3_20 {
+        class Node {
+            public int pass;
+            public int end;
+            public Node[] nexts;
+
+            public Node() {
+                pass = 0;
+                end = 0;
+                nexts = new Node[26];
+            }
+        }
+
+        class Trie {
+
+            private Node root;
+
+            public Trie() {
+                root = new Node();
+            }
+
+            public void insert(String word) {
+                if (word == null || word.isEmpty()) {
+                    return;
+                }
+                char[] charArray = word.toCharArray();
+                Node node = root;
+                node.pass++;
+                for (char c : charArray) {
+                    int index = c - 'a';
+                    if (node.nexts[index] == null){
+                        node.nexts[index] = new Node();
+                    }
+                    node = node.nexts[index];
+                    node.pass++;
+                }
+                node.end++;
+            }
+
+            public boolean search(String word) {
+                if (word == null || word.isEmpty()) {
+                    return false;
+                }
+                char[] charArray = word.toCharArray();
+                Node node = root;
+                for (char c : charArray) {
+                    int index = c - 'a';
+                    if (node.nexts[index] == null){
+                        return false;
+                    }
+                    node = node.nexts[index];
+                }
+                if (node.end == 0){
+                    return false;
+                }
+                return true;
+            }
+
+            public boolean startsWith(String prefix) {
+                if (prefix == null || prefix.isEmpty()) {
+                    return false;
+                }
+                char[] charArray = prefix.toCharArray();
+                Node node = root;
+                for (char c : charArray) {
+                    int index = c - 'a';
+                    if (node.nexts[index] == null){
+                        return false;
+                    }
+                    node = node.nexts[index];
+                }
+                return true;
+            }
+        }
+
+    }
+
 }

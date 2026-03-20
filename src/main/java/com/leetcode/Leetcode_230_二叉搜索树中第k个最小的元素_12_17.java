@@ -81,4 +81,26 @@ public class Leetcode_230_二叉搜索树中第k个最小的元素_12_17 {
         }
     }
 
+    private static class Preview_3_20 {
+        // fixme:求二叉搜索树中第k个最小的元素，实际上就是考察 二叉搜索树中 中序遍历 左<中<右 的特性
+        public int kthSmallest(TreeNode root, int k) {
+            TreeNode p = root;
+            Stack<TreeNode> stack = new Stack<>();
+            int count = 0;
+            while (p != null || !stack.isEmpty()){
+                if (p != null){
+                    stack.push(p);
+                    p = p.left;
+                } else {
+                    TreeNode pop = stack.pop();
+                    count++;
+                    if (count == k){
+                        return pop.val;
+                    }
+                    p = pop.right;
+                }
+            }
+            return -1;
+        }
+    }
 }
