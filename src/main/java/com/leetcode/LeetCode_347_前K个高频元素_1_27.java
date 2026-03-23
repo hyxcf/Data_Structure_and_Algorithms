@@ -151,4 +151,62 @@ public class LeetCode_347_前K个高频元素_1_27 {
         }
     }
 
+    /*
+        给你一个整数数组 nums 和一个整数 k ，请你返回其中出现频率前 k 高的元素。你可以按 任意顺序 返回答案。
+        示例 1：
+            输入：nums = [1,1,1,2,2,3], k = 2
+            输出：[1,2]
+        示例 2：
+            输入：nums = [1], k = 1
+            输出：[1]
+        示例 3：
+            输入：nums = [1,2,1,2,1,2,3,1,3,2], k = 2
+            输出：[1,2]
+     */
+    public static class Preview_3_23 {
+        // 最小堆
+        public int[] topKFrequent(int[] nums, int k) {
+            if (nums == null || nums.length == 0) {
+                return new int[]{};
+            }
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int num : nums) {
+                map.put(num, map.getOrDefault(num, 0) + 1);
+            }
+            PriorityQueue<Integer> minHeap = new PriorityQueue<>((a, b) -> map.get(a) - map.get(b));
+            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                if (minHeap.size() < k) {
+                    minHeap.offer(entry.getKey());
+                } else {
+                    if (entry.getValue() > map.get(minHeap.peek())) {
+                        minHeap.poll();
+                        minHeap.offer(entry.getKey());
+                    }
+                }
+            }
+            int[] res = new int[k];
+            for (int i = 0; i < k; i++) {
+                res[i] = minHeap.poll();
+            }
+            return res;
+        }
+
+        // 排序法
+        public int[] topKFrequent2(int[] nums, int k) {
+            if (nums.length == 0) {
+                return nums;
+            }
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int num : nums) {
+                map.put(num, map.getOrDefault(num, 0) + 1);
+            }
+            List<Map.Entry<Integer, Integer>> list = new ArrayList<>(map.entrySet());
+            list.sort((a, b) -> b.getValue() - a.getValue());
+            int[] res = new int[k];
+            for (int i = 0; i < k; i++) {
+                res[i] = list.get(i).getKey();
+            }
+            return res;
+        }
+    }
 }

@@ -109,6 +109,21 @@ public class LeetCode_560_和为K的子数组_1_12 {
         }
     }
 
+    private static class Preview_3_23 {
+        public int subarraySum(int[] nums, int k) {
+            int pre = 0;
+            int count = 0;
+            Map<Integer, Integer> map = new HashMap<>(nums.length - 1);
+            map.put(0, 1);
+            for (int num : nums) {
+                pre += num;
+                count += map.getOrDefault(pre - k, 0);
+                map.merge(pre, 1, Integer::sum);
+            }
+            return count;
+        }
+    }
+
 
 }
 
