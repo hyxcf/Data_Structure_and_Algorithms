@@ -259,4 +259,60 @@ public class LeetCode_148_排序链表_12_8 {
         }
     }
 
+    //  这几天忙的要死，我都没时间复习，来了来了 ☺️ 没一点状态
+    private static class Preview_3_27 {
+
+        public ListNode sortList(ListNode head) {
+            if (head == null || head.next == null) {
+                return head;
+            }
+            return sortList(head, null);
+        }
+
+        private ListNode sortList(ListNode head, ListNode tail) {
+            //if (head == null)：如果是空的，那就没得排，直接回家。
+            if (head == null) {
+                return head;
+            }
+            //if (head.next == tail)：如果是独苗（只剩一个节点），先把它的后腿砍断（next 置空），别让它连着后面的乱序节点，然后把它交上去合并。
+            if (head.next == tail) {
+                head.next = null;
+                return head;
+            }
+            ListNode slow = head, fast = head;
+            while (fast != tail) {
+                slow = slow.next;
+                fast = fast.next;
+                if (fast != tail) {
+                    fast = fast.next;
+                }
+            }
+            ListNode mid = slow;
+            ListNode listNode = sortList(head, mid);
+            ListNode listNode2 = sortList(mid, tail);
+            return merge(listNode, listNode2);
+        }
+
+        private ListNode merge(ListNode p1, ListNode p2) {
+            ListNode s = new ListNode(-1);
+            ListNode cur = s;
+            while (p1 != null && p2 != null) {
+                if (p1.val < p2.val) {
+                    cur.next = p1;
+                    p1 = p1.next;
+                } else {
+                    cur.next = p2;
+                    p2 = p2.next;
+                }
+                cur = cur.next;
+            }
+            if (p1 != null) {
+                cur.next = p1;
+            }
+            if (p2 != null) {
+                cur.next = p2;
+            }
+            return s.next;
+        }
+    }
 }

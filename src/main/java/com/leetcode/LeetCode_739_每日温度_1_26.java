@@ -125,7 +125,7 @@ public class LeetCode_739_每日温度_1_26 {
             Stack<Integer> stack = new Stack<>();
             stack.push(0);
             for (int i = 1; i < temperatures.length; i++) {
-                while (!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]){
+                while (!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
                     int mid = stack.pop();
                     res[mid] = i - mid;
                 }
@@ -135,4 +135,21 @@ public class LeetCode_739_每日温度_1_26 {
         }
     }
 
+    private static class Preview_4_7 {
+        // 单调栈的经典题目
+        public int[] dailyTemperatures(int[] temperatures) {
+            int n = temperatures.length;
+            int[] res = new int[n];
+            Stack<Integer> stack = new Stack<>();
+            stack.push(0);
+            for (int i = 1; i < n; i++) {
+                while (!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
+                    Integer mid = stack.pop();
+                    res[mid] = i - mid;
+                }
+                stack.push(i);
+            }
+            return res;
+        }
+    }
 }

@@ -181,4 +181,51 @@ public class Leetcode_199_二叉树的右视图_12_17 {
         }
     }
 
+    private static class Preview_3_28 {
+        // 二叉树的右视图 1、深度优先遍历 2、宽度优先遍历
+
+        // 深度优先遍历
+        public List<Integer> rightSideView(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            dfs(root, 1, res);
+            return res;
+        }
+
+        private void dfs(TreeNode node, int depth, List<Integer> res) {
+            if (node == null) {
+                return;
+            }
+            if (res.size() < depth) {
+                res.add(node.val);
+            }
+            dfs(node.right, depth + 1, res);
+            dfs(node.left, depth + 1, res);
+        }
+
+
+        // 宽度优先遍历，层序遍历
+        public List<Integer> rightSideView2(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            if (root == null) return res;
+            Queue<TreeNode> queue = new LinkedList<>();
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                for (int i = 0; i < size; i++) {
+                    TreeNode node = queue.poll();
+                    if (i == size - 1) {
+                        res.add(node.val);
+                    }
+                    if (node.left != null) {
+                        queue.offer(node.left);
+                    }
+                    if (node.right != null) {
+                        queue.offer(node.right);
+                    }
+                }
+            }
+            return res;
+        }
+    }
+
 }

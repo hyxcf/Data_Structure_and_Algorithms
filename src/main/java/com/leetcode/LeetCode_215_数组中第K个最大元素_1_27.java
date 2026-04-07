@@ -192,6 +192,61 @@ public class LeetCode_215_数组中第K个最大元素_1_27 {
             return pivot;
         }
     }
+
+    /*
+    给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。
+    请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
+    你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。
+    示例 1:
+        输入: [3,2,1,5,1,4], k = 2
+        输出: 5
+    示例 2:
+        输入: [3,2,3,1,2,4,5,5,6], k = 4
+        输出: 4
+ */
+    private static class Preview_4_1 {
+        public int findKthLargest(int[] nums, int k) {
+            PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+            for (int num : nums) {
+                minHeap.offer(num);
+                if (minHeap.size() > k) {
+                    minHeap.poll();
+                }
+            }
+            return minHeap.peek();
+        }
+
+        public int findKthLargest2(int[] nums, int k) {
+            List<Integer> list = new ArrayList<>();
+            for (int num : nums) {
+                list.add(num);
+            }
+            return quickSelect(list, k);
+        }
+
+        private int quickSelect(List<Integer> nums, int k) {
+            int pivot = nums.get(new Random().nextInt(nums.size()));
+            List<Integer> small = new ArrayList<>();
+            List<Integer> equals = new ArrayList<>();
+            List<Integer> big = new ArrayList<>();
+            for (Integer num : nums) {
+                if (num > pivot) {
+                    big.add(num);
+                } else if (num < pivot) {
+                    small.add(num);
+                } else {
+                    equals.add(num);
+                }
+            }
+            if (big.size() > k) {
+                return quickSelect(big, k);
+            }
+            if (nums.size() - small.size() < k) {
+                return quickSelect(small, k - nums.size() + small.size());
+            }
+            return pivot;
+        }
+    }
 }
 /*
     情况 2：if (nums.size() - small.size() < k)

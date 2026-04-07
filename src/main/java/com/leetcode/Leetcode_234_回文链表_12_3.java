@@ -2,6 +2,8 @@ package com.leetcode;
 
 import com.hyx.leetcode.listnode.ListNode;
 
+import java.util.List;
+
 public class Leetcode_234_回文链表_12_3 {
 
     // 方法2
@@ -166,6 +168,34 @@ public class Leetcode_234_回文链表_12_3 {
                 }
                 low = low.next;
                 n1 = n1.next;
+            }
+            return true;
+        }
+    }
+
+    private static class Preview_4_7 {
+        public boolean isPalindrome(ListNode head) {
+            if (head == null || head.next == null) return true;
+            ListNode low = head;
+            ListNode fast = head;
+            ListNode n = null;
+            ListNode o1 = head;
+            while (fast != null && fast.next != null) {
+                low = low.next;
+                fast = fast.next.next;
+                o1.next = n;
+                n = o1;
+                o1 = low;
+            }
+            if (fast != null) {
+                low = low.next;
+            }
+            while (n != null) {
+                if (n.val != low.val) {
+                    return false;
+                }
+                n = n.next;
+                low = low.next;
             }
             return true;
         }

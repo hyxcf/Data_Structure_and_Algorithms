@@ -190,4 +190,38 @@ public class LeetCode_155_最小栈_1_25 {
         }
     }
 
+    private static class Preview_3_27 {
+        private Stack<Integer> stack;
+        private Stack<Integer> minStack;
+
+        class MinStack {
+
+            public MinStack() {
+                stack = new Stack<>();
+                minStack = new Stack<>();
+            }
+
+            public void push(int val) {
+                stack.push(val);
+                if (minStack.isEmpty() || val <= minStack.peek()) {
+                    minStack.push(val);
+                }
+            }
+
+            public void pop() {
+                if (stack.pop().equals(minStack.peek())) {
+                    minStack.pop();
+                }
+            }
+
+            public int top() {
+                return stack.peek();
+            }
+
+            public int getMin() {
+                return minStack.peek();
+            }
+        }
+    }
+
 }

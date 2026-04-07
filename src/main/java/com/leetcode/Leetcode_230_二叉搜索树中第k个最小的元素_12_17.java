@@ -87,14 +87,36 @@ public class Leetcode_230_二叉搜索树中第k个最小的元素_12_17 {
             TreeNode p = root;
             Stack<TreeNode> stack = new Stack<>();
             int count = 0;
-            while (p != null || !stack.isEmpty()){
-                if (p != null){
+            while (p != null || !stack.isEmpty()) {
+                if (p != null) {
                     stack.push(p);
                     p = p.left;
                 } else {
                     TreeNode pop = stack.pop();
                     count++;
-                    if (count == k){
+                    if (count == k) {
+                        return pop.val;
+                    }
+                    p = pop.right;
+                }
+            }
+            return -1;
+        }
+    }
+
+    private static class Preview_4_1 {
+        public int kthSmallest(TreeNode root, int k) {
+            TreeNode p = root;
+            Stack<TreeNode> stack = new Stack<>();
+            int count = 0;
+            while (p != null || !stack.isEmpty()) {
+                if (p != null) {
+                    stack.push(p);
+                    p = p.left;
+                } else {
+                    TreeNode pop = stack.pop();
+                    count++;
+                    if (count == k) {
                         return pop.val;
                     }
                     p = pop.right;

@@ -147,4 +147,22 @@ public class LeetCode_153_寻找旋转排序数组中的最小值_1_23 {
         }
     }
 
+    private static class Preview_3_27 {
+        public int findMin(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return 0;
+            }
+            int pre = 0, last = nums.length - 1;
+            while (pre < last) {
+                int mid = (pre + last) / 2;
+                if (nums[mid] < nums[last]) {
+                    last = mid;
+                } else {
+                    pre = mid + 1;
+                }
+            }
+            return nums[pre];
+        }
+    }
+
 }

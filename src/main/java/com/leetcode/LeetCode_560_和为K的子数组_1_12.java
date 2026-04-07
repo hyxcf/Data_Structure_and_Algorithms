@@ -1,6 +1,7 @@
 package com.leetcode;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LeetCode_560_和为K的子数组_1_12 {
@@ -124,6 +125,20 @@ public class LeetCode_560_和为K的子数组_1_12 {
         }
     }
 
+    private static class Preview_4_7 {
+        public int subarraySum(int[] nums, int k) {
+            int pre = 0;
+            int res = 0;
+            Map<Integer, Integer> map = new HashMap<>();
+            map.put(0, 1);
+            for (int num : nums) {
+                pre += num;
+                res += map.getOrDefault(pre - k, 0);
+                map.merge(pre, 1, Integer::sum);
+            }
+            return res;
+        }
+    }
 
 }
 
