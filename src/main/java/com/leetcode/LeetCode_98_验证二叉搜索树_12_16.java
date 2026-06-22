@@ -88,13 +88,34 @@ public class LeetCode_98_验证二叉搜索树_12_16 {
         public boolean isValidBST(TreeNode root) {
             Stack<TreeNode> stack = new Stack<>();
             long prev = Long.MIN_VALUE;
-            while (!stack.isEmpty() || root != null){
-                if (root != null){
+            while (!stack.isEmpty() || root != null) {
+                if (root != null) {
                     stack.push(root);
                     root = root.left;
                 } else {
                     TreeNode pop = stack.pop();
-                    if (prev >= pop.val){
+                    if (prev >= pop.val) {
+                        return false;
+                    }
+                    root = pop.right;
+                    prev = pop.val;
+                }
+            }
+            return true;
+        }
+    }
+
+    private static class Preview_4_22 {
+        public boolean isValidBST(TreeNode root) {
+            Stack<TreeNode> stack = new Stack<>();
+            long prev = Long.MIN_VALUE;
+            while (!stack.isEmpty() || root != null) {
+                if (root != null) {
+                    stack.push(root);
+                    root = root.left;
+                } else {
+                    TreeNode pop = stack.pop();
+                    if (prev >= pop.val) {
                         return false;
                     }
                     root = pop.right;

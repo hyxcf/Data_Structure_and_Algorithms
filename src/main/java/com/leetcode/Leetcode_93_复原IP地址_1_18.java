@@ -143,4 +143,58 @@ public class Leetcode_93_复原IP地址_1_18 {
 
     }
 
+    private static class Preview_4_22 {
+
+        public List<String> restoreIpAddresses(String s) {
+            List<String> res = new ArrayList<>();
+            backtracking(0, 0, new StringBuilder(s), res);
+            return res;
+        }
+
+        private void backtracking(int startIndex, int point, StringBuilder sb, List<String> res) {
+            if (point == 3) {
+                if (!isValid(sb, startIndex, sb.length() - 1)) {
+                    return;
+                } else {
+                    res.add(sb.toString());
+                }
+                return;
+            }
+            for (int i = startIndex; i < sb.length(); i++) {
+                if (isValid(sb, startIndex, i)) {
+                    sb.insert(i + 1, ".");
+                    point++;
+                    backtracking(i + 2, point, sb, res);
+                    point--;
+                    sb.deleteCharAt(i + 1);
+                } else {
+                    break;
+                }
+            }
+
+        }
+
+        private boolean isValid(StringBuilder sb, int start, int end) {
+            if (start > end) {
+                return false;
+            }
+            if (sb.charAt(start) == '0' && start != end) {
+                return false;
+            }
+            int num = 0;
+            for (int i = start; i <= end; i++) {
+                if (sb.charAt(i) < '0' || sb.charAt(i) > '9') {
+                    return false;
+                }
+                num = num * 10 + (sb.charAt(i) - '0');
+                if (num > 255) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+    }
+
 }

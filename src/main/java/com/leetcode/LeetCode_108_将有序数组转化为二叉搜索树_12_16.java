@@ -78,4 +78,20 @@ public class LeetCode_108_将有序数组转化为二叉搜索树_12_16 {
         }
     }
 
+    private static class Preview_4_11 {
+        public TreeNode sortedArrayToBST(int[] nums) {
+            return dfs2(nums, 0, nums.length - 1);
+        }
+
+        private TreeNode dfs2(int[] nums, int begin, int end) {
+            if (begin > end) {
+                return null;
+            }
+            int mid = (begin + end) >>> 1;
+            TreeNode node = new TreeNode(nums[mid]);
+            node.left = dfs2(nums, begin, mid - 1);
+            node.right = dfs2(nums, mid + 1, end);
+            return node;
+        }
+    }
 }

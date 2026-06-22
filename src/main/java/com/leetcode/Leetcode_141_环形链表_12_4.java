@@ -70,4 +70,30 @@ public class Leetcode_141_环形链表_12_4 {
         }
     }
 
+    private static class Preview_4_9 {
+        public boolean hasCycle(ListNode head) {
+            ListNode slow = head, fast = head;
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+                if (slow == fast) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public boolean hasCycle2(ListNode head) {
+            Set<ListNode> set= new HashSet<>();
+            ListNode curNode = head;
+            while (curNode != null){
+                if (!set.add(curNode)){
+                    return true;
+                }
+                curNode = curNode.next;
+            }
+            return false;
+        }
+    }
+
 }

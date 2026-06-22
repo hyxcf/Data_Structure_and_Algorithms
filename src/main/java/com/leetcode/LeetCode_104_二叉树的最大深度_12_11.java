@@ -124,7 +124,7 @@ public class LeetCode_104_二叉树的最大深度_12_11 {
                     if (peek.right == null || peek.right == visitedNode) {
                         visitedNode = stack.pop();
                     } else {
-                         root = peek.right;
+                        root = peek.right;
                     }
                 }
             }
@@ -141,6 +141,55 @@ public class LeetCode_104_二叉树的最大深度_12_11 {
                 if (root != null) {
                     stack.push(root);
                     res = Math.max(stack.size(), res);
+                    root = root.left;
+                } else {
+                    TreeNode peek = stack.peek();
+                    if (peek.right == null || peek.right == visitedNode) {
+                        visitedNode = stack.pop();
+                    } else {
+                        root = peek.right;
+                    }
+                }
+            }
+            return res;
+        }
+    }
+
+    private static class Preview_4_11 {
+        public int maxDepth1(TreeNode root) {
+            // 递归
+            if (root == null) return 0;
+            int left = maxDepth1(root.left);
+            int right = maxDepth1(root.right);
+            return Math.max(left, right) + 1;
+        }
+
+        public int maxDepth2(TreeNode root) {
+            if (root == null) return 0;
+            Queue<TreeNode> queue = new LinkedList<>();
+            int res = 0;
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                res++;
+                int size = queue.size();
+                for (int i = 0; i < size; i++) {
+                    TreeNode node = queue.poll();
+                    if (node.left != null) queue.offer(node.left);
+                    if (node.right != null) queue.offer(node.right);
+                }
+            }
+            return res;
+        }
+
+        public int maxDepth3(TreeNode root) {
+            if (root == null) return 0;
+            Stack<TreeNode> stack = new Stack<>();
+            TreeNode visitedNode = null;
+            int res = 0;
+            while (!stack.isEmpty() || root != null) {
+                if (root != null) {
+                    stack.push(root);
+                    res = Math.max(res, stack.size());
                     root = root.left;
                 } else {
                     TreeNode peek = stack.peek();
