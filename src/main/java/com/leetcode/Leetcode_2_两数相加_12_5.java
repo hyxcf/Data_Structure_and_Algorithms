@@ -84,7 +84,35 @@ public class Leetcode_2_两数相加_12_5 {
                     l2 = l2.next;
                 }
             }
-            if (num == 1){
+            if (num == 1) {
+                cur.next = new ListNode(num);
+            }
+            return node.next;
+        }
+    }
+
+    private static class Preview_6_27 {
+        // 两数相加
+        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+            ListNode node = new ListNode(0);
+            ListNode cur = node;
+            int num = 0; // 临时变量用于存储上一步的进位数
+            while (l1 != null || l2 != null) {
+                int x = l1 != null ? l1.val : 0;
+                int y = l2 != null ? l2.val : 0;
+                int tempSum = x + y + num;
+                num = tempSum / 10;
+                tempSum = tempSum % 10;
+                cur.next = new ListNode(tempSum);
+                cur = cur.next;
+                if (l1 != null) {
+                    l1 = l1.next;
+                }
+                if (l2 != null) {
+                    l2 = l2.next;
+                }
+            }
+            if (num == 1) {
                 cur.next = new ListNode(num);
             }
             return node.next;
