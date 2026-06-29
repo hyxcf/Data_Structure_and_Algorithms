@@ -109,6 +109,7 @@ public class Leetcode_3_无重复字符的最长子串_1_7 {
                  请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串
     */
     private static class Preview_6_29 {
+
         public int lengthOfLongestSubstring(String s) {
             if (s == null || s.isEmpty()) {
                 return 0;
@@ -125,5 +126,6 @@ public class Leetcode_3_无重复字符的最长子串_1_7 {
             }
             return max;
         }
+
     }
 }
