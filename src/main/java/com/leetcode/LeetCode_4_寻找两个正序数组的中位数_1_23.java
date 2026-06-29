@@ -325,4 +325,56 @@ public class LeetCode_4_寻找两个正序数组的中位数_1_23 {
         }
     }
 
+    private static class Preview_6_29 {
+        // 寻找两个正序数组的中位数
+        public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+            // fixme: 1.确保 m < n，也就是 左边的长度 < 右边的长度（这次犯的错误）
+            // 这里你写反了。这道题的精髓在于在较短的数组上进行二分查找，这样时间复杂度才是O(log(min(m,n))) 。
+            // 如果你让 m >= n，意味着你在较长的数组上二分，不仅效率降低，而且会导致计算 j 时出现数组越界（因为 j = (m + n + 1) / 2 - i，如果 i 很大，j 可能会变成负数）。
+            int m = nums1.length;
+            int n = nums2.length;
+            if (m > n) {
+                return findMedianSortedArrays(nums2, nums1);
+            }
+            int iMin = 0;
+            int iMax = m;
+            while (iMin <= iMax) {
+                // i:nums1的分割线位置，表示：nums1的前i个元素被分到了左半区，剩下的元素被分到了右半区，因为数组是从 0 开始计数的，所以左半区包含的是 nums1[0] 到 nums1[i-1]。
+                int i = (iMin + iMax) / 2;
+                // j:num2的分割线位置，同上
+                int j = (m + n + 1) / 2 - i;
+                // 2、确定范围（这个调范围的最终目的是左边的最大元素要小于等于右边的最小元素就是目标）
+                if (i > 0 && j < n && nums1[i - 1] > nums2[j]) {
+                    iMax = i - 1;
+                } else if (j > 0 && i < m && nums1[i] < nums2[j - 1]) {
+                    iMin = i + 1;
+                } else {
+                    int maxLeft = 0;
+                    int minRight = 0;
+                    // 处理特殊情况
+                    if (i == 0) {
+                        maxLeft = nums2[j - 1];
+                    } else if (j == 0) {
+                        maxLeft = nums1[i - 1];
+                    } else {
+                        maxLeft = Math.max(nums1[i - 1], nums2[j - 1]);
+                    }
+                    // 判断奇偶，如果是奇数就可以出结果了
+                    if ((m + n) % 2 == 1) {
+                        return maxLeft;
+                    }
+                    if (i == m) {
+                        minRight = nums2[j];
+                    } else if (j == n) {
+                        minRight = nums1[i];
+                    } else {
+                        minRight = Math.min(nums1[i], nums2[j]);
+                    }
+                    return (maxLeft + minRight) / 2.0d;
+                }
+            }
+            return 0d;
+        }
+    }
+
 }
