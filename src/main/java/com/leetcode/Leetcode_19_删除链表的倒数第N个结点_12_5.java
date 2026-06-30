@@ -84,4 +84,22 @@ public class Leetcode_19_删除链表的倒数第N个结点_12_5 {
         }
     }
 
+    static class Preview_6_30 {
+        // 双指针 + 固定间距   s 1 2 3 4 5 6 null
+        // fixme: “想删倒数第 n 个，快指针先走 n+1；快到 null，慢就到位。”
+        public ListNode removeNthFromEnd(ListNode head, int n) {
+            ListNode s = new ListNode(-1, head);
+            ListNode p1 = s;
+            ListNode p2 = s;
+            for (int i = 0; i < n + 1; i++) {
+                p1 = p1.next;
+            }
+            while (p1 != null) {
+                p1 = p1.next;
+                p2 = p2.next;
+            }
+            p2.next = p2.next.next;
+            return s.next;
+        }
+    }
 }
