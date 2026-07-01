@@ -122,6 +122,7 @@ public class Leetcode_3_无重复字符的最长子串_1_7 {
                     start = Math.max(start, map.get(charEnd) + 1);
                 }
                 map.put(charEnd, end);
+                // Math.max 的本质作用是：确保左指针 start 只能单调向右移动，永远不会向左倒退。它保证了当前窗口 [start, end] 始终是一个合法、无重复字符的子串。
                 max = Math.max(max, end - start + 1);
             }
             return max;
