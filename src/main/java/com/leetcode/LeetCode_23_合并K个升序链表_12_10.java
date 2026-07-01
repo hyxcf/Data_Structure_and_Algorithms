@@ -119,7 +119,7 @@ public class LeetCode_23_合并K个升序链表_12_10 {
     // 合并 k 个升序链表，归并排序
     private static class Preview_3_16 {
         public ListNode mergeKLists(ListNode[] lists) {
-            if (lists.length == 0) {
+            if (lists == null || lists.length == 0) {
                 return null;
             }
             return spilt(lists, 0, lists.length - 1);
@@ -157,4 +157,47 @@ public class LeetCode_23_合并K个升序链表_12_10 {
             return sentinel.next;
         }
     }
+
+    // 合并k个有序列表
+    private static class Preview_7_1 {
+        public ListNode mergeKLists(ListNode[] lists) {
+            if (lists == null || lists.length == 0) {
+                return null;
+            }
+            return spilt(lists, 0, lists.length - 1);
+        }
+
+        private ListNode spilt(ListNode[] lists, int left, int right) {
+            if (left == right) {
+                return lists[left];
+            }
+            int mid = (left + right) >>> 1;
+            ListNode p1 = spilt(lists, left, mid);
+            ListNode p2 = spilt(lists, mid + 1, right);
+            return merge(p1, p2);
+        }
+
+        private ListNode merge(ListNode p1, ListNode p2) {
+            ListNode s = new ListNode(-1, null);
+            ListNode p = s;
+            while (p1 != null && p2 != null) {
+                if (p1.val < p2.val) {
+                    p.next = p1;
+                    p1 = p1.next;
+                } else {
+                    p.next = p2;
+                    p2 = p2.next;
+                }
+                p = p.next;
+            }
+            if (p1 != null) {
+                p.next = p1;
+            }
+            if (p2 != null) {
+                p.next = p2;
+            }
+            return s.next;
+        }
+    }
+
 }
