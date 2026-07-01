@@ -162,6 +162,7 @@ public class Leetcode_22_括号生成_1_21 {
             }
             if (leftcount == n && rightcount == n) {
                 res.add(new String(path));
+                return;
             }
             if (leftcount < n) {
                 path.append("(");
@@ -171,6 +172,50 @@ public class Leetcode_22_括号生成_1_21 {
             if (leftcount > rightcount) {
                 path.append(")");
                 backtrack(leftcount, rightcount + 1, n, path, res);
+                path.deleteCharAt(path.length() - 1);
+            }
+        }
+    }
+
+    // 使用回溯算法
+    private static class Preview_7_1 {
+        /*
+            数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+            示例 1：
+                输入：n = 3
+                输出：["((()))","(()())","(())()","()(())","()()()"]
+            示例 2：
+                输入：n = 1
+                输出：["()"]
+         */
+        // 当 ) 的个数 大于 ( 的个数，直接剪枝
+        // 当 ) 的个数 等于 ( 的个数 = n，则直接添加
+        public List<String> generateParenthesis(int n) {
+            if (n <= 0) {
+                return new ArrayList<>();
+            }
+            List<String> res = new ArrayList<>();
+            StringBuilder path = new StringBuilder();
+            backtack(0, 0, n, path, res);
+            return res;
+        }
+
+        private void backtack(int leftCount, int rightCount, int n, StringBuilder path, List<String> res) {
+            if (leftCount < rightCount) {
+                return;
+            }
+            if (leftCount == n && rightCount == n) {
+                res.add(new String(path));
+                return;
+            }
+            if (leftCount < n) {
+                path.append("(");
+                backtack(leftCount + 1, rightCount, n, path, res);
+                path.deleteCharAt(path.length() - 1);
+            }
+            if (leftCount > rightCount) {
+                path.append(")");
+                backtack(leftCount, rightCount + 1, n, path, res);
                 path.deleteCharAt(path.length() - 1);
             }
         }
