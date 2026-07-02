@@ -222,4 +222,33 @@ public class LeetCode_34_在排序数组中查找第一个和最后一个元素_
             return pre;
         }
     }
+
+    private static class Preview_7_2 {
+        public int[] searchRange(int[] nums, int target) {
+            if (nums == null || nums.length == 0) {
+                return new int[]{-1, -1};
+            }
+            int left = getRowRound(nums, target);
+            if (left == nums.length || nums[left] != target) {
+                return new int[]{-1, -1};
+            }
+            int right = getRowRound(nums, target + 1) - 1;
+            return new int[]{left, right};
+        }
+
+        // 相当于是如果有重复元素，要获取到最左边的
+        private int getRowRound(int[] nums, int target) {
+            int left = 0, right = nums.length;
+            while (left < right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] < target) {
+                    left = mid + 1;
+                } else {
+                    right = mid;
+                }
+            }
+            return left;
+        }
+    }
+
 }
