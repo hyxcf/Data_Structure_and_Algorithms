@@ -143,4 +143,47 @@ public class LeetCode_25_K个一组翻转链表_12_6 {
         }
     }
 
+    // k 个一组反转链表，首先要找K个，然后反转链表，再接上
+    private static class Preview_7_2 {
+        public ListNode reverseKGroup(ListNode head, int k) {
+            if (head == null || k == 0) {
+                return head;
+            }
+            ListNode s = new ListNode(-1, head);
+            ListNode pre = s;
+            while (head != null) {
+                ListNode tail = pre;
+                for (int i = 0; i < k; i++) {
+                    tail = tail.next;
+                    if (tail == null) {
+                        return s.next;
+                    }
+                }
+                ListNode tailNext = tail.next;
+                // 反转链表
+                ListNode[] reverseArr = reverse(head, tail);
+                head = reverseArr[0];
+                tail = reverseArr[1];
+                pre.next = head;
+                tail.next = tailNext;
+                pre = tail;
+                head = tail.next;
+            }
+            return s.next;
+        }
+
+        private ListNode[] reverse(ListNode head, ListNode tail) {
+            ListNode prev = tail.next;
+            ListNode p1 = head;
+            while (prev != tail) {
+                ListNode tempNextNode = p1.next;
+                p1.next = prev;
+                prev = p1;
+                p1 = tempNextNode;
+            }
+            return new ListNode[]{tail, head};
+        }
+
+    }
+
 }
