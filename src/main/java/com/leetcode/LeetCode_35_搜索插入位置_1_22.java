@@ -133,4 +133,22 @@ public class LeetCode_35_搜索插入位置_1_22 {
         }
     }
 
+    private static class Preview_7_2 {
+        // 这就是二分查找符合条件的最左元素
+        public int searchInsert(int[] nums, int target) {
+            if (nums == null || nums.length == 0) {
+                return -1;
+            }
+            int left = 0, right = nums.length;
+            while (left < right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] < target) {
+                    left = mid + 1;
+                } else {
+                    right = mid;
+                }
+            }
+            return left;
+        }
+    }
 }
