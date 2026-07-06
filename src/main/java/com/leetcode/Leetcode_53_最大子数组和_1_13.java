@@ -63,4 +63,21 @@ public class Leetcode_53_最大子数组和_1_13 {
         }
     }
 
+    public static class Preview_7_6 {
+
+        public int maxSubArray(int[] nums) {
+            int res = nums[0];
+            int sum = 0;
+            for (int num : nums) {
+                if (sum < 0) {
+                    sum = num;
+                } else {
+                    sum += num;
+                }
+                res = Math.max(sum, res);
+            }
+            return res;
+        }
+    }
+
 }
