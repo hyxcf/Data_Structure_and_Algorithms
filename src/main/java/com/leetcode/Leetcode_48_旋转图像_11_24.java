@@ -65,4 +65,33 @@ public class Leetcode_48_旋转图像_11_24 {
         }
     }
 
+    private static class Preview_7_6 {
+        public void rotate(int[][] matrix) {
+            int n = matrix.length;
+            for (int layer = 0; layer < n / 2; layer++) {
+                int first = layer;
+                int last = n - 1 - layer;
+
+                for (int i = first; i < last; i++) {
+                    int offset = i - first;
+
+                    // 1. 备份【左上】
+                    int leftTop = matrix[first][i];
+
+                    // 2. 【左下】 ➡️ 【左上】
+                    matrix[first][i] = matrix[last - offset][first];
+
+                    // 3. 【右下】 ➡️ 【左下】
+                    matrix[last - offset][first] = matrix[last][last - offset];
+
+                    // 4. 【右上】 ➡️ 【右下】
+                    matrix[last][last - offset] = matrix[i][last];
+
+                    // 5. 【左上】 ➡️ 【右上】
+                    matrix[i][last] = leftTop;
+                }
+            }
+        }
+    }
+
 }
