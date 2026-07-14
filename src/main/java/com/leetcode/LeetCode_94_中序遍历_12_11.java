@@ -101,4 +101,23 @@ public class LeetCode_94_中序遍历_12_11 {
         }
     }
 
+    private static class Preview_7_14 {
+        // 二叉树的中序遍历
+        public List<Integer> inorderTraversal(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            Stack<TreeNode> st = new Stack<>();
+            while (!st.isEmpty() || root != null) {
+                if (root != null) {
+                    st.push(root);
+                    root = root.left;
+                } else {
+                    root = st.pop();
+                    res.add(root.val);
+                    root = root.right;
+                }
+            }
+            return res;
+        }
+    }
+
 }
