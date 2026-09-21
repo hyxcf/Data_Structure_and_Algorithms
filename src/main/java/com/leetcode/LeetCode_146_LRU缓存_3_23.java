@@ -185,5 +185,98 @@ public class LeetCode_146_LRU缓存_3_23 {
 
     }
 
+    private static class Preview_9_21 {
+
+        private static class LRUCache {
+
+            int capacity;
+            int size;
+            Entry head, tail;
+            HashMap<Integer, Entry> cache;
+
+            public LRUCache(int capacity) {
+                // 初始化链表
+                initLinkedList(head, tail);
+                size = 0;
+                this.capacity = capacity;
+                cache = new HashMap<>(capacity + 2);
+            }
+
+            private void initLinkedList(Entry head, Entry tail) {
+                head = new Entry();
+                tail = new Entry();
+                head.next = tail;
+                tail.pre = head;
+            }
+
+            public int get(int key) {
+                Entry node = cache.get(key);
+                if (node == null) {
+                    return -1;
+                }
+                moveToHead(node);
+                return node.value;
+            }
+
+            public void put(int key, int value) {
+                Entry node = cache.get(key);
+                if (node != null) {
+                    // 情况1：key已经存在 -> 更新值+移到头部
+                    node.value = value;
+                    moveToHead(node);
+                    return;
+                }
+                // 情况2：key不存在，但满了 -> 先砍尾巴
+                if (size == capacity) {
+                    Entry last = tail.pre;
+                    deleteNode(last);
+                    cache.remove(last.key);
+                    size--;
+                }
+                // 情况3：插入新节点到头部
+                Entry entry = new Entry(key, value);
+                addNode(entry);
+                cache.put(entry.key, entry);
+                size++;
+            }
+
+            private void moveToHead(Entry entry) {
+                deleteNode(entry);
+                addNode(entry);
+            }
+
+            // 插到 head 后面
+            private void addNode(Entry node) {
+                node.next = head.next;
+                node.pre = head;
+                head.next.pre = node;
+                head.next = node;
+            }
+
+            // 从链表中摘掉一个节点
+            private void deleteNode(Entry node) {
+                node.pre.next = node.next;
+                node.next.pre = node.pre;
+            }
+
+            private static class Entry {
+                private Entry pre;
+                private Entry next;
+                private int key;
+                private int value;
+
+                public Entry() {
+                }
+
+                public Entry(int key, int value) {
+                    this.key = key;
+                    this.value = value;
+                }
+            }
+
+        }
+
+    }
+
 
 }

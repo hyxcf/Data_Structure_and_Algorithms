@@ -94,4 +94,22 @@ public class LeetCode_108_将有序数组转化为二叉搜索树_12_16 {
             return node;
         }
     }
+
+    private static class Preview_7_28{
+        public TreeNode sortedArrayToBST(int[] nums) {
+            return dfs3(nums, 0, nums.length - 1);
+        }
+
+        private TreeNode dfs3(int[] nums, int begin, int end) {
+            if (begin > end) {
+                return null;
+            }
+            int mid = (begin + end) >>> 1;
+            TreeNode node = new TreeNode(nums[mid]);
+            node.left = dfs3(nums, begin, mid - 1);
+            node.right = dfs3(nums, mid + 1, end);
+            return node;
+        }
+    }
+
 }
