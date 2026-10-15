@@ -119,4 +119,31 @@ public class Leetcode_2_两数相加_12_5 {
         }
     }
 
+    private static class Preview_10_15 {
+        // 两数相加
+        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+            ListNode node = new ListNode(0);
+            ListNode cur = node;
+            int num = 0;
+            while (l1 != null || l2 != null) {
+                int x = l1 != null ? l1.val : 0;
+                int y = l2 != null ? l2.val : 0;
+                int tempSum = x + y + num;
+                num = tempSum / 10;
+                tempSum = tempSum % 10;
+                cur.next = new ListNode(tempSum);
+                if (l1 != null) {
+                    l1 = l1.next;
+                }
+                if (l2 != null) {
+                    l2 = l2.next;
+                }
+            }
+            if (num == 1) {
+                cur.next = new ListNode(num);
+            }
+            return node.next;
+        }
+    }
+
 }
