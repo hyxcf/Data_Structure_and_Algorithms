@@ -10,7 +10,7 @@ import java.util.Map;
  * @version 0.1
  * @className Leetcode_17_电话号码的字母组合_1_3
  * @date 2026/1/3 17:51
- * @description
+ * @description 回溯算法
  * @since jdk 11
  */
 public class Leetcode_17_电话号码的字母组合_1_3 {
@@ -30,7 +30,7 @@ public class Leetcode_17_电话号码的字母组合_1_3 {
     public List<String> letterCombinations(String digits) {
         int n = digits.length();
         if (n == 0) {
-            return List.of();
+            return new ArrayList<>();
         }
         List<String> ans = new ArrayList<>();
         char[] path = new char[n]; // 注意 path 长度一开始就是 n，不是空数组
@@ -55,10 +55,10 @@ public class Leetcode_17_电话号码的字母组合_1_3 {
         private static final String[] MAPPING = new String[]{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
         public List<String> letterCombinations(String digits) {
-            if (digits.isEmpty()) {
-                return List.of();
-            }
             List<String> res = new ArrayList<>();
+            if (digits.isEmpty()) {
+                return res;
+            }
             char[] path = new char[digits.length()];
             dfs(0, path, res, digits.toCharArray());
             return res;
@@ -256,6 +256,47 @@ public class Leetcode_17_电话号码的字母组合_1_3 {
                 path[index] = c;
                 backtrack(index + 1, path, res, digits);
             }
+        }
+
+
+        // 电话号码的组合
+    /*
+        给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
+        给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+        示例 1：
+            输入：digits = "23"
+            输出：["ad","ae","af","bd","be","bf","cd","ce","cf"]
+        示例 2：
+            输入：digits = "2"
+            输出：["a","b","c"]
+     */
+        private static class Preview_10_22 {
+
+            public static final String[] MAPPING = new String[]{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+            public List<String> letterCombinations(String digits) {
+                List<String> res = new ArrayList<>();
+                if (digits == null || digits.isEmpty()) {
+                    return res;
+                }
+                char[] path = new char[digits.length()];
+                backtracking(0, path, res, digits.toCharArray());
+                return res;
+            }
+
+            private void backtracking(int index, char[] path, List<String> res, char[] digits) {
+                if (index == path.length) {
+                    res.add(new String(path));
+                    return;
+                }
+                String str = MAPPING[digits[index] - '0'];
+                char[] charArray = str.toCharArray();
+                for (char c : charArray) {
+                    path[index] = c;
+                    backtracking(index + 1, path, res, digits);
+                }
+            }
+
         }
     }
 }
